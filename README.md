@@ -13,4 +13,7 @@
   If want to know the development status, please send mail to <a href="mailto:monkeyk@shengzhaoli.com">monkeyk@shengzhaoli.com</a>
 </div>
 
-
+<hr/>
+<div>
+  Expect your joining...
+</div>
