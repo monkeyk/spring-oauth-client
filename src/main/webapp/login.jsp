@@ -4,6 +4,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -24,6 +25,10 @@
     <input type="password" name="j_password" id="password" value="" required="required"/>
     <br/>
     <input type="submit" value="Login"/>
+    <span style="color:red;">
+        <c:if test="${param.authorization_error eq 2}">Access denied !!!</c:if>
+        <c:if test="${param.authentication_error eq 1}">Authentication Failure</c:if>
+    </span>
 </form>
 <div>
     <p>You can use the users to login as follow:</p>
@@ -39,13 +44,12 @@
         <tr>
             <td>unity_user</td>
             <td>unity_pass</td>
-            <td>Only allow visit [Unity] resource, support grant_type:
-                <em>authorization_code,refresh_token,implicit</em></td>
+            <td>ROLE_UNITY</td>
         </tr>
         <tr>
             <td>mobile_user</td>
             <td>mobile_pass</td>
-            <td>Only allow visit [Mobile] resource, support grant_type: <em>password,refresh_token</em></td>
+            <td>ROLE_MOBILE</td>
         </tr>
         </tbody>
     </table>
