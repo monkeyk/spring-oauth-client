@@ -12,7 +12,9 @@
 <body>
 <a href="${contextPath}/">Home</a>
 
-<h2>authorization_code</h2>
+<h2>authorization_code
+    <small>Get 'code' from Oauth Server</small>
+</h2>
 
 <div ng-controller="AuthorizationCodeCtrl">
 

@@ -3,6 +3,7 @@
  * @author Shengzhao Li
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>Get access_token</title>
@@ -10,67 +11,91 @@
 <body>
 <a href="${contextPath}/">Home</a>
 
-<h2>Get access_token</h2>
+<h2>Get access_token
+    <small>Use 'code' exchange 'access_token'</small>
+</h2>
 
 
 <div ng-controller="CodeAccessTokenCtrl">
 
-    <form action="code_access_token" method="post">
-        <p>
-            <label>
-                AccessTokenUri: <input type="text" size="50" name="accessTokenUri" readonly="readonly"
-                                       ng-model="accessTokenUri"/>
-            </label>
-            <a href="${accessTokenDto.accessTokenUri}" target="_blank">Test Connection</a>
-        </p>
+    <form action="code_access_token" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">AccessTokenUri</label>
 
-        <p>
-            <label>
-                grant_type(Fixed): <input type="text" name="grantType" readonly="readonly"
-                                          ng-model="grantType"/>
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input type="text" name="accessTokenUri" readonly="readonly"
+                           class="form-control" ng-model="accessTokenUri"/>
+                    <span class="input-group-addon">
+                        <a href="${accessTokenDto.accessTokenUri}" target="_blank">Test Connection</a>
+                    </span>
+                </div>
+                <p class="help-block">
+                    AccessTokenUri value from 'spring-oauth-client.properties'
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">grant_type(Fixed)</label>
 
-        <p>
-            <label>
-                client_id: <input type="text" name="clientId" required="required"
-                                  ng-model="clientId" readonly="readonly"/>
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <input type="text" name="grantType" readonly="readonly"
+                       class="form-control" ng-model="grantType"/>
+            </div>
+        </div>
 
-        <p>
-            <label>
-                client_secret: <input type="text" name="clientSecret" required="required"
-                                      ng-model="clientSecret" readonly="readonly"/>
-            </label>
-        </p>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">client_id</label>
 
-        <p>
-            <label>
-                code: <input type="text" name="code" required="required"
-                             ng-model="code" readonly="readonly"/> -- Value from 'Oauth Server'
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <input type="text" name="clientId" required="required"
+                       class="form-control" ng-model="clientId" readonly="readonly"/>
+            </div>
+        </div>
 
-        <p>
-            <label>
-                redirect_uri: <input type="text" name="redirectUri" readonly="readonly"
-                                     required="required" size="50" ng-model="redirectUri"/>
-                <br/>
-                -- The URI must be match the prev step 'redirect_uri'
-            </label>
-        </p>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">client_secret</label>
 
-        <br/>
+            <div class="col-sm-10">
+                <input type="text" name="clientId" required="required"
+                       class="form-control" ng-model="clientId" readonly="readonly"/>
+            </div>
+        </div>
 
-        <div style="border:1px solid #eee;">
-            <span style="color:#d3d3d3;">Final get 'access_token' URL:</span>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">code</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="code" required="required" class="form-control"
+                       ng-model="code" readonly="readonly"/>
+
+                <p class="help-block">Value from 'Oauth Server'</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">redirect_uri</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="redirectUri" readonly="readonly" class="form-control"
+                       required="required" size="50" ng-model="redirectUri"/>
+
+                <p class="help-block">The URI must be match the prev step 'redirect_uri'</p>
+            </div>
+        </div>
+
+
+        <div class="well well-sm">
+            <span class="text-muted">Final get 'access_token' URL:</span>
             <br/>
-            <strong>{{accessTokenUri}}?client_id={{clientId}}&client_secret={{clientSecret}}&grant_type={{grantType}}&redirect_uri={{redirectUri}}&code={{code}}</strong>
+
+            <div class="text-primary">
+                {{accessTokenUri}}?client_id={{clientId}}&client_secret={{clientSecret}}&grant_type={{grantType}}&redirect_uri={{redirectUri}}&code={{code}}
+            </div>
         </div>
         <br/>
-        <button type="submit">Get Access Token</button>
-        <span style="color:#d3d3d3;">Will go to 'redirect_uri'</span>
+        <button type="submit" class="btn btn-primary">Get Access Token</button>
+        <span class="text-muted">Will go to 'redirect_uri'</span>
     </form>
 
 </div>
