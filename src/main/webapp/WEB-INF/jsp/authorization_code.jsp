@@ -16,66 +16,88 @@
 
 <div ng-controller="AuthorizationCodeCtrl">
 
-    <form action="authorization_code" method="post">
-        <p>
-            <label>
-                AuthorizationUri: <input type="text" name="userAuthorizationUri"
-                                         size="50" required="required" ng-model="userAuthorizationUri"/>
-            </label>
-            <a href="${userAuthorizationUri}" target="_blank">Test Connection</a>
-        </p>
+    <form action="authorization_code" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">AuthorizationUri</label>
 
-        <p>
-            <label>
-                response_type(Fixed): <input type="text" name="responseType" readonly="readonly"
-                                             ng-model="responseType"/>
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input type="text" name="userAuthorizationUri" class="form-control"
+                           readonly="readonly" ng-model="userAuthorizationUri"/>
+                    <span class="input-group-addon">
+                        <a href="${userAuthorizationUri}" target="_blank">Test Connection</a>
+                    </span>
+                </div>
+                <p class="help-block">
+                    AuthorizationUri value from 'spring-oauth-client.properties'
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">response_type(Fixed)</label>
 
-        <p>
-            <label>
-                scope: <select name="scope" ng-model="scope">
-                <option value="read">read</option>
-                <option value="write">write</option>
-                <option value="read,write">read,write</option>
-            </select>
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <input type="text" name="responseType" readonly="readonly"
+                       class="form-control" ng-model="responseType"/>
+            </div>
+        </div>
 
-        <p>
-            <label>
-                client_id: <input type="text" name="clientId" required="required"
-                                  ng-model="clientId"/>
-            </label>
-        </p>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">scope</label>
 
-        <p>
-            <label>
-                redirect_uri: <input type="text" name="redirectUri" readonly="readonly"
-                                     required="required" size="50" ng-model="redirectUri"/>
-                <br/>
-                -- The URI handle in 'OauthController.java', use it get 'code' from server, valid 'state' and retrieve
-                access_token.
-            </label>
-        </p>
+            <div class="col-sm-10">
+                <select name="scope" ng-model="scope" class="form-control">
+                    <option value="read">read</option>
+                    <option value="write">write</option>
+                    <option value="read,write">read,write</option>
+                </select>
+            </div>
+        </div>
 
-        <p>
-            <label>
-                state(optional): <input type="text" name="state" size="50" ng-model="state"/> -- A random value
-            </label>
-        </p>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">client_id</label>
 
+            <div class="col-sm-10">
+                <input type="text" name="clientId" required="required"
+                       class="form-control" ng-model="clientId"/>
+            </div>
+        </div>
 
-        <br/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">redirect_uri</label>
 
-        <div style="border:1px solid #eee;">
-            <span style="color:#d3d3d3;">Final send to 'Oauth Server' URL:</span>
+            <div class="col-sm-10">
+                <input type="text" name="redirectUri" readonly="readonly" class="form-control"
+                       required="required" size="50" ng-model="redirectUri"/>
+
+                <p class="help-block">
+                    Handle the URI in 'OauthController.java', use it get 'code' from server, valid 'state' and retrieve
+                    access_token.</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">state</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="state" size="50" class="form-control" required="required" ng-model="state"/>
+
+                <p class="help-block">
+                    A random value</p>
+            </div>
+        </div>
+
+        <div class="well well-sm">
+            <span class="text-muted">Final send to 'Oauth Server' URL:</span>
             <br/>
-            <strong>{{userAuthorizationUri}}?response_type={{responseType}}&scope={{scope}}&client_id={{clientId}}&redirect_uri={{redirectUri}}&state={{state}}</strong>
+
+            <div class="text-primary">
+                {{userAuthorizationUri}}?response_type={{responseType}}&scope={{scope}}&client_id={{clientId}}&redirect_uri={{redirectUri}}&state={{state}}
+            </div>
         </div>
         <br/>
-        <button type="submit">Submit</button>
-        <span style="color:#d3d3d3;">Submit success will redirect to 'Oauth Server' login page</span>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <span class="text-muted">Submit success will redirect to 'Oauth Server' login page</span>
     </form>
 
 </div>
