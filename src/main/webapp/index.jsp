@@ -54,6 +54,12 @@
         </li>
     </ol>
 </div>
+<br/>
+
+<p>
+    &Delta; 注意: 项目前端使用了 Angular-JS 来处理动态数据展现.
+</p>
+<hr/>
 
 <div>
     <strong>菜单</strong>
