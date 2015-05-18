@@ -22,6 +22,7 @@
                 AuthorizationUri: <input type="text" name="userAuthorizationUri"
                                          size="50" required="required" ng-model="userAuthorizationUri"/>
             </label>
+            <a href="${userAuthorizationUri}" target="_blank">Test Connection</a>
         </p>
 
         <p>
@@ -44,7 +45,7 @@
         <p>
             <label>
                 client_id: <input type="text" name="clientId" required="required"
-                                  ng-model="clientId"/>
+                                  ng-model="clientId"/> -- 'unity-client' or 'mobile-client'
             </label>
         </p>
 
@@ -52,6 +53,9 @@
             <label>
                 redirect_uri: <input type="text" name="redirectUri"
                                      required="required" size="50" ng-model="redirectUri"/>
+                <br/>
+                -- The URI handle in 'OauthController.java', use it get 'code' from server, valid 'state' and retrieve
+                access_token.
             </label>
         </p>
 
@@ -65,12 +69,13 @@
         <br/>
 
         <div style="border:1px solid #eee;">
-            Final send to 'Oauth Server' URL:
+            <span style="color:#d3d3d3;">Final send to 'Oauth Server' URL:</span>
             <br/>
             <strong>{{userAuthorizationUri}}?response_type={{responseType}}&scope={{scope}}&client_id={{clientId}}&redirect_uri={{redirectUri}}&state={{state}}</strong>
         </div>
         <br/>
         <button type="submit">Submit</button>
+        <span style="color:#d3d3d3;">Submit success will redirect to 'Oauth Server' login page</span>
     </form>
 
 </div>
