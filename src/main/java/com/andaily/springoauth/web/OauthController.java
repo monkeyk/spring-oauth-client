@@ -59,12 +59,17 @@ public class OauthController {
     @RequestMapping(value = "authorization_code_callback", method = RequestMethod.POST)
     public String authorizationCodeCallback(AuthCallbackDto callbackDto, Model model, HttpServletRequest request) throws Exception {
 
-        final String state = (String) request.getSession().getAttribute(STATE_SESSION_KEY);
-        if (StringUtils.isNotEmpty(callbackDto.getState()) && callbackDto.getState().equals(state)) {
+        final String currState = (String) request.getSession().getAttribute(STATE_SESSION_KEY);
+        final String state = callbackDto.getState();
+
+        if (StringUtils.isNotEmpty(state) && state.equals(currState)) {
+            //retrieve access_token
+
 
         } else {
             //illegal state
-
+            model.addAttribute("message", "Illegal 'state': " + state);
+            return "redirect:oauth_error";
         }
 
 
