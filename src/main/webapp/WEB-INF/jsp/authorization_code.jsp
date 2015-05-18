@@ -45,13 +45,13 @@
         <p>
             <label>
                 client_id: <input type="text" name="clientId" required="required"
-                                  ng-model="clientId"/> -- 'unity-client' or 'mobile-client'
+                                  ng-model="clientId"/>
             </label>
         </p>
 
         <p>
             <label>
-                redirect_uri: <input type="text" name="redirectUri"
+                redirect_uri: <input type="text" name="redirectUri" readonly="readonly"
                                      required="required" size="50" ng-model="redirectUri"/>
                 <br/>
                 -- The URI handle in 'OauthController.java', use it get 'code' from server, valid 'state' and retrieve

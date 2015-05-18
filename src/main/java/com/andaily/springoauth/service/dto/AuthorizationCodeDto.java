@@ -1,12 +1,13 @@
 package com.andaily.springoauth.service.dto;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
  * @author Shengzhao Li
  */
-public class AuthorizationCodeDto {
+public class AuthorizationCodeDto  implements Serializable {
 
 
     private String userAuthorizationUri;
