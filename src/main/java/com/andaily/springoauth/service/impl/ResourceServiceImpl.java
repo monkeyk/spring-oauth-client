@@ -2,7 +2,6 @@ package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.service.ResourceService;
 import com.andaily.springoauth.service.dto.UserDto;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -15,10 +14,6 @@ import java.util.Collection;
  */
 @Service("resourceService")
 public class ResourceServiceImpl implements ResourceService {
-
-
-    @Value(value = "${unityUserInfoUri}")
-    private String unityUserInfoUri;
 
 
     @Override

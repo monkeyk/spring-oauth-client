@@ -41,7 +41,7 @@
         </li>
         <li>
             <p>
-                菜单 Unity 是一个本地的资源,仅需要本地登录即可访问(登录时用 unity_user 账号)
+                菜单 Unity 是一个本地的资源,仅需要本地登录即可访问(登录时用 unity_user 账号), 区别与OAUTH
             </p>
         </li>
         <li>
@@ -71,9 +71,9 @@
             <p><a href="implicit">implicit</a> <br/>简化模式(在redirect_uri 的Hash传递token; Auth客户端运行在浏览器中,如JS,Flash)</p>
         </li>
         <li>
-            <p><a href="refresh_token"><br/>refresh_token</a> 刷新token</p>
+            <p><a href="refresh_token">refresh_token</a> <br/>刷新token</p>
         </li>
-        <li><p><a href="unity/overview">Unity</a> <br/>本地资源, 获取登录用户信息</p></li>
+        <li><p><a href="unity/overview">Unity</a> <br/>本地资源</p></li>
     </ul>
 </div>
 </body>
