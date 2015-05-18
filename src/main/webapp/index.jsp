@@ -44,6 +44,14 @@
                 菜单 Unity 是一个本地的资源,仅需要本地登录即可访问(登录时用 unity_user 账号)
             </p>
         </li>
+        <li>
+            <p>
+                <em>
+                    在开始使用之前, 请确保 <a href="http://git.oschina.net/shengzhao/spring-oauth-server" target="_blank">spring-oauth-server</a>
+                    项目已正确运行, 且 spring-oauth-client.properties (位于项目的src/main/resources目录) 配置正确
+                </em>
+            </p>
+        </li>
     </ol>
 </div>
 
