@@ -17,10 +17,8 @@
 <div>
     User Info:
     <ul>
-        <li>Guid: ${userDto.guid}</li>
         <li>Username: ${userDto.username}</li>
-        <li>Email: ${userDto.email}</li>
-        <li>Phone: ${userDto.phone}</li>
+        <li>Privileges: ${userDto.privileges}</li>
     </ul>
 </div>
 </body>

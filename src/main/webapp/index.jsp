@@ -65,7 +65,7 @@
         <li>
             <p><a href="refresh_token"><br/>refresh_token</a> 刷新token</p>
         </li>
-        <li><p><a href="unity/overview">Unity</a> <br/>本地资源</p></li>
+        <li><p><a href="unity/overview">Unity</a> <br/>本地资源, 获取登录用户信息</p></li>
     </ul>
 </div>
 </body>
