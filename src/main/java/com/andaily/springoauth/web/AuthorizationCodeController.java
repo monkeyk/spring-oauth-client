@@ -36,6 +36,11 @@ public class AuthorizationCodeController {
     @Value("#{properties['application-host']}")
     private String host;
 
+
+    @Value("#{properties['unityUserInfoUri']}")
+    private String unityUserInfoUri;
+
+
     @Autowired
     private OauthService oauthService;
 
@@ -114,6 +119,7 @@ public class AuthorizationCodeController {
             return "oauth_error";
         } else {
             model.addAttribute("accessTokenDto", accessTokenDto);
+            model.addAttribute("unityUserInfoUri", unityUserInfoUri);
             return "access_token_result";
         }
     }
