@@ -13,7 +13,6 @@
 <h2>Spring Security&Oauth2 Client is work!</h2>
 
 
-
 <div>
     操作说明:
     <ol>
@@ -70,7 +69,7 @@
             <p><a href="implicit">implicit</a> <br/>简化模式(在redirect_uri 的Hash传递token; Auth客户端运行在浏览器中,如JS,Flash)</p>
         </li>
         <li>
-            <p><a href="refresh_token">refresh_token</a> <br/>刷新token</p>
+            <p><a href="refresh_token">refresh_token</a> <br/>刷新access_token</p>
         </li>
     </ul>
 </div>
