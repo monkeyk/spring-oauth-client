@@ -52,6 +52,7 @@ public class AuthorizationCodeController {
     public String authorizationCode(Model model) {
         model.addAttribute("userAuthorizationUri", userAuthorizationUri);
         model.addAttribute("host", host);
+        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         model.addAttribute("state", UUID.randomUUID().toString());
         return "authorization_code";
     }

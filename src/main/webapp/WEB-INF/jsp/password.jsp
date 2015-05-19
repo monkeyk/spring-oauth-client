@@ -47,7 +47,8 @@
                     <label class="col-sm-2 control-label">accessTokenUri</label>
 
                     <div class="col-sm-10">
-                        <p class="form-control-static"><code>${accessTokenUri}</code></p>
+                        <p class="form-control-static"><code>${accessTokenUri}</code>
+                            &nbsp;<a href="${accessTokenUri}" target="_blank">测试连接</a></p>
                     </div>
                 </div>
                 <a href="javascript:void(0);" ng-click="showParams()">显示请求参数</a>
@@ -117,9 +118,6 @@
                         </div>
                     </div>
 
-                    <p class="help-block">
-                        说明: 输入框中的参数表示在使用时可以变化的
-                    </p>
                 </div>
                 <br/>
                 <br/>
