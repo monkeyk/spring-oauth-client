@@ -14,10 +14,9 @@
 
 <h3>Oauth Error</h3>
 
-<p style="color: #f08080;">
-    <strong>${error}</strong>
-    <br/>
+<div class="alert alert-danger">
+    <h4>${error}</h4>
     ${message}
-</p>
+</div>
 </body>
 </html>
