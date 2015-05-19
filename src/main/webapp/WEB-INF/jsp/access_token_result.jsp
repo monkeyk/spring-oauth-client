@@ -3,6 +3,7 @@
  * @author Shengzhao Li
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>Access Token</title>
@@ -29,7 +30,9 @@
 </p>
 <ul>
     <li><a href="${contextPath}/unity_user_info?access_token=${accessTokenDto.accessToken}">Oauth Server User
-        Information</a></li>
+        Information</a>
+        <code>${contextPath}/unity_user_info?access_token=${accessTokenDto.accessToken}</code>
+    </li>
     <li>...</li>
     <li>...</li>
 </ul>
