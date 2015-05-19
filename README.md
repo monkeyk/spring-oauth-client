@@ -68,15 +68,16 @@
         id="oauth2ClientFilter" /&gt;</code>
     </p>
     <p>
-        按照Oauth2协议支持的grant_type依次去实现. 共5类.
+        而是按照Oauth2协议支持的5类grant_type依次去实现.
         <br/>
-        <ul>
-            <li>authorization_code</li>
-            <li>password</li>
-            <li>client_credentials</li>
-            <li>implicit</li>
-            <li>refresh_token</li>
-        </ul>
+        <ol>
+            <li><code>authorization_code</code> -- 授权码模式(即先登录获取code,再获取token)</li>
+            <li><code>password</code> -- 密码模式(将用户名,密码传过去,直接获取token)</li>
+            <li><code>client_credentials</code> -- 客户端模式(无用户,用户向客户端注册,然后客户端以自己的名义向'服务端'获取资源)</li>
+            <li><code>implicit</code> -- 简化模式(在redirect_uri 的Hash传递token; Auth客户端运行在浏览器中,如JS,Flash)</li>
+            <li><code>refresh_token</code> -- 刷新access_token</li>
+        </ol>
+
     </p>
 </div>
 
