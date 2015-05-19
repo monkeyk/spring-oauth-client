@@ -21,6 +21,8 @@
     <dd><code>${accessTokenDto.refreshToken}</code></dd>
     <dt>scope</dt>
     <dd><code>${accessTokenDto.scope}</code></dd>
+    <dt>expires_in</dt>
+    <dd><code>${accessTokenDto.expiresIn}</code></dd>
 </dl>
 <p>
     Now you can visit the resources as follow:
