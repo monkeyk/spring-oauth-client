@@ -1,9 +1,5 @@
 package com.andaily.springoauth.service.dto;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.io.Serializable;
-
 /**
  * 15-5-18
  * <p/>
@@ -11,7 +7,7 @@ import java.io.Serializable;
  *
  * @author Shengzhao Li
  */
-public class AccessTokenDto implements Serializable {
+public class AccessTokenDto extends AbstractOauthDto {
 
     private String accessToken;
     private String tokenType;
@@ -21,22 +17,9 @@ public class AccessTokenDto implements Serializable {
     private int expiresIn;
 
 
-    //Error if have from oauth server
-    private String errorDescription;
-    private String error;
-
     public AccessTokenDto() {
     }
 
-    public AccessTokenDto(int errorCode, String errorDescription) {
-        this.error = String.valueOf(errorCode);
-        this.errorDescription = errorDescription;
-    }
-
-
-    public boolean error() {
-        return StringUtils.isNotEmpty(error) || StringUtils.isNotEmpty(errorDescription);
-    }
 
     public int getExpiresIn() {
         return expiresIn;
@@ -44,14 +27,6 @@ public class AccessTokenDto implements Serializable {
 
     public void setExpiresIn(int expiresIn) {
         this.expiresIn = expiresIn;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 
     public String getAccessToken() {
@@ -78,13 +53,6 @@ public class AccessTokenDto implements Serializable {
         this.refreshToken = refreshToken;
     }
 
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
 
     public String getScope() {
         return scope;
