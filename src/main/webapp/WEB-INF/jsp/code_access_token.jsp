@@ -57,8 +57,8 @@
             <label class="col-sm-2 control-label">client_secret</label>
 
             <div class="col-sm-10">
-                <input type="text" name="clientId" required="required"
-                       class="form-control" ng-model="clientId" readonly="readonly"/>
+                <input type="text" name="clientSecret" required="required"
+                       class="form-control" ng-model="clientSecret" readonly="readonly"/>
             </div>
         </div>
 
