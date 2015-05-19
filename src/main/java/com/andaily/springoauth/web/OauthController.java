@@ -100,7 +100,7 @@ public class OauthController {
     public String codeAccessToken(AuthAccessTokenDto tokenDto, Model model) throws Exception {
         final AccessTokenDto accessTokenDto = oauthService.retrieveAccessTokenDto(tokenDto);
         if (accessTokenDto.error()) {
-            model.addAttribute("message", accessTokenDto.getError_description());
+            model.addAttribute("message", accessTokenDto.getErrorDescription());
             model.addAttribute("error", accessTokenDto.getError());
             return "oauth_error";
         } else {
