@@ -32,6 +32,33 @@
 </p>
 
 
+<p>
+    <strong>如何使用?</strong>
+    <br/>
+    前提: 在使用之前必须保证 spring-oauth-server 项目已正常运行.
+    <ol>
+        <li>
+            项目是Maven管理的, 需要本地安装maven(开发用的maven版本号为3.1.0)
+        </li>
+        <li>
+            <a href="http://git.oschina.net/mkk/spring-oauth-client/repository/archive?ref=master">下载</a>(或clone)项目到本地
+        </li>
+        <li>
+            修改<code>spring-oauth-client.properties</code>(位于src/main/resources目录)中的配置信息(主要包括与spring-oauth-server的连接地址)
+        </li>
+        <li>
+            将本地项目导入到IDE(如Intellij IDEA)中,配置Tomcat(或类似的servlet运行服务器), 并启动Tomcat(默认端口为8080) ,通过浏览器访问即可.
+            <br/>
+            所有的操作说明都在页面上体现.
+            <br/>
+               另: 也可通过maven package命令将项目编译为war文件(spring-oauth-client.war),
+                     将war放在Tomcat中并启动(注意: 这种方式需要将spring-oauth-client.properties加入到classpath中并正确配置)
+        </li>
+    </ol>
+</p>
+
+
+
 <hr/>
 <div>
   Expect your joining...
