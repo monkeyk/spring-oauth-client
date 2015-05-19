@@ -1,8 +1,11 @@
 package com.andaily.springoauth.service.password;
 
 import com.andaily.springoauth.service.dto.AccessTokenDto;
+import com.andaily.springoauth.service.dto.UserDto;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.UUID;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
@@ -110,6 +113,47 @@ public class PasswordOauthHandlerTest {
         System.out.println("Test Case 5: " + accessToken5);
 
 
+    }
+
+
+    @Test(enabled = true)
+    public void getMobileUserDto() throws Exception {
+        final String accessTokenUri = "http://localhost:8080/oauth/token";
+
+        PasswordParams params = new PasswordParams(accessTokenUri)
+                .setClientId("mobile-client")
+                .setClientSecret("mobile")
+                .setUsername("mobile")
+                .setPassword("mobile");
+
+        final AccessTokenDto accessToken = passwordOauthHandler.getAccessToken(params);
+        assertNotNull(accessToken);
+
+        //URI from ' spring-oauth-client.properties'
+        String mobileUserInfoUri = "http://localhost:8080/m/user_info";
+
+        /*
+        * Test case 1:  normally
+        * */
+
+        final UserDto userDto = passwordOauthHandler.getMobileUserDto(mobileUserInfoUri, accessToken.getAccessToken());
+        assertNotNull(userDto);
+        assertFalse(userDto.error());
+
+        assertNotNull(userDto.getUsername());
+        assertNotNull(userDto.getGuid());
+
+        /*
+       * Test case 2:  illegal access_token
+       * */
+
+        final UserDto userDto2 = passwordOauthHandler.getMobileUserDto(mobileUserInfoUri, UUID.randomUUID().toString());
+        assertNotNull(userDto2);
+        assertTrue(userDto2.error());
+        System.out.println(userDto2);
+
 
     }
+
+
 }

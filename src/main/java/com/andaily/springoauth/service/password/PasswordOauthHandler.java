@@ -2,7 +2,9 @@ package com.andaily.springoauth.service.password;
 
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
+import com.andaily.springoauth.service.dto.UserDto;
 import com.andaily.springoauth.service.impl.AccessTokenResponseHandler;
+import com.andaily.springoauth.service.impl.UserDtoResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,5 +54,26 @@ public class PasswordOauthHandler {
         return responseHandler.getAccessTokenDto();
     }
 
+
+    /**
+     * Step 2
+     * <p/>
+     * Call Oauth Server API
+     *
+     * @param mobileUserInfoUri mobileUserInfoUri
+     * @param accessToken       accessToken
+     * @return UserDto
+     */
+    public UserDto getMobileUserDto(String mobileUserInfoUri, String accessToken) {
+        LOG.debug("Get Mobile UserDto by uri={},accessToken={}", mobileUserInfoUri, accessToken);
+
+        HttpClientExecutor executor = new HttpClientExecutor(mobileUserInfoUri);
+        executor.addRequestParam("access_token", accessToken);
+
+        UserDtoResponseHandler responseHandler = new UserDtoResponseHandler();
+        executor.execute(responseHandler);
+
+        return responseHandler.getUserDto();
+    }
 
 }
