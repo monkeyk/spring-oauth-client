@@ -28,12 +28,16 @@
     <div>
         <decorator:body/>
     </div>
-    <div>
-        <hr/>
-        <p>
-            <a href="mailto:monkeyk1987@gmail.com">monkeyk1987@gmail.com</a>, from <a
-                href="http://git.oschina.net/mkk/spring-oauth-client" target="_blank">spring-oauth-client</a>
-        </p>
+
+    <%--footer--%>
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <p>
+                <a href="mailto:monkeyk1987@gmail.com">monkeyk1987@gmail.com</a>, from <a
+                    href="http://git.oschina.net/mkk/spring-oauth-client" target="_blank">spring-oauth-client</a>
+            </p>
+        </div>
     </div>
 </div>
 </body>

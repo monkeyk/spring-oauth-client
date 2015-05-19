@@ -1,9 +1,5 @@
 package com.andaily.springoauth.service.dto;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.io.Serializable;
-
 /**
  * 15-5-18
  * <p/>
@@ -11,68 +7,52 @@ import java.io.Serializable;
  *
  * @author Shengzhao Li
  */
-public class AccessTokenDto implements Serializable {
+public class AccessTokenDto extends AbstractOauthDto {
 
-    private String access_token;
-    private String token_type;
-    private String refresh_token;
+    private String accessToken;
+    private String tokenType;
+    private String refreshToken;
     private String scope;
 
-    //Error if have from oauth server
-    private String error_description;
-    private String error;
+    private int expiresIn;
+
 
     public AccessTokenDto() {
     }
 
-    public AccessTokenDto(int errorCode, String errorDescription) {
-        this.error = String.valueOf(errorCode);
-        this.error_description = errorDescription;
+
+    public int getExpiresIn() {
+        return expiresIn;
     }
 
-    public String getError_description() {
-        return error_description;
+    public void setExpiresIn(int expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
-    public void setError_description(String error_description) {
-        this.error_description = error_description;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public boolean error() {
-        return StringUtils.isNotEmpty(error) || StringUtils.isNotEmpty(error_description);
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getError() {
-        return error;
+    public String getTokenType() {
+        return tokenType;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
-    public String getToken_type() {
-        return token_type;
-    }
-
-    public void setToken_type(String token_type) {
-        this.token_type = token_type;
-    }
-
-    public String getRefresh_token() {
-        return refresh_token;
-    }
-
-    public void setRefresh_token(String refresh_token) {
-        this.refresh_token = refresh_token;
-    }
 
     public String getScope() {
         return scope;
@@ -80,5 +60,19 @@ public class AccessTokenDto implements Serializable {
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("{accessToken='").append(accessToken).append('\'');
+        sb.append(", tokenType='").append(tokenType).append('\'');
+        sb.append(", refreshToken='").append(refreshToken).append('\'');
+        sb.append(", scope='").append(scope).append('\'');
+        sb.append(", expiresIn=").append(expiresIn);
+        sb.append(", errorDescription='").append(errorDescription).append('\'');
+        sb.append(", error='").append(error).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

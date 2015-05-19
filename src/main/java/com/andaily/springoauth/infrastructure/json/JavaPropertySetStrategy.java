@@ -78,7 +78,8 @@ public final class JavaPropertySetStrategy extends PropertySetStrategy {
         StringBuilder sb = new StringBuilder();
         char[] chars = key.toCharArray();
 
-        if (key.indexOf(SEPARATOR) == -1) {
+        //If first char is Uppercase, update it to lowercase
+        if (key.indexOf(SEPARATOR) == -1 && ('A' <= chars[0] && chars[0] <= 'Z')) {
             chars[0] = (char) (chars[0] + 'a' - 'A');
             return String.valueOf(chars);
         }

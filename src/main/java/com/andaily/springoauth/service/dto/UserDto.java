@@ -1,6 +1,5 @@
 package com.andaily.springoauth.service.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  *
  * @author Shengzhao Li
  */
-public class UserDto implements Serializable {
+public class UserDto extends AbstractOauthDto {
 
 
     private boolean archived;
@@ -22,8 +21,15 @@ public class UserDto implements Serializable {
 
     private List<String> privileges = new ArrayList<>();
 
+
     public UserDto() {
     }
+
+    public UserDto(String error, String errorDescription) {
+        this.error = error;
+        this.errorDescription = errorDescription;
+    }
+
 
     public boolean isArchived() {
         return archived;
