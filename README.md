@@ -15,7 +15,7 @@
 <ol>
      <li>JDK (1.7.0_40)</li>
      <li>Spring (3.1.1.RELEASE)</li>
-     <li>Spring Security (3.1.0.RELEASE)</li>
+     <li>Spring MVC (3.1.1.RELEASE)</li>
      <li>HttpClient (4.3.5)</li>
      <li>json-lib (2.4)</li>
      <li>Log4j (1.2.14)</li>

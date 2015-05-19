@@ -12,9 +12,7 @@
 <body>
 <h2>Spring Security&Oauth2 Client is work!</h2>
 
-<p>
-    <a href="logout.do">Logout</a>
-</p>
+
 
 <div>
     操作说明:
@@ -38,11 +36,6 @@
                 <li>implicit</li>
                 <li>refresh_token</li>
             </ul>
-        </li>
-        <li>
-            <p>
-                菜单 Unity 是一个本地的资源,仅需要本地登录即可访问(登录时用 unity_user 账号), 区别与OAUTH
-            </p>
         </li>
         <li>
             <p>
@@ -79,7 +72,6 @@
         <li>
             <p><a href="refresh_token">refresh_token</a> <br/>刷新token</p>
         </li>
-        <li><p><a href="unity/overview">Unity</a> <br/>本地资源</p></li>
     </ul>
 </div>
 </body>
