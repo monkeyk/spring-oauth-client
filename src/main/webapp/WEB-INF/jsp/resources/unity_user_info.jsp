@@ -12,7 +12,7 @@
 <a href="${contextPath}/">Home</a>
 
 <h2>User Info [Unity]
-    <small>The data from Oauth Server API</small>
+    <small>数据来源于 'spring-oauth-server' 中提供的API接口</small>
 </h2>
 
 <dl class="dl-horizontal">
