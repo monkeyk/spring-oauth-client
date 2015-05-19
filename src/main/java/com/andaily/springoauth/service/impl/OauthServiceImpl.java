@@ -5,7 +5,6 @@ import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthCallbackDto;
-import com.andaily.springoauth.web.GetAccessTokenResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

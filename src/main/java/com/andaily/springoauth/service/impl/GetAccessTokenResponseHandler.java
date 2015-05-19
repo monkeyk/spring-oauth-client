@@ -1,4 +1,4 @@
-package com.andaily.springoauth.web;
+package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.infrastructure.httpclient.HttpResponseHandler;
 import com.andaily.springoauth.infrastructure.httpclient.MkkHttpResponse;
