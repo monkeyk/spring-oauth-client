@@ -81,6 +81,9 @@
     </p>
 </div>
 
+<p>
+    项目的开发管理使用开源项目 <a href="http://git.oschina.net/mkk/andaily-developer">andaily-developer</a>.
+</p>
 <hr/>
 <p>
  关注更多我的开源项目请访问 <a href="http://andaily.com/my_projects.html">http://andaily.com/my_projects.html</a>
