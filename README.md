@@ -49,6 +49,8 @@
         <li>
             将本地项目导入到IDE(如Intellij IDEA)中,配置Tomcat(或类似的servlet运行服务器), 并启动Tomcat(默认端口为8080) ,通过浏览器访问即可.
             <br/>
+            注意将项目的 contextPath(根路径) 设置为 'spring-oauth-client'.
+            <br/>
             所有的操作说明都在页面上体现.
             <br/>
                另: 也可通过maven package命令将项目编译为war文件(spring-oauth-client.war),
