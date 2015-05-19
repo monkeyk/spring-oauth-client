@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * Local resource actions.
+ * No relation with Oauth
+ *
  * @author Shengzhao Li
  */
 @Controller
