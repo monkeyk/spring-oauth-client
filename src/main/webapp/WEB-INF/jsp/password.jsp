@@ -35,7 +35,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">方式2</div>
     <div class="panel-body">
-        <div class="col-md-10">
+        <div class="col-md-10" ng-controller="PasswordCtrl">
             <p class="text-muted">
                 在页面上点击链接 'Password grant_type' 按钮, 将打开新窗口,展示服务器端响应的JSON数据.
                 <br/>
@@ -50,9 +50,9 @@
                         <p class="form-control-static"><code>${accessTokenUri}</code></p>
                     </div>
                 </div>
-                <a href="javascript:void(0);">显示请求参数</a>
+                <a href="javascript:void(0);" ng-click="showParams()">显示请求参数</a>
 
-                <div ng-controller="PasswordCtrl" class="hidden">
+                <div ng-show="visible">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">client_id</label>
 
@@ -138,6 +138,12 @@
         $scope.username = "mobile";
         $scope.password = "mobile";
         $scope.scope = "read,write";
+
+        $scope.visible = false;
+
+        $scope.showParams = function () {
+            $scope.visible = !$scope.visible;
+        };
     }];
 </script>
 </body>
