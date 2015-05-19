@@ -33,7 +33,7 @@ public class PasswordOauthHandlerTest {
      */
     @Test(enabled = true)
     public void getAccessToken() throws Exception {
-        final String accessTokenUri = "http://localhost:8080/oauth/token";
+        final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
         /*
         *  Test case 1:  All variable are right
@@ -118,7 +118,7 @@ public class PasswordOauthHandlerTest {
 
     @Test(enabled = true)
     public void getMobileUserDto() throws Exception {
-        final String accessTokenUri = "http://localhost:8080/oauth/token";
+        final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
         PasswordParams params = new PasswordParams(accessTokenUri)
                 .setClientId("mobile-client")
@@ -130,7 +130,7 @@ public class PasswordOauthHandlerTest {
         assertNotNull(accessToken);
 
         //URI from ' spring-oauth-client.properties'
-        String mobileUserInfoUri = "http://localhost:8080/m/user_info";
+        String mobileUserInfoUri = "http://localhost:8080/spring-oauth-server/m/user_info";
 
         /*
         * Test case 1:  normally
