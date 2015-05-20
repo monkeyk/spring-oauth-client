@@ -131,14 +131,14 @@ null,null, now(), 0, 0);
         <div class="panel-body">
             <div ng-hide="tokenVisible">请先 登录并授权</div>
             <div ng-show="tokenVisible" class="col-md-11">
+                <p class="text-info">注意查看地址栏中URL的<strong>hash部分(#号后面)</strong>已经包含了access_token信息,通过JS解析即可获取</p>
+
                 <div class="well well-sm">
                     <dl class="dl-horizontal">
                         <dt>access_token</dt>
                         <dd><code>{{accessToken}}</code></dd>
                         <dt>token_type</dt>
                         <dd><code>{{tokenType}}</code></dd>
-                        <dt>scope</dt>
-                        <dd><code>{{tokenScope}}</code></dd>
                         <dt>expires_in</dt>
                         <dd><code>{{expiresIn}}</code></dd>
                     </dl>
@@ -172,6 +172,30 @@ null,null, now(), 0, 0);
             $scope.visible = !$scope.visible;
         };
 
+        // hash
+        var hash = location.hash.substring(1);
+        console.log(hash + ",  " + hash.length);
+        if (hash.length > 0) {
+            var regex = /([^&=]+)=([^&]*)/g;
+            var keyValue;
+            //access_token=f46c6a79-872e-43a0-88f8-a340aee5229c&token_type=bearer&expires_in=40513
+            while (keyValue = regex.exec(hash)) {
+                var key = keyValue[1];
+                var value = keyValue[2];
+
+                if ('access_token' == key) {
+                    $scope.accessToken = value;
+                } else if ('token_type' == key) {
+                    $scope.tokenType = value;
+                } else if ('expires_in' == key) {
+                    $scope.expiresIn = value;
+                } else {
+                    $scope.tokenError = value;
+                }
+            }
+
+            $scope.tokenVisible = true;
+        }
 
     }];
 </script>
