@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * 15-5-18
@@ -31,10 +32,10 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto) throws UnsupportedEncodingException {
-        final String fullUri = tokenDto.getFullUri();
+        final String fullUri = tokenDto.getAccessTokenUri();
         LOG.debug("Get access_token URL: {}", fullUri);
 
-        return loadAccessTokenDto(fullUri);
+        return loadAccessTokenDto(fullUri, tokenDto.getAuthCodeParams());
     }
 
     @Override
@@ -64,22 +65,26 @@ public class OauthServiceImpl implements OauthService {
 
     @Override
     public AccessTokenDto retrievePasswordAccessTokenDto(AuthAccessTokenDto authAccessTokenDto) {
-        final String fullUri = authAccessTokenDto.getFullAccessTokenUri();
+        final String fullUri = authAccessTokenDto.getAccessTokenUri();
         LOG.debug("Get [password] access_token URL: {}", fullUri);
 
-        return loadAccessTokenDto(fullUri);
+        return loadAccessTokenDto(fullUri, authAccessTokenDto.getAccessTokenParams());
     }
 
     @Override
     public AccessTokenDto refreshAccessTokenDto(RefreshAccessTokenDto refreshAccessTokenDto) {
-        final String fullUri = refreshAccessTokenDto.getFullUri();
+        final String fullUri = refreshAccessTokenDto.getRefreshAccessTokenUri();
         LOG.debug("Get refresh_access_token URL: {}", fullUri);
 
-        return loadAccessTokenDto(fullUri);
+        return loadAccessTokenDto(fullUri, refreshAccessTokenDto.getRefreshTokenParams());
     }
 
-    private AccessTokenDto loadAccessTokenDto(String fullUri) {
+    private AccessTokenDto loadAccessTokenDto(String fullUri, Map<String, String> params) {
         HttpClientExecutor executor = new HttpClientExecutor(fullUri);
+        for (String key : params.keySet()) {
+            executor.addRequestParam(key, params.get(key));
+        }
+
         AccessTokenResponseHandler responseHandler = new AccessTokenResponseHandler();
         executor.execute(responseHandler);
 

@@ -3,6 +3,8 @@ package com.andaily.springoauth.service.dto;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 15-5-18
@@ -115,15 +117,34 @@ public class AuthAccessTokenDto implements Serializable {
     /*
     * http://localhost:8080/oauth/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
     * */
-    public String getFullUri() throws UnsupportedEncodingException {
+    public Map<String, String> getAuthCodeParams() throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        map.put("client_id", clientId);
+        map.put("client_secret", clientSecret);
+        map.put("grant_type", grantType);
+
         String redirect = URLEncoder.encode(redirectUri, "UTF-8");
-        return String.format("%s?client_id=%s&client_secret=%s&grant_type=%s&redirect_uri=%s&code=%s", accessTokenUri, clientId, clientSecret, grantType, redirect, code);
+        map.put("redirect_uri", redirect);
+        map.put("code", code);
+
+        return map;
     }
+
 
     /*
    * http://localhost:8080/spring-oauth-server/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
    * */
-    public String getFullAccessTokenUri() {
-        return String.format("%s?client_id=%s&client_secret=%s&grant_type=%s&scope=%s&username=%s&password=%s", accessTokenUri, clientId, clientSecret, grantType, scope, username, password);
+    public Map<String, String> getAccessTokenParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("client_id", clientId);
+        map.put("client_secret", clientSecret);
+        map.put("grant_type", grantType);
+        map.put("scope", scope);
+
+        map.put("username", username);
+        map.put("password", password);
+
+        return map;
     }
+
 }

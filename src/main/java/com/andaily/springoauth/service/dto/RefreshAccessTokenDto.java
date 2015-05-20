@@ -1,6 +1,8 @@
 package com.andaily.springoauth.service.dto;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * http://localhost:8080/spring-oauth-server/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=refresh_token&refresh_token=b36f4978-a172-4aa8-af89-60f58abe3ba1
@@ -61,7 +63,18 @@ public class RefreshAccessTokenDto implements Serializable {
         this.refreshToken = refreshToken;
     }
 
-    public String getFullUri() {
-        return String.format("%s?client_id=%s&client_secret=%s&grant_type=%s&refresh_token=%s", refreshAccessTokenUri, clientId, clientSecret, grantType, refreshToken);
+    /*
+    * http://localhost:8080/spring-oauth-server/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=refresh_token&refresh_token=b36f4978-a172-4aa8-af89-60f58abe3ba1
+    * */
+    public Map<String, String> getRefreshTokenParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("client_id", clientId);
+
+        map.put("client_secret", clientSecret);
+        map.put("grant_type", grantType);
+        map.put("refresh_token", refreshToken);
+
+        return map;
     }
+
 }
