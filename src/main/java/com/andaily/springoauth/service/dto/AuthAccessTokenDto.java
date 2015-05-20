@@ -144,4 +144,15 @@ public class AuthAccessTokenDto implements Serializable {
         return map;
     }
 
+    /*
+     * http://localhost:8080/spring-oauth-server/oauth/token?client_id=credentials-client&client_secret=credentials-secret&grant_type=client_credentials&scope=read,write
+     */
+    public Map<String, String> getCredentialsParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("client_id", clientId);
+        map.put("client_secret", clientSecret);
+        map.put("grant_type", grantType);
+        map.put("scope", scope);
+        return map;
+    }
 }

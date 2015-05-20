@@ -30,7 +30,7 @@ public class OauthServiceImpl implements OauthService {
 
 
     @Override
-    public AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto){
+    public AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto) {
         final String fullUri = tokenDto.getAccessTokenUri();
         LOG.debug("Get access_token URL: {}", fullUri);
 
@@ -77,6 +77,15 @@ public class OauthServiceImpl implements OauthService {
 
         return loadAccessTokenDto(fullUri, refreshAccessTokenDto.getRefreshTokenParams());
     }
+
+    @Override
+    public AccessTokenDto retrieveCredentialsAccessTokenDto(AuthAccessTokenDto authAccessTokenDto) {
+        final String uri = authAccessTokenDto.getAccessTokenUri();
+        LOG.debug("Get [{}] access_token URL: {}", authAccessTokenDto.getGrantType(), uri);
+
+        return loadAccessTokenDto(uri, authAccessTokenDto.getCredentialsParams());
+    }
+
 
     private AccessTokenDto loadAccessTokenDto(String fullUri, Map<String, String> params) {
         HttpClientExecutor executor = new HttpClientExecutor(fullUri);
