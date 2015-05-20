@@ -27,9 +27,9 @@
 </ol>
 <hr/>
 
-<p>
-    服务端项目请访问 <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
-</p>
+<h3>
+    Oauth服务端项目请访问 <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
+</h3>
 
 <hr/>
 <p>
