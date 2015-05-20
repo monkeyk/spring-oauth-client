@@ -90,6 +90,7 @@
 
 <p>
     <strong>参考资源</strong>
+    <br/>
     以下是在开发与学习过程中参考的Oauth资源,总结下来方便学习回顾.
     <ul>
         <li><p>
@@ -97,6 +98,9 @@
         </p></li>
         <li><p>
             <a href="http://www.dannysite.com/blog/178/">OAuth2：隐式授权（Implicit Grant）类型的开放授权</a>
+        </p></li>
+        <li><p>
+            <a href="http://www.tuicool.com/articles/QrUVvuf">oauth2.0协议之Implicit grant模式解析</a>
         </p></li>
     </ul>
 </p>
