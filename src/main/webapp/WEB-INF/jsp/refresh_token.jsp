@@ -40,6 +40,9 @@
         <br/>
         <strong>注意</strong> refresh_token 成功后旧的access_token将不能再使用.
     </p>
+    <small class="text-muted">
+        <em class="glyphicon glyphicon-info-sign"></em> 在实际应用中, refresh_token一般都是由后台来完成的,前台没有任何表现.
+    </small>
 </div>
 
 <hr/>
