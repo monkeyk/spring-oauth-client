@@ -44,185 +44,206 @@
 
 <hr/>
 <div ng-controller="RefreshTokenCtrl">
-    <div class="panel panel-default">
-        <div class="panel-heading">1. <em>通过 grant_type='password' 去获取access_token</em></div>
-        <div class="panel-body">
-            <div class="col-md-10">
-                <p class="text-muted">
-                    点击 '获取access_token' 按钮, 从spring-oauth-server取到access_token数据.
-                    <br/>
-                    若是开发者关心请求的参数,可点击'显示请求参数' 展示请求的参数细节.
-                </p>
+<div class="panel panel-default">
+    <div class="panel-heading">1. <em>通过 grant_type='password' 去获取access_token</em></div>
+    <div class="panel-body">
+        <div class="col-md-10">
+            <p class="text-muted">
+                点击 '获取access_token' 按钮, 从spring-oauth-server取到access_token数据.
+                <br/>
+                若是开发者关心请求的参数,可点击'显示请求参数' 展示请求的参数细节.
+            </p>
 
-                <form class="form-horizontal" action="#" method="post" onsubmit="return false;">
+            <form class="form-horizontal" action="#" method="post" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">accessTokenUri</label>
+
+                    <div class="col-sm-10">
+                        <p class="form-control-static"><code>${accessTokenUri}</code>
+                            &nbsp;<a href="${accessTokenUri}" target="_blank">测试连接</a></p>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" ng-click="showParams()">显示请求参数</a>
+
+                <div ng-show="visible">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">accessTokenUri</label>
+                        <label class="col-sm-2 control-label">client_id</label>
 
                         <div class="col-sm-10">
-                            <p class="form-control-static"><code>${accessTokenUri}</code>
-                                &nbsp;<a href="${accessTokenUri}" target="_blank">测试连接</a></p>
+                            <input type="text" class="form-control" name="client_id" required="required"
+                                   ng-model="clientId"/>
+
+                            <p class="help-block">客户端从 Oauth Server 申请的client_id, 有的Oauth服务器中又叫 appKey</p>
                         </div>
                     </div>
-                    <a href="javascript:void(0);" ng-click="showParams()">显示请求参数</a>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">client_secret</label>
 
-                    <div ng-show="visible">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">client_id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="client_secret" required="required"
+                                   ng-model="clientSecret"/>
 
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="client_id" required="required"
-                                       ng-model="clientId"/>
-
-                                <p class="help-block">客户端从 Oauth Server 申请的client_id, 有的Oauth服务器中又叫 appKey</p>
-                            </div>
+                            <p class="help-block">客户端从 Oauth Server 申请的client_secret, 有的Oauth服务器中又叫 appSecret</p>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">client_secret</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="client_secret" required="required"
-                                       ng-model="clientSecret"/>
-
-                                <p class="help-block">客户端从 Oauth Server 申请的client_secret, 有的Oauth服务器中又叫 appSecret</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">grant_type</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="grant_type" readonly="readonly"
-                                       ng-model="grantType"/>
-
-                                <p class="help-block">固定值 'password'</p>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">scope</label>
-
-                            <div class="col-sm-10">
-                                <select name="scope" ng-model="scope" class="form-control">
-                                    <option value="read">read</option>
-                                    <option value="write">write</option>
-                                    <option value="read,write">read,write</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">username</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" required="required"
-                                       ng-model="username"/>
-
-                                <p class="help-block">用户在 Oauth Server 中的账号名称</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">password</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="password" required="required"
-                                       ng-model="password"/>
-
-                                <p class="help-block">用户在 Oauth Server 中的账号密码</p>
-                            </div>
-                        </div>
-
                     </div>
-                    <br/>
-                    <br/>
-                    <button type="button" class="btn btn-primary" ng-click="getAccessToken()">获取access_token</button>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">grant_type</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="grant_type" readonly="readonly"
+                                   ng-model="grantType"/>
+
+                            <p class="help-block">固定值 'password'</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">scope</label>
+
+                        <div class="col-sm-10">
+                            <select name="scope" ng-model="scope" class="form-control">
+                                <option value="read">read</option>
+                                <option value="write">write</option>
+                                <option value="read,write">read,write</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">username</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="username" required="required"
+                                   ng-model="username"/>
+
+                            <p class="help-block">用户在 Oauth Server 中的账号名称</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">password</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="password" required="required"
+                                   ng-model="password"/>
+
+                            <p class="help-block">用户在 Oauth Server 中的账号密码</p>
+                        </div>
+                    </div>
+
+                </div>
+                <br/>
+                <br/>
+                <button type="button" class="btn btn-primary" ng-click="getAccessToken()">获取access_token</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">2. <em>调用 grant_type='refresh_token' 去换取新的access_token</em></div>
-        <div class="panel-body">
-            <div ng-hide="tokenVisible">请先获取access_token</div>
-            <div ng-show="tokenVisible" class="col-md-11">
+<div class="panel panel-default">
+    <div class="panel-heading">2. <em>调用 grant_type='refresh_token' 去换取新的access_token</em></div>
+    <div class="panel-body">
+        <div ng-hide="tokenVisible">请先获取access_token</div>
+        <div ng-show="tokenVisible" class="col-md-11">
+            <div class="well well-sm">
+                <dl class="dl-horizontal">
+                    <dt>access_token</dt>
+                    <dd><code>{{accessToken}}</code></dd>
+                    <dt>token_type</dt>
+                    <dd><code>{{tokenType}}</code></dd>
+                    <dt>refresh_token</dt>
+                    <dd><code>{{refreshToken}}</code></dd>
+                    <dt>scope</dt>
+                    <dd><code>{{tokenScope}}</code></dd>
+                    <dt>expires_in</dt>
+                    <dd><code>{{expiresIn}}</code></dd>
+                </dl>
+                <p class="text-danger">{{tokenError}}</p>
+
+                <p class="help-block">多次点击 '获取access_token' 将会看到<code>expires_in</code>的变化</p>
+            </div>
+
+            <form class="form-horizontal" action="#" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">refreshTokenUri</label>
+
+                    <div class="col-sm-10">
+                        <p class="form-control-static"><code>${accessTokenUri}</code>
+                            &nbsp;<a href="${accessTokenUri}" target="_blank">测试连接</a></p>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" ng-click="showTokenParams()">显示请求参数</a>
+
+                <div ng-show="tokenParamVisible">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">client_id</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="client_id" required="required"
+                                   ng-model="clientId"/>
+
+                            <p class="help-block">客户端从 Oauth Server 申请的client_id, 有的Oauth服务器中又叫 appKey</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">client_secret</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="client_secret" required="required"
+                                   ng-model="clientSecret"/>
+
+                            <p class="help-block">客户端从 Oauth Server 申请的client_secret, 有的Oauth服务器中又叫 appSecret</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">grant_type</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="grant_type" readonly="readonly"
+                                   ng-model="refreshGrantType"/>
+
+                            <p class="help-block">固定值 'refresh_token'</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">refresh_token</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="refresh_token" readonly="readonly"
+                                   ng-model="refreshToken"/>
+
+                            <p class="help-block">从 Oauth Server 返回的 'refresh_token'</p>
+                        </div>
+                    </div>
+
+                </div>
+                <br/>
+                <br/>
+                <button class="btn btn-info" ng-click="refreshToken()">刷新access_token</button>
+            </form>
+
+            <div ng-show="refreshTokenVisible">
+                <hr/>
+                刷新后的access_token信息
                 <div class="well well-sm">
                     <dl class="dl-horizontal">
                         <dt>access_token</dt>
-                        <dd><code>{{accessToken}}</code></dd>
+                        <dd><code>{{newAccessToken}}</code></dd>
                         <dt>token_type</dt>
-                        <dd><code>{{tokenType}}</code></dd>
+                        <dd><code>{{newTokenType}}</code></dd>
                         <dt>refresh_token</dt>
-                        <dd><code>{{refreshToken}}</code></dd>
+                        <dd><code>{{newRefreshToken}}</code></dd>
                         <dt>scope</dt>
-                        <dd><code>{{tokenScope}}</code></dd>
+                        <dd><code>{{newTokenScope}}</code></dd>
                         <dt>expires_in</dt>
-                        <dd><code>{{expiresIn}}</code></dd>
+                        <dd><code>{{newExpiresIn}}</code></dd>
                     </dl>
-                    <p class="help-block">多次点击 '获取access_token' 将会看到<code>expires_in</code>的变化</p>
+                    <p class="text-danger">{{newTokenError}}</p>
                 </div>
-
-                <form class="form-horizontal" action="#" onsubmit="return false;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">refreshTokenUri</label>
-
-                        <div class="col-sm-10">
-                            <p class="form-control-static"><code>${accessTokenUri}</code>
-                                &nbsp;<a href="${accessTokenUri}" target="_blank">测试连接</a></p>
-                        </div>
-                    </div>
-                    <a href="javascript:void(0);" ng-click="showTokenParams()">显示请求参数</a>
-
-                    <div ng-show="tokenParamVisible">
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">client_id</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="client_id" required="required"
-                                       ng-model="clientId"/>
-
-                                <p class="help-block">客户端从 Oauth Server 申请的client_id, 有的Oauth服务器中又叫 appKey</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">client_secret</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="client_secret" required="required"
-                                       ng-model="clientSecret"/>
-
-                                <p class="help-block">客户端从 Oauth Server 申请的client_secret, 有的Oauth服务器中又叫 appSecret</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">grant_type</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="grant_type" readonly="readonly"
-                                       ng-model="refreshGrantType"/>
-
-                                <p class="help-block">固定值 'refresh_token'</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">refresh_token</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="refresh_token" readonly="readonly"
-                                       ng-model="refreshToken"/>
-
-                                <p class="help-block">从 Oauth Server 返回的 'refresh_token'</p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <br/>
-                    <br/>
-                    <button class="btn btn-info">刷新access_token</button>
-                </form>
-
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -241,6 +262,8 @@
         $scope.visible = false;
         $scope.tokenVisible = false;
         $scope.tokenParamVisible = false;
+
+        $scope.refreshTokenVisible = false;
 
         $scope.showParams = function () {
             $scope.visible = !$scope.visible;
@@ -262,10 +285,31 @@
 
                 $scope.tokenScope = data.scope;
                 $scope.expiresIn = data.expiresIn;
+                //if have error
+                $scope.tokenError = data.error + " " + data.errorDescription;
 
                 $scope.tokenVisible = true;
             });
-        }
+        };
+
+
+        $scope.refreshToken = function () {
+            var uri = "refresh_access_token?clientId=" + $scope.clientId + "&clientSecret=" + $scope.clientSecret + "&grantType=" + $scope.refreshGrantType
+                    + "&refreshToken=" + $scope.refreshToken;
+
+            $http.get(uri).success(function (data) {
+                $scope.newAccessToken = data.accessToken;
+                $scope.newTokenType = data.tokenType;
+                $scope.newRefreshToken = data.refreshToken;
+
+                $scope.newTokenScope = data.scope;
+                $scope.newExpiresIn = data.expiresIn;
+                //if have error
+                $scope.newTokenError = data.error + " " + data.errorDescription;
+
+                $scope.refreshTokenVisible = true;
+            });
+        };
     }];
 </script>
 </body>
