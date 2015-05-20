@@ -26,6 +26,7 @@ public abstract class AbstractResponseHandler<T extends AbstractOauthDto> implem
             dto = parseErrorXML(response, dto);
         } else {
             dto = JsonUtils.textToBean(dto, text);
+            dto.setOriginalText(text);
         }
         return dto;
     }

@@ -26,8 +26,36 @@ public class AuthAccessTokenDto implements Serializable {
 
     private String redirectUri;
 
+    private String scope;
+    private String username;
+    private String password;
+
 
     public AuthAccessTokenDto() {
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getClientId() {
@@ -90,5 +118,12 @@ public class AuthAccessTokenDto implements Serializable {
     public String getFullUri() throws UnsupportedEncodingException {
         String redirect = URLEncoder.encode(redirectUri, "UTF-8");
         return String.format("%s?client_id=%s&client_secret=%s&grant_type=%s&redirect_uri=%s&code=%s", accessTokenUri, clientId, clientSecret, grantType, redirect, code);
+    }
+
+    /*
+   * http://localhost:8080/spring-oauth-server/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+   * */
+    public String getFullAccessTokenUri() {
+        return String.format("%s?client_id=%s&client_secret=%s&grant_type=%s&scope=%s&username=%s&password=%s", accessTokenUri, clientId, clientSecret, grantType, scope, username, password);
     }
 }

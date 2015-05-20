@@ -15,7 +15,7 @@
 <h2>password</h2>
 
 <p>
-    grant_type = 'password' 的模式一般用在移动设备上(如IOS,Android), 适用于非浏览器的环境.
+    grant_type = 'password' 模式一般用在移动设备上(如IOS,Android), 适用于非浏览器的环境.
     <br/>
     在此提供两种方式来展示该模式.
 </p>

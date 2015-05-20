@@ -14,12 +14,25 @@ public abstract class AbstractOauthDto implements Serializable {
     protected String errorDescription;
     protected String error;
 
+
+    //original data
+    protected String originalText;
+
+
     protected AbstractOauthDto() {
     }
 
 
     public boolean error() {
         return StringUtils.isNotEmpty(error) || StringUtils.isNotEmpty(errorDescription);
+    }
+
+    public String getOriginalText() {
+        return originalText;
+    }
+
+    public void setOriginalText(String originalText) {
+        this.originalText = originalText;
     }
 
     public String getErrorDescription() {

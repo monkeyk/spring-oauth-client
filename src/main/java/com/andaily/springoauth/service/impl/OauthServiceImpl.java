@@ -67,4 +67,16 @@ public class OauthServiceImpl implements OauthService {
         }
 
     }
+
+    @Override
+    public AccessTokenDto retrievePasswordAccessTokenDto(AuthAccessTokenDto authAccessTokenDto) {
+        final String fullUri = authAccessTokenDto.getFullAccessTokenUri();
+        LOG.debug("Get [password] access_token URL: {}", fullUri);
+
+        HttpClientExecutor executor = new HttpClientExecutor(fullUri);
+        AccessTokenResponseHandler responseHandler = new AccessTokenResponseHandler();
+        executor.execute(responseHandler);
+
+        return responseHandler.getAccessTokenDto();
+    }
 }

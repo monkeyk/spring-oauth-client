@@ -19,4 +19,6 @@ public interface OauthService {
     AuthAccessTokenDto createAuthAccessTokenDto(AuthCallbackDto callbackDto);
 
     UserDto loadUnityUserDto(String accessToken);
+
+    AccessTokenDto retrievePasswordAccessTokenDto(AuthAccessTokenDto authAccessTokenDto);
 }
