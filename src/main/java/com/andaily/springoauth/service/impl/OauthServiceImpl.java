@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -31,7 +30,7 @@ public class OauthServiceImpl implements OauthService {
 
 
     @Override
-    public AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto) throws UnsupportedEncodingException {
+    public AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto){
         final String fullUri = tokenDto.getAccessTokenUri();
         LOG.debug("Get access_token URL: {}", fullUri);
 

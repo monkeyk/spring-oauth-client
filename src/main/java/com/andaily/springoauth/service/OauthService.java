@@ -2,8 +2,6 @@ package com.andaily.springoauth.service;
 
 import com.andaily.springoauth.service.dto.*;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * @author Shengzhao Li
  */
@@ -11,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 public interface OauthService {
 
 
-    AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto) throws UnsupportedEncodingException;
+    AccessTokenDto retrieveAccessTokenDto(AuthAccessTokenDto tokenDto);
 
     AuthAccessTokenDto createAuthAccessTokenDto(AuthCallbackDto callbackDto);
 

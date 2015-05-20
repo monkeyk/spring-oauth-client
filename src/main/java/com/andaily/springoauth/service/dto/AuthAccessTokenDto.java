@@ -1,8 +1,6 @@
 package com.andaily.springoauth.service.dto;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,14 +115,13 @@ public class AuthAccessTokenDto implements Serializable {
     /*
     * http://localhost:8080/oauth/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
     * */
-    public Map<String, String> getAuthCodeParams() throws UnsupportedEncodingException {
+    public Map<String, String> getAuthCodeParams() {
         Map<String, String> map = new HashMap<>();
         map.put("client_id", clientId);
         map.put("client_secret", clientSecret);
         map.put("grant_type", grantType);
 
-        String redirect = URLEncoder.encode(redirectUri, "UTF-8");
-        map.put("redirect_uri", redirect);
+        map.put("redirect_uri", redirectUri);
         map.put("code", code);
 
         return map;
