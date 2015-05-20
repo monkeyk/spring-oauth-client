@@ -7,7 +7,7 @@ import java.net.URLEncoder;
 /**
  * @author Shengzhao Li
  */
-public class AuthorizationCodeDto  implements Serializable {
+public class AuthorizationCodeDto implements Serializable {
 
 
     private String userAuthorizationUri;
