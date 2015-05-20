@@ -2,10 +2,7 @@ package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
 import com.andaily.springoauth.service.OauthService;
-import com.andaily.springoauth.service.dto.AccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthCallbackDto;
-import com.andaily.springoauth.service.dto.UserDto;
+import com.andaily.springoauth.service.dto.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +34,7 @@ public class OauthServiceImpl implements OauthService {
         final String fullUri = tokenDto.getFullUri();
         LOG.debug("Get access_token URL: {}", fullUri);
 
-        HttpClientExecutor executor = new HttpClientExecutor(fullUri);
-        AccessTokenResponseHandler responseHandler = new AccessTokenResponseHandler();
-        executor.execute(responseHandler);
-        return responseHandler.getAccessTokenDto();
+        return loadAccessTokenDto(fullUri);
     }
 
     @Override
@@ -73,6 +67,18 @@ public class OauthServiceImpl implements OauthService {
         final String fullUri = authAccessTokenDto.getFullAccessTokenUri();
         LOG.debug("Get [password] access_token URL: {}", fullUri);
 
+        return loadAccessTokenDto(fullUri);
+    }
+
+    @Override
+    public AccessTokenDto refreshAccessTokenDto(RefreshAccessTokenDto refreshAccessTokenDto) {
+        final String fullUri = refreshAccessTokenDto.getFullUri();
+        LOG.debug("Get refresh_access_token URL: {}", fullUri);
+
+        return loadAccessTokenDto(fullUri);
+    }
+
+    private AccessTokenDto loadAccessTokenDto(String fullUri) {
         HttpClientExecutor executor = new HttpClientExecutor(fullUri);
         AccessTokenResponseHandler responseHandler = new AccessTokenResponseHandler();
         executor.execute(responseHandler);

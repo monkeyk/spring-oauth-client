@@ -1,9 +1,6 @@
 package com.andaily.springoauth.service;
 
-import com.andaily.springoauth.service.dto.AccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthCallbackDto;
-import com.andaily.springoauth.service.dto.UserDto;
+import com.andaily.springoauth.service.dto.*;
 
 import java.io.UnsupportedEncodingException;
 
@@ -21,4 +18,6 @@ public interface OauthService {
     UserDto loadUnityUserDto(String accessToken);
 
     AccessTokenDto retrievePasswordAccessTokenDto(AuthAccessTokenDto authAccessTokenDto);
+
+    AccessTokenDto refreshAccessTokenDto(RefreshAccessTokenDto refreshAccessTokenDto);
 }

@@ -219,7 +219,7 @@
                 </div>
                 <br/>
                 <br/>
-                <button class="btn btn-info" ng-click="refreshToken()">刷新access_token</button>
+                <button class="btn btn-info" ng-click="executeRefreshToken()">刷新access_token</button>
             </form>
 
             <div ng-show="refreshTokenVisible">
@@ -293,9 +293,9 @@
         };
 
 
-        $scope.refreshToken = function () {
+        $scope.executeRefreshToken = function () {
             var uri = "refresh_access_token?clientId=" + $scope.clientId + "&clientSecret=" + $scope.clientSecret + "&grantType=" + $scope.refreshGrantType
-                    + "&refreshToken=" + $scope.refreshToken;
+                    + "&refreshToken=" + $scope.refreshToken + "&refreshAccessTokenUri=" + encodeURIComponent($scope.accessTokenUri);
 
             $http.get(uri).success(function (data) {
                 $scope.newAccessToken = data.accessToken;
