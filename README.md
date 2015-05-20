@@ -87,6 +87,21 @@
     项目的开发管理使用开源项目 <a href="http://git.oschina.net/mkk/andaily-developer">andaily-developer</a>.
 </p>
 <hr/>
+
+<p>
+    <strong>参考资源</strong>
+    以下是在开发与学习过程中参考的Oauth资源,总结下来方便学习回顾.
+    <ul>
+        <li><p>
+            <a href="http://www.dannysite.com/blog/176/">OAuth2：Authorization Flows</a>
+        </p></li>
+        <li><p>
+            <a href="http://www.dannysite.com/blog/178/">OAuth2：隐式授权（Implicit Grant）类型的开放授权</a>
+        </p></li>
+    </ul>
+</p>
+
+<hr/>
 <p>
  关注更多我的开源项目请访问 <a href="http://andaily.com/my_projects.html">http://andaily.com/my_projects.html</a>
 </p>
