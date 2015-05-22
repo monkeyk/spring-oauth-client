@@ -166,6 +166,7 @@
 
 <script>
     var AuthorizationCodeCtrl = ['$scope', function ($scope) {
+        $scope.userAuthorizationUri = '${userAuthorizationUri}';
         $scope.responseType = 'code';
         $scope.scope = 'read,write';
 
