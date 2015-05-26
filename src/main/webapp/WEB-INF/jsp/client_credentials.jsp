@@ -44,7 +44,7 @@ values
 null,'ROLE_UNITY,ROLE_USER',null,
 null,null, now(), 0, 0);
     </pre>
-    <span class="text-muted">(若已添加则忽略)</span>
+    <span class="text-muted">(若已添加则忽略; 在实际应用中, 添加的数据是需要向服务端申请注册的)</span>
 </div>
 
 <br/>

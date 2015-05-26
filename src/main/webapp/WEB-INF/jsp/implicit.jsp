@@ -36,7 +36,7 @@ null,null, now(), 0, 0);
     <p>
         注意检查SQL中的<code>web_server_redirect_uri</code>字段的值,必须是正确能访问的.
     </p>
-    <span class="text-muted">(若已添加则忽略)</span>
+    <span class="text-muted">(若已添加则忽略; 在实际应用中, 添加的数据是需要向服务端申请注册的)</span>
 </div>
 
 <br/>
