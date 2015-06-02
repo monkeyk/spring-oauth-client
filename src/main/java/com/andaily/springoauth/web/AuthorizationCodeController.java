@@ -5,7 +5,6 @@ import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthCallbackDto;
 import com.andaily.springoauth.service.dto.AuthorizationCodeDto;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -59,13 +59,16 @@ public class AuthorizationCodeController {
 
 
     /*
+   * Save state firstly
    * Redirect to oauth-server login page:   step-2
    * */
     @RequestMapping(value = "authorization_code", method = RequestMethod.POST)
-    public String submitAuthorizationCode(AuthorizationCodeDto codeDto) throws Exception {
-        final String fullUri = codeDto.getFullUri();
-        LOG.debug("Send to Oauth-Server URL: {}", fullUri);
+    public String submitAuthorizationCode(AuthorizationCodeDto codeDto, HttpServletRequest request) throws Exception {
+        //save stats  firstly
+        WebUtils.saveState(request, codeDto.getState());
 
+        final String fullUri = codeDto.getFullUri();
+        LOG.debug("Redirect to Oauth-Server URL: {}", fullUri);
         return "redirect:" + fullUri;
     }
 
@@ -78,14 +81,14 @@ public class AuthorizationCodeController {
    *  authorization_code_callback
    * */
     @RequestMapping(value = "authorization_code_callback")
-    public String authorizationCodeCallback(AuthCallbackDto callbackDto, Model model) throws Exception {
+    public String authorizationCodeCallback(AuthCallbackDto callbackDto, HttpServletRequest request, Model model) throws Exception {
 
         if (callbackDto.error()) {
             //Server response error
             model.addAttribute("message", callbackDto.getError_description());
             model.addAttribute("error", callbackDto.getError());
             return "redirect:oauth_error";
-        } else if (correctState(callbackDto)) {
+        } else if (correctState(callbackDto, request)) {
             //Go to retrieve access_token form
             AuthAccessTokenDto accessTokenDto = oauthService.createAuthAccessTokenDto(callbackDto);
             model.addAttribute("accessTokenDto", accessTokenDto);
@@ -126,9 +129,12 @@ public class AuthorizationCodeController {
     }
 
 
-    private boolean correctState(AuthCallbackDto callbackDto) {
+    /*
+     * Check the state is correct or not after redirect from Oauth Server.
+     */
+    private boolean correctState(AuthCallbackDto callbackDto, HttpServletRequest request) {
         final String state = callbackDto.getState();
-        return StringUtils.isNotEmpty(state);
+        return WebUtils.validateState(request, state);
     }
 
 }
