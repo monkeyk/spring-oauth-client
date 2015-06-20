@@ -17,8 +17,8 @@
 
     <title><decorator:title default=""/> - Spring Security&Oauth2 Client</title>
 
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="http://cdn.bootcss.com/angular.js/1.1.5/angular.min.js"></script>
+    <link href="${contextPath}/resources/bootstrap.min.css" rel="stylesheet"/>
+    <script src="${contextPath}/resources/angular.min.js"></script>
 
     <decorator:head/>
 
