@@ -17,7 +17,7 @@
 
     <title><decorator:title default=""/> - Spring Security&Oauth2 Client</title>
 
-    <link href="${contextPath}/resources/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${contextPath}/resources/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <script src="${contextPath}/resources/angular.min.js"></script>
 
     <decorator:head/>
@@ -34,7 +34,7 @@
         <div class="col-md-12">
             <hr/>
             <p>
-                <a href="mailto:monkeyk1987@gmail.com">monkeyk1987@gmail.com</a>, from <a
+                <a href="mailto:sz@monkeyk.com">sz@monkeyk.com</a>, from <a
                     href="http://git.oschina.net/mkk/spring-oauth-client" target="_blank">spring-oauth-client</a>
             </p>
         </div>
