@@ -39,11 +39,17 @@ public class AndroidClientTest {
     @Test(enabled = false)
     public void getAccessToken() throws Exception {
 
+        /*
+        * 对于每一类设备(client), clientId, clientSecret 是固定的
+        * */
         String clientId = "passw";
         String clientSecret = "passwpassw";
 
         String authUrl = "http://localhost:8080/som/oauth/token";
 
+        /*
+        * 用户在 UI界面上输入 username, password
+        * */
         String username = "mobile";
         String password = "mobile";
 
@@ -63,6 +69,11 @@ public class AndroidClientTest {
     }
 
 
+    /**
+     * Get resource from RS server
+     *
+     * @throws Exception
+     */
     @Test(enabled = false)
     public void getResource() throws Exception {
 
