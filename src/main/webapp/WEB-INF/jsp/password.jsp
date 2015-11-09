@@ -92,7 +92,7 @@
                             <select name="scope" ng-model="scope" class="form-control">
                                 <option value="read">read</option>
                                 <option value="write">write</option>
-                                <option value="read,write">read,write</option>
+                                <option value="read write">read write</option>
                             </select>
                         </div>
                     </div>
@@ -122,6 +122,7 @@
                 <br/>
                 <br/>
                 <button type="submit" class="btn btn-primary">Password grant_type</button>
+                <span class="label label-warning">POST</span>
             </form>
         </div>
     </div>
@@ -135,7 +136,7 @@
 
         $scope.username = "mobile";
         $scope.password = "mobile";
-        $scope.scope = "read,write";
+        $scope.scope = "read write";
 
         $scope.visible = false;
 
