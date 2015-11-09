@@ -157,7 +157,8 @@
                 <br/>
                 <br/>
                 <button type="submit" class="btn btn-primary">去登录</button>
-                <span class="text-muted">将重定向到 'spring-oauth-server' 的登录页面</span>
+                <span class="text-muted">将重定向到 'spring-oauth-server' 的登录页面</span> <span
+                    class="label label-info">GET</span>
             </form>
 
         </div>
