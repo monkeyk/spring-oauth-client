@@ -106,7 +106,8 @@
                 <br/>
                 <br/>
                 <button type="submit" class="btn btn-primary">获取 access_token</button>
-                <span class="text-muted">后台将通过 HttpClient 去获取 access_token</span>
+                <span class="text-muted">后台将通过 HttpClient 去获取 access_token</span> <span
+                    class="label label-warning">POST</span>
                 <br/>
                 <small class="text-muted">
                     <em class="glyphicon glyphicon-info-sign"></em> 在实际应用中, 该步骤一般由后台代码完成,前端不需要表现.

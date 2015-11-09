@@ -1,6 +1,7 @@
 package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
+import com.andaily.springoauth.infrastructure.httpclient.HttpClientPostExecutor;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.*;
 import org.apache.commons.lang.StringUtils;
@@ -88,7 +89,7 @@ public class OauthServiceImpl implements OauthService {
 
 
     private AccessTokenDto loadAccessTokenDto(String fullUri, Map<String, String> params) {
-        HttpClientExecutor executor = new HttpClientExecutor(fullUri);
+        HttpClientExecutor executor = new HttpClientPostExecutor(fullUri);
         for (String key : params.keySet()) {
             executor.addRequestParam(key, params.get(key));
         }
