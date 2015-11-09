@@ -120,7 +120,7 @@ null,null, now(), 0, 0);
                     </div>
                     <br/>
                     <br/>
-                    <button class="btn btn-primary" type="submit">登录并授权</button>
+                    <button class="btn btn-primary" type="submit">登录并授权</button> <span class="label label-info">GET</span>
                 </form>
             </div>
         </div>

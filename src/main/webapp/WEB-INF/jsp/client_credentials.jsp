@@ -109,7 +109,7 @@ null,null, now(), 0, 0);
                                 <select name="scope" ng-model="scope" class="form-control">
                                     <option value="read">read</option>
                                     <option value="write">write</option>
-                                    <option value="read,write">read,write</option>
+                                    <option value="read write">read write</option>
                                 </select>
                             </div>
                         </div>
@@ -118,6 +118,7 @@ null,null, now(), 0, 0);
                     <br/>
                     <br/>
                     <button class="btn btn-primary" ng-click="getAccessToken()">获取access_token</button>
+                    <span class="label label-warning">POST</span>
                 </form>
             </div>
         </div>
@@ -159,7 +160,7 @@ null,null, now(), 0, 0);
         $scope.clientSecret = "credentials-secret";
         $scope.grantType = "client_credentials";
 
-        $scope.scope = "read,write";
+        $scope.scope = "read write";
         $scope.visible = false;
         $scope.tokenVisible = false;
 
