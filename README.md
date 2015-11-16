@@ -14,8 +14,8 @@
 使用的技术与版本号
 <ol>
      <li>JDK (1.7.0_40)</li>
-     <li>Spring (3.1.1.RELEASE)</li>
-     <li>Spring MVC (3.1.1.RELEASE)</li>
+     <li>Spring (4.1.6.RELEASE)</li>
+     <li>Spring MVC (4.1.6.RELEASE)</li>
      <li>HttpClient (4.3.5)</li>
      <li>json-lib (2.4)</li>
      <li>Log4j (1.2.14)</li>
@@ -29,6 +29,9 @@
 
 <h3>
     Oauth服务端项目请访问 <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
+</h3>
+<h3>
+    在线测试地址 <a href="https://andaily.com/spring-oauth-client/">spring-oauth-client</a>
 </h3>
 
 <hr/>
@@ -92,10 +95,13 @@
     <strong>项目日志</strong>
     <ol>
         <li>
-            <p>2015-03-17    项目创建. </p>
+            <p>2015-03-17    项目创建</p>
         </li>
         <li>
-            <p>2015-06-02    V-0.1版本发布. </p>
+            <p>2015-06-02    V-0.1版本发布</p>
+        </li>
+        <li>
+            <p>2015-11-16    添加在线测试, 访问地址 https://andaily.com/spring-oauth-client/ </p>
         </li>
     </ol>
 </p>
