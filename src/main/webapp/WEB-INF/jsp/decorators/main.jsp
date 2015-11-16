@@ -33,9 +33,10 @@
     <div class="row">
         <div class="col-md-12">
             <hr/>
-            <p>
-                <a href="mailto:sz@monkeyk.com">sz@monkeyk.com</a>, from <a
-                    href="http://git.oschina.net/mkk/spring-oauth-client" target="_blank">spring-oauth-client</a>
+            <p class="text-center text-muted">
+                &copy; 2013 - 2015
+                <a href="mailto:sz@monkeyk.com">sz@monkeyk.com</a> from <a
+                    href="http://git.oschina.net/shengzhao/spring-oauth-server" target="_blank">spring-oauth-server</a>
             </p>
         </div>
     </div>
