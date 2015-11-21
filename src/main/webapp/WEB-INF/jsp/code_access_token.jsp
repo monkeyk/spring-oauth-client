@@ -58,7 +58,7 @@
 
                         <div class="col-sm-10">
                             <input type="text" name="clientId" required="required"
-                                   class="form-control" ng-model="clientId" readonly="readonly"/>
+                                   class="form-control" ng-model="clientId"/>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
 
                         <div class="col-sm-10">
                             <input type="text" name="clientSecret" required="required"
-                                   class="form-control" ng-model="clientSecret" readonly="readonly"/>
+                                   class="form-control" ng-model="clientSecret"/>
                         </div>
                     </div>
 
@@ -86,7 +86,7 @@
                         <label class="col-sm-2 control-label">redirect_uri</label>
 
                         <div class="col-sm-10">
-                            <input type="text" name="redirectUri" readonly="readonly" class="form-control"
+                            <input type="text" name="redirectUri" class="form-control"
                                    required="required" size="50" ng-model="redirectUri"/>
 
                             <p class="help-block">这一步的 'redirect_uri' 必须与上一步的 'redirect_uri' 一样</p>

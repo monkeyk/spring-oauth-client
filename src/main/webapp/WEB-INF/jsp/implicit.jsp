@@ -163,7 +163,7 @@ null,null, now(), 0, 0);
         $scope.responseType = "token";
 
         $scope.scope = "read";
-        $scope.redirectUri = "http://localhost:7777/spring-oauth-client/implicit";
+        $scope.redirectUri = "${host}implicit";
 
         $scope.visible = false;
         $scope.tokenVisible = false;

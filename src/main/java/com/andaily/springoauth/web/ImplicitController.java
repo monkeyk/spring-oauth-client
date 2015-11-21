@@ -26,6 +26,9 @@ public class ImplicitController {
     @Value("#{properties['unityUserInfoUri']}")
     private String unityUserInfoUri;
 
+    @Value("#{properties['application-host']}")
+    private String host;
+
 
     /*
    * Entrance:   step-1
@@ -35,6 +38,7 @@ public class ImplicitController {
         LOG.debug("Go to 'implicit' page, userAuthorizationUri = {}", userAuthorizationUri);
         model.addAttribute("userAuthorizationUri", userAuthorizationUri);
         model.addAttribute("unityUserInfoUri", unityUserInfoUri);
+        model.addAttribute("host", host);
         return "implicit";
     }
 
