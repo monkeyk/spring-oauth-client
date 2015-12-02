@@ -59,6 +59,12 @@
                另: 也可通过maven package命令将项目编译为war文件(spring-oauth-client.war),
                      将war放在Tomcat中并启动(注意: 这种方式需要将spring-oauth-client.properties加入到classpath中并正确配置)
         </li>
+        <li>
+            <p>
+                若在<strong>Android</strong>中使用, 可查看示例代码 <code>AndroidClientTest.java</code>(位于<em> src/master/src /test /java /com/andaily/springoauth/client/</em>目录).
+                里面包括获取 access_token 与 调用API的示例.
+            </p>
+        </li>
     </ol>
 </p>
 
