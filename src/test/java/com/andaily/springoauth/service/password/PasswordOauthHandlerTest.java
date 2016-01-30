@@ -31,7 +31,7 @@ public class PasswordOauthHandlerTest {
      *
      * @throws Exception
      */
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void getAccessToken() throws Exception {
         final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
@@ -116,7 +116,7 @@ public class PasswordOauthHandlerTest {
     }
 
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void getMobileUserDto() throws Exception {
         final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
