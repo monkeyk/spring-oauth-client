@@ -125,7 +125,7 @@
                         <label class="col-sm-2 control-label">redirect_uri</label>
 
                         <div class="col-sm-10">
-                            <input type="text" name="redirectUri" readonly="readonly" class="form-control"
+                            <input type="text" name="redirectUri" class="form-control"
                                    required="required" size="50" ng-model="redirectUri"/>
 
                             <p class="help-block">

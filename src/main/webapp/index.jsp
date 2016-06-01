@@ -40,7 +40,7 @@
             <p>
                 <em>
                     在开始使用之前, 请确保 <a href="http://git.oschina.net/shengzhao/spring-oauth-server" target="_blank">spring-oauth-server</a>
-                    项目已正确运行, 且 spring-oauth-client.properties (位于项目的src/main/resources目录) 配置正确
+                    项目已正确运行, 且 spring-oauth-client.properties (位于项目的 src/main/resources 目录) 配置正确
                 </em>
             </p>
         </li>
