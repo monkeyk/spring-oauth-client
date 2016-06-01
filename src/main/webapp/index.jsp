@@ -72,6 +72,12 @@
             <p><a href="refresh_token">refresh_token</a> <br/>刷新access_token</p>
         </li>
     </ul>
+    <br/>
+
+    <p class="alert alert-warning">
+        <strong>注意</strong>: 在测试时默认填写的数据有可能不正确, 建议先在 <a href="https://andaily.com/spring-oauth-server/" target="_blank">spring-oauth-server</a>
+        添加 client_details 后, 使用其client_id, client_secret来进行测试.
+    </p>
 </div>
 </body>
 </html>
