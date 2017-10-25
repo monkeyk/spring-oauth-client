@@ -31,7 +31,7 @@
     Oauth服务端项目请访问 <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
 </h3>
 <h3>
-    在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a>
+    在线测试地址 <a href="http://andaily.com/spring-oauth-client/">http://andaily.com/spring-oauth-client/</a>
 </h3>
 
 <hr/>
@@ -107,7 +107,7 @@
             <p>2015-06-02    V-0.1版本发布</p>
         </li>
         <li>
-            <p>2015-11-16    添加在线测试, 访问地址 https://andaily.com/spring-oauth-client/ </p>
+            <p>2015-11-16    添加在线测试, 访问地址 http://andaily.com/spring-oauth-client/ </p>
         </li>
     </ol>
 </p>
