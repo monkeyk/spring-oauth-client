@@ -169,7 +169,7 @@
     var AuthorizationCodeCtrl = ['$scope', function ($scope) {
         $scope.userAuthorizationUri = '${userAuthorizationUri}';
         $scope.responseType = 'code';
-        $scope.scope = 'read write';
+        $scope.scope = 'read';
 
         $scope.clientId = 'unity-client';
         $scope.redirectUri = '${host}authorization_code_callback';
