@@ -60,6 +60,7 @@
                             <Implementation-Version>
                                 ${project.version}
                             </Implementation-Version>
+                            <Built-Time>${maven.build.timestamp}</Built-Time>
                         </manifestEntries>
                     </archive>
                 </configuration>
