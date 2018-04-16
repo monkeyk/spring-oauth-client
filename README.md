@@ -109,6 +109,9 @@
         <li>
             <p>2015-11-16    添加在线测试, 访问地址 http://andaily.com/spring-oauth-client/ </p>
         </li>
+        <li>
+            <p>2018-04-16    V-1.0发布; 开始V-1.1,增加对OIDC协议支持 </p>
+        </li>
     </ol>
 </p>
 
