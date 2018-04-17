@@ -4,7 +4,9 @@
   spring-oauth-client depend on <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>,
   it is the oauth2 client demos.
 </div>
-
+<div>
+    <strong>注意</strong>  从 1.1 版本开始支持 spring-oauth-server  config分支 (旧版本的spring-oauth-server 测试请使用 1.0 分支)
+</div>
 <hr/>
 
 
