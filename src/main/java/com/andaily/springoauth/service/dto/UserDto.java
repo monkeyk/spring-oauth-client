@@ -14,7 +14,7 @@ public class UserDto extends AbstractOauthDto {
 
     private boolean archived;
     private String email;
-    private String guid;
+    private String uuid;
 
     private String phone;
     private String username;
@@ -47,12 +47,12 @@ public class UserDto extends AbstractOauthDto {
         this.email = email;
     }
 
-    public String getGuid() {
-        return guid;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setGuid(String guid) {
-        this.guid = guid;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getPhone() {

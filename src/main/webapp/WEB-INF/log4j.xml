@@ -19,10 +19,10 @@
 
 
     <!--spring logger-->
-    <logger name="org.springframework" additivity="false">
-        <level value="WARN"/>
-        <appender-ref ref="Console"/>
-    </logger>
+    <!--<logger name="org.springframework" additivity="false">-->
+        <!--<level value="WARN"/>-->
+        <!--<appender-ref ref="Console"/>-->
+    <!--</logger>-->
 
 
 </log4j:configuration>

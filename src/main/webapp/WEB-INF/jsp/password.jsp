@@ -136,7 +136,7 @@
 
         $scope.username = "mobile";
         $scope.password = "mobile";
-        $scope.scope = "read write";
+        $scope.scope = "read";
 
         $scope.visible = false;
 

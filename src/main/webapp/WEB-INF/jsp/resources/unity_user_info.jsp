@@ -18,8 +18,8 @@
 <dl class="dl-horizontal">
     <dt>username</dt>
     <dd><code>${userDto.username}</code></dd>
-    <dt>guid</dt>
-    <dd><code>${userDto.guid}</code></dd>
+    <dt>uuid</dt>
+    <dd><code>${userDto.uuid}</code></dd>
     <dt>phone</dt>
     <dd><code>${userDto.phone}</code></dd>
     <dt>email</dt>
