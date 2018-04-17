@@ -141,7 +141,7 @@ public class PasswordOauthHandlerTest {
         assertFalse(userDto.error());
 
         assertNotNull(userDto.getUsername());
-        assertNotNull(userDto.getGuid());
+        assertNotNull(userDto.getUuid());
 
         /*
        * Test case 2:  illegal access_token
