@@ -40,7 +40,7 @@ insert into oauth_client_details
 web_server_redirect_uri,authorities, access_token_validity,
 refresh_token_validity, additional_information, create_time, archived, trusted)
 values
-('credentials-client','unity-resource', '$2a$10$Dl2VwWVv/3h5KzK02gysheH7sy28weESL84DiO/CvUiGKcoXGTVlO', 'read,write','client_credentials',
+('credentials-client','sos-resource', '$2a$10$Dl2VwWVv/3h5KzK02gysheH7sy28weESL84DiO/CvUiGKcoXGTVlO', 'read,write','client_credentials',
 null,'ROLE_UNITY,ROLE_USER',null,
 null,null, now(), 0, 0);
     </pre>
