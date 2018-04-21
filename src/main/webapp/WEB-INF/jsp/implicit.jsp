@@ -29,7 +29,7 @@ insert into oauth_client_details
 web_server_redirect_uri,authorities, access_token_validity,
 refresh_token_validity, additional_information, create_time, archived, trusted)
 values
-('implicit-client','unity-resource', 'implicit-secret', 'read','implicit',
+('implicit-client','sos-resource', 'implicit-secret', 'read','implicit',
 'http://localhost:7777/spring-oauth-client/implicit','ROLE_UNITY,ROLE_USER',null,
 null,null, now(), 0, 0);
     </pre>
