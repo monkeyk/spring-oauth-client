@@ -34,7 +34,7 @@
 <strong>
     OAuth服务端项目请访问 <a href="https://gitee.com/shengzhao/spring-oauth-server">spring-oauth-server</a>
 </strong>
-
+<br/>
 <strong>
     在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a>
 </strong>
@@ -117,6 +117,9 @@
     </li>
     <li>
         <p>2018-04-16    V-1.0发布; 开始V-1.1,增加对OIDC协议支持 </p>
+    </li>   
+<li>
+        <p>2023-11-04    v2.0.0准备开发, 升级支持spring-oauth-server中 OAuth2.1与OIDC 1.0 协议 </p>
     </li>
 </ol>
 
@@ -130,9 +133,9 @@
     <li><p>
         <a href="http://www.dannysite.com/blog/176/">OAuth2：Authorization Flows</a>
     </p></li>
-    <li><p>
+    <li><del>
         <a href="http://www.dannysite.com/blog/178/">OAuth2：隐式授权（Implicit Grant）类型的开放授权</a>
-    </p></li>
+    </del> <code>OAuth2.1中不再支持</code></li>
     <li><p>
         <a href="http://www.tuicool.com/articles/QrUVvuf">oauth2.0协议之Implicit grant模式解析</a>
     </p></li>
