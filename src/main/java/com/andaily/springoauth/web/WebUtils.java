@@ -19,7 +19,7 @@ public abstract class WebUtils {
     }
 
 
-    /*
+    /**
      *  Save state to ServletContext, key = value = state
      */
     public static void saveState(HttpServletRequest request, String state) {
@@ -27,7 +27,7 @@ public abstract class WebUtils {
         servletContext.setAttribute(state, state);
     }
 
-    /*
+    /**
      *  Validate state when callback from Oauth Server.
      *  If validation successful, will remove it from ServletContext.
      */
