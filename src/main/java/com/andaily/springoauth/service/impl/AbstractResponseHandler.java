@@ -5,6 +5,8 @@ import com.andaily.springoauth.infrastructure.httpclient.MkkHttpResponse;
 import com.andaily.springoauth.infrastructure.json.JsonUtils;
 import com.andaily.springoauth.service.dto.AbstractOauthDto;
 import org.apache.http.StatusLine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -17,11 +19,16 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public abstract class AbstractResponseHandler<T extends AbstractOauthDto> implements HttpResponseHandler {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractResponseHandler.class);
+
     protected static final String ERROR_DATA_KEY = "<oauth>";
 
 
     protected T responseToDto(MkkHttpResponse response, T dto) {
         final String text = response.responseAsString();
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Response text: {}", text);
+        }
         if (text.startsWith(ERROR_DATA_KEY)) {
             dto = parseErrorXML(response, dto);
         } else {
