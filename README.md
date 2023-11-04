@@ -34,6 +34,7 @@
 <strong>
     OAuth服务端项目请访问 <a href="https://gitee.com/shengzhao/spring-oauth-server">spring-oauth-server</a>
 </strong>
+
 <strong>
     在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a>
 </strong>
@@ -142,9 +143,9 @@
 
 ## 周边相关
 
-<h4>
+<div>
     与项目相关的技术文章请访问 <a href="https://andaily.com/blog/?cat=19">https://andaily.com/blog/?cat=19</a> (不断更新与OAuth相关的文章)
-</h4>
+</div>
 <p>
     <strong>问答与讨论</strong>
     <br/>
