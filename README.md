@@ -37,7 +37,7 @@
 </h3>
 
 <hr/>
-<p>
+<div>
     <strong>如何使用?</strong>
     <br/>
     前提: 在使用之前必须保证 spring-oauth-server 项目已正常运行.
@@ -68,7 +68,7 @@
             </p>
         </li>
     </ol>
-</p>
+</div>
 
 
 <hr/>
@@ -99,7 +99,7 @@
 </p>
 <hr/>
 
-<p>
+<div>
     <strong>项目日志</strong>
     <ol>
         <li>
@@ -115,10 +115,10 @@
             <p>2018-04-16    V-1.0发布; 开始V-1.1,增加对OIDC协议支持 </p>
         </li>
     </ol>
-</p>
+</div>
 
 <hr/>
-<p>
+<div>
     <strong>参考资源</strong>
     <br/>
     以下是在开发与学习过程中参考的Oauth资源,总结下来方便学习回顾.
@@ -133,22 +133,22 @@
             <a href="http://www.tuicool.com/articles/QrUVvuf">oauth2.0协议之Implicit grant模式解析</a>
         </p></li>
     </ul>
-</p>
+</div>
 
 <hr/>
 <h4>
-    与项目相关的技术文章请访问 <a href="http://andaily.com/blog/?cat=19">http://andaily.com/blog/?cat=19</a> (不断更新与Oauth相关的文章)
+    与项目相关的技术文章请访问 <a href="https://andaily.com/blog/?cat=19">https://andaily.com/blog/?cat=19</a> (不断更新与OAuth相关的文章)
 </h4>
 <p>
     <strong>问答与讨论</strong>
     <br/>
-    与项目相关的，与Oauth相关的问题与回答，以及各类讨论请访问<br/>
-    <a href="http://andaily.com/blog/?dwqa-question_category=oauth">http://andaily.com/blog/?dwqa-question_category=oauth</a>
+    与项目相关的，与OAuth相关的问题与回答，以及各类讨论请访问<br/>
+    <a href="https://andaily.com/blog/?dwqa-question_category=oauth">https://andaily.com/blog/?dwqa-question_category=oauth</a>
 </p>
 
 <br/>
 <p>
- 关注更多我的开源项目请访问 <a href="http://andaily.com/my_projects.html">http://andaily.com/my_projects.html</a>
+ 关注更多我的开源项目请访问 <a href="https://andaily.com/my_projects.html">https://andaily.com/my_projects.html</a>
 </p>
 <p>
  若需更多的技术支持请联系 <a href="mailto:monkeyk@shengzhaoli.com">monkeyk@shengzhaoli.com</a>
