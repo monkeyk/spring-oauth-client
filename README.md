@@ -30,10 +30,10 @@
 <hr/>
 
 <h3>
-    Oauth服务端项目请访问 <a href="http://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
+    OAuth服务端项目请访问 <a href="https://git.oschina.net/shengzhao/spring-oauth-server">spring-oauth-server</a>
 </h3>
 <h3>
-    在线测试地址 <a href="http://andaily.com/spring-oauth-client/">http://andaily.com/spring-oauth-client/</a>
+    在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a>
 </h3>
 
 <hr/>
