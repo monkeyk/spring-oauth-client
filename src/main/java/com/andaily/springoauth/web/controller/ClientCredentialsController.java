@@ -3,6 +3,7 @@ package com.andaily.springoauth.web.controller;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
+import jakarta.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletResponse;
 
 import static com.andaily.springoauth.web.WebUtils.writeJson;
 
@@ -40,7 +40,7 @@ public class ClientCredentialsController {
     @Autowired
     private OauthService oauthService;
 
-    /*
+    /**
    * Entrance:   step-1
    * */
     @RequestMapping(value = "client_credentials", method = RequestMethod.GET)
@@ -52,7 +52,7 @@ public class ClientCredentialsController {
     }
 
 
-    /*
+    /**
    * Ajax call , get access_token
    * */
     @RequestMapping(value = "credentials_access_token")

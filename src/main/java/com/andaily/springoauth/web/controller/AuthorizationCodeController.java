@@ -6,6 +6,7 @@ import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthCallbackDto;
 import com.andaily.springoauth.service.dto.AuthorizationCodeDto;
 import com.andaily.springoauth.web.WebUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.UUID;
 
 /**
@@ -46,7 +47,7 @@ public class AuthorizationCodeController {
     private OauthService oauthService;
 
 
-    /*
+    /**
    * Entrance:   step-1
    * */
     @RequestMapping(value = "authorization_code", method = RequestMethod.GET)
@@ -59,7 +60,7 @@ public class AuthorizationCodeController {
     }
 
 
-    /*
+    /**
    * Save state firstly
    * Redirect to oauth-server login page:   step-2
    * */
@@ -74,7 +75,7 @@ public class AuthorizationCodeController {
     }
 
 
-    /*
+    /**
    * Oauth callback (redirectUri):   step-3
    *
    * Handle 'code', go to 'access_token' ,validation oauth-server response data

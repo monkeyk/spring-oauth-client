@@ -4,6 +4,7 @@ import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
 import com.andaily.springoauth.service.dto.RefreshAccessTokenDto;
+import jakarta.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletResponse;
+
 
 import static com.andaily.springoauth.web.WebUtils.writeJson;
 
@@ -38,7 +39,7 @@ public class RefreshTokenController {
     private String accessTokenUri;
 
 
-    /*
+    /**
    * Entrance:   step-1
    * */
     @RequestMapping(value = "refresh_token", method = RequestMethod.GET)
@@ -48,7 +49,7 @@ public class RefreshTokenController {
         return "refresh_token";
     }
 
-    /*
+    /**
     * Ajax call , get access_token
     * */
     @RequestMapping(value = "password_access_token")
@@ -57,7 +58,7 @@ public class RefreshTokenController {
         writeJson(response, JSONObject.fromObject(accessTokenDto));
     }
 
-    /*
+    /**
     * Ajax call , refresh access_token
     * */
     @RequestMapping(value = "refresh_access_token")

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Handle 'implicit'  type actions
  *
  * @author Shengzhao Li
+ * @deprecated OAuth2.1 not yet supported
  */
 @Controller
 public class ImplicitController {
