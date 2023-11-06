@@ -1,0 +1,28 @@
+<!--  @since 2.0.0 -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fragments</title>
+
+    <div th:fragment="header-css">
+        <link href="/static/bootstrap/bootstrap.min.css" th:href="@{/bootstrap/bootstrap.min.css}" rel="stylesheet"/>
+        <script src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
+    </div>
+
+</head>
+<body>
+
+<div th:fragment="footer" id="footer-default">
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <p class="text-center text-muted">
+                &copy; 2013 - 2023 <a href="https://gitee.com/mkk/spring-oauth-client" target="_blank">spring-oauth-client</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
