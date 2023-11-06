@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.json.JSON;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.MediaType;
 
 
 import java.io.IOException;
@@ -48,7 +49,7 @@ public abstract class WebUtils {
 
 
     public static void writeJson(HttpServletResponse response, JSON json) {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         try {
             PrintWriter writer = response.getWriter();
             json.write(writer);
