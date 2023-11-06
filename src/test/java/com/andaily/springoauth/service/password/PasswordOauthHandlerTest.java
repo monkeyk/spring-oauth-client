@@ -2,14 +2,14 @@ package com.andaily.springoauth.service.password;
 
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.UserDto;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.UUID;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * @author Shengzhao Li
@@ -20,7 +20,7 @@ public class PasswordOauthHandlerTest {
     private PasswordOauthHandler passwordOauthHandler;
 
 
-    @BeforeTest
+//    @BeforeTest
     public void before() {
         this.passwordOauthHandler = new PasswordOauthHandler();
     }
@@ -31,8 +31,10 @@ public class PasswordOauthHandlerTest {
      *
      * @throws Exception
      */
-    @Test(enabled = false)
+    @Test
+    @Disabled
     public void getAccessToken() throws Exception {
+        before();
         final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
         /*
@@ -116,7 +118,8 @@ public class PasswordOauthHandlerTest {
     }
 
 
-    @Test(enabled = false)
+    @Test
+    @Disabled
     public void getMobileUserDto() throws Exception {
         final String accessTokenUri = "http://localhost:8080/spring-oauth-server/oauth/token";
 
