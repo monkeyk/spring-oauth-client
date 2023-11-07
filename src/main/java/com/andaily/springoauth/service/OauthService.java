@@ -30,4 +30,20 @@ public interface OauthService {
      * @since 2.0.0
      */
     UserinfoDto loadUserinfoDto(String accessToken);
+
+    /**
+     * save client details
+     *
+     * @since 2.0.0
+     */
+    String saveClientDetails(ClientDetailsDto clientDetailsDto);
+
+    /**
+     * 加载保存的 client details
+     * 未保存返回 null
+     *
+     * @return ClientDetailsDto
+     * @since 2.0.0
+     */
+    ClientDetailsDto loadClientDetails();
 }

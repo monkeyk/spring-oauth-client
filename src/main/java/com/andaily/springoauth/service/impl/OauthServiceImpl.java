@@ -3,11 +3,13 @@ package com.andaily.springoauth.service.impl;
 import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientPostExecutor;
+import com.andaily.springoauth.infrastructure.repository.ClientDetailsRepository;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -23,11 +25,8 @@ public class OauthServiceImpl implements OauthService {
     private static final Logger LOG = LoggerFactory.getLogger(OauthServiceImpl.class);
 
 
-//    @Value("#{properties['access-token-uri']}")
-//    private String accessTokenUri;
-//
-//    @Value("#{properties['unityUserInfoUri']}")
-//    private String unityUserInfoUri;
+    @Autowired
+    private ClientDetailsRepository clientDetailsRepository;
 
 
     @Override
@@ -104,6 +103,28 @@ public class OauthServiceImpl implements OauthService {
 
             return responseHandler.getUserinfoDto();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String saveClientDetails(ClientDetailsDto clientDetailsDto) {
+        return clientDetailsRepository.saveClientDetails(clientDetailsDto);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ClientDetailsDto loadClientDetails() {
+        ClientDetailsDto clientDetails = clientDetailsRepository.findDefaultClientDetails();
+        if (clientDetails == null) {
+            //init empty client details
+            clientDetails = new ClientDetailsDto();
+        }
+        return clientDetails;
     }
 
 

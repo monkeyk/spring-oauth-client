@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>Spring Security&OAuth2 Client is work!</h2>
+    <h2>Spring OAuth Client is work!<small>v2.0.0</small></h2>
 
 
     <div>
@@ -66,11 +66,17 @@
                     <code>introspection_endpoint</code> 等信息
                 </p>
             </li>
+            <li>
+                在对各菜单进行操作之前，请先填写从 spring-oauth-server 中获取或创建的客户端(client_details)信息并保存.
+                <form action="#" th:action="@{/client_details}" method="post" class="form-horizontal">
+
+                </form>
+            </li>
         </ol>
     </div>
     <br/>
 
-    <p>
+    <p class="help-block">
         &Delta; 注意: 项目前端使用了 Angular-JS 来处理动态数据展现.
     </p>
     <hr/>

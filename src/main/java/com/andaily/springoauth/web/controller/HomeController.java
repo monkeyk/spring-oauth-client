@@ -1,5 +1,8 @@
 package com.andaily.springoauth.web.controller;
 
+import com.andaily.springoauth.service.OauthService;
+import com.andaily.springoauth.service.dto.ClientDetailsDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,9 @@ import static com.andaily.springoauth.infrastructure.OAuth2Holder.fullWellKnownU
 public class HomeController {
 
 
+    @Autowired
+    private OauthService oauthService;
+
     /**
      * 首页
      *
@@ -23,6 +29,8 @@ public class HomeController {
      */
     @GetMapping("/")
     public String index(Model model) {
+        ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
+        model.addAttribute("clientDetails", clientDetailsDto);
         model.addAttribute("fullWellKnownUrl", fullWellKnownUrl());
         return "index";
     }
