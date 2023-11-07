@@ -77,6 +77,11 @@ public class OAuth2Holder implements InitializingBean {
      */
     private static JSONObject wellKnownJson;
 
+    /**
+     * spring-oauth-server or myoidc-server  wellKnown full url
+     */
+    private static String fullWellKnownUrl;
+
 
     public OAuth2Holder() {
     }
@@ -114,6 +119,10 @@ public class OAuth2Holder implements InitializingBean {
         return wellKnownJson;
     }
 
+    public static String fullWellKnownUrl() {
+        return fullWellKnownUrl;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(oauth2ServerHost, "oauth2.server.host is null");
@@ -122,7 +131,7 @@ public class OAuth2Holder implements InitializingBean {
         }
 
         //请求 wellknown url
-        String fullWellKnownUrl = oauth2ServerHost + wellKnownUrl;
+        fullWellKnownUrl = oauth2ServerHost + wellKnownUrl;
         if (LOG.isDebugEnabled()) {
             LOG.debug("Will request fullWellKnownUrl: {}", fullWellKnownUrl);
         }

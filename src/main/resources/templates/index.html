@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"/>
 
-    <title>Home</title>
+    <title>Home . spring-oauth-client</title>
 
     <th:block th:insert="~{fragments/main::header-css}"/>
 </head>
@@ -50,6 +50,20 @@
                         (版本v3.0.0以上)
                         项目已正确运行, 且 application.properties (位于项目的 src/main/resources 目录) 配置正确
                     </em>
+                </p>
+            </li>
+            <li>
+                <p>
+                    可先访问 spring-oauth-server 提供的OIDC <a
+                        th:href="${fullWellKnownUrl}" target="_blank">.well-known/openid-configuration</a> 获取
+                    <code>authorization_endpoint</code>,
+                    <code>token_endpoint</code>,
+                    <code>userinfo_endpoint</code>,
+                    <code>end_session_endpoint</code>,
+                    <code>jwks_uri</code>,
+                    <code>issuer</code>,
+                    <code>revocation_endpoint</code>,
+                    <code>introspection_endpoint</code> 等信息
                 </p>
             </li>
         </ol>
