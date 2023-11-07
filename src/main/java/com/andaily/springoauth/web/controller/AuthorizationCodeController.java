@@ -54,7 +54,7 @@ public class AuthorizationCodeController {
     @RequestMapping(value = "authorization_code", method = RequestMethod.GET)
     public String authorizationCode(Model model) {
         model.addAttribute("userAuthorizationUri", OAuth2Holder.authorizeUrl());
-        model.addAttribute("host", host);
+        model.addAttribute("host", host.endsWith("/") ? host : host + "/");
 //        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         model.addAttribute("state", UUID.randomUUID().toString());
         return "authorization_code";

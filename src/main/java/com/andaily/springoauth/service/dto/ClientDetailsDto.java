@@ -26,7 +26,7 @@ public class ClientDetailsDto implements Serializable {
 
     /**
      * OIDC scope 值, 多个由逗号分隔
-     * 如: openid,profile,email
+     * 如: openid profile email
      */
     @NotBlank(message = "scopes is required")
     private String scopes = "openid";
