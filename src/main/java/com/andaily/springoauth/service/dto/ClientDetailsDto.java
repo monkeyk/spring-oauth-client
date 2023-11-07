@@ -36,7 +36,7 @@ public class ClientDetailsDto implements Serializable {
      * 如: authorization_code,refresh_token
      */
     @NotBlank(message = "grantTypes is required")
-    private String authorizationGrantTypes;
+    private String authorizationGrantTypes = "authorization_code refresh_token";
 
     /**
      * OAuth2 认证后回调uri， 一般传递code, 多个由逗号分隔
