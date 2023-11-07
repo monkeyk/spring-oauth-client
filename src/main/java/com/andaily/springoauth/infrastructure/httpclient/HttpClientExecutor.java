@@ -27,29 +27,40 @@ import java.util.*;
  */
 public class HttpClientExecutor {
 
-    /*
-    * Available content Types
-    * */
+    /**
+     * Available content Types
+     */
     public static final List<ContentType> CONTENT_TYPES = Arrays.asList(
-            ContentType.TEXT_PLAIN, ContentType.TEXT_HTML,
-            ContentType.TEXT_XML, ContentType.APPLICATION_XML,
-            ContentType.APPLICATION_SVG_XML, ContentType.APPLICATION_XHTML_XML,
+            ContentType.TEXT_PLAIN,
+            ContentType.TEXT_HTML,
+            ContentType.TEXT_XML,
+            ContentType.APPLICATION_XML,
+            ContentType.APPLICATION_SVG_XML,
+            ContentType.APPLICATION_XHTML_XML,
             ContentType.APPLICATION_ATOM_XML,
-            ContentType.APPLICATION_JSON);
+            ContentType.APPLICATION_JSON
+    );
 
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(HttpClientExecutor.class);
-    //Convert mill seconds to second unit
+    /**
+     * Convert mill seconds to second unit
+     */
     protected static final int MS_TO_S_UNIT = 1000;
 
-    //https prefix
+    /**
+     * https prefix
+     */
     protected static final String HTTPS = "https";
 
     protected static HttpsTrustManager httpsTrustManager = new HttpsTrustManager();
 
     protected String url;
 
-    protected int maxConnectionSeconds = 0;
+    /**
+     * 默认超时 10秒
+     */
+    protected int maxConnectionSeconds = 10;
 
     protected String contentType;
 
@@ -90,9 +101,9 @@ public class HttpClientExecutor {
 
     }
 
-    /*
-    * Execute and handle exception by yourself
-    * */
+    /**
+     * Execute and handle exception by yourself
+     */
     public void executeWithException(HttpResponseHandler responseHandler) throws Exception {
         final CloseableHttpResponse response = sendRequest();
         responseHandler.handleResponse(new MkkHttpResponse(response));
