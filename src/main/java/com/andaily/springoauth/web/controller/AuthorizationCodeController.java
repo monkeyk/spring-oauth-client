@@ -2,10 +2,7 @@ package com.andaily.springoauth.web.controller;
 
 import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.service.OauthService;
-import com.andaily.springoauth.service.dto.AccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
-import com.andaily.springoauth.service.dto.AuthCallbackDto;
-import com.andaily.springoauth.service.dto.AuthorizationCodeDto;
+import com.andaily.springoauth.service.dto.*;
 import com.andaily.springoauth.web.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -53,6 +50,9 @@ public class AuthorizationCodeController {
      */
     @RequestMapping(value = "authorization_code", method = RequestMethod.GET)
     public String authorizationCode(Model model) {
+        ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
+        model.addAttribute("clientDetails", clientDetailsDto);
+
         model.addAttribute("userAuthorizationUri", OAuth2Holder.authorizeUrl());
         model.addAttribute("host", host.endsWith("/") ? host : host + "/");
 //        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
@@ -95,7 +95,10 @@ public class AuthorizationCodeController {
             //Go to retrieve access_token form
             AuthAccessTokenDto accessTokenDto = oauthService.createAuthAccessTokenDto(callbackDto);
             model.addAttribute("accessTokenDto", accessTokenDto);
-            model.addAttribute("host", host);
+            model.addAttribute("host", host.endsWith("/") ? host : host + "/");
+
+            ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
+            model.addAttribute("clientDetails", clientDetailsDto);
             return "code_access_token";
         } else {
             //illegal state
@@ -126,7 +129,7 @@ public class AuthorizationCodeController {
             return "oauth_error";
         } else {
             model.addAttribute("accessTokenDto", accessTokenDto);
-//            model.addAttribute("unityUserInfoUri", unityUserInfoUri);
+            model.addAttribute("userinfoUrl", OAuth2Holder.userinfoUrl());
             return "access_token_result";
         }
     }

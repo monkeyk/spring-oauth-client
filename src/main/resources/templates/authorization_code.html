@@ -174,8 +174,8 @@
             $scope.responseType = 'code';
             $scope.scope = 'openid';
 
-            $scope.clientId = 'unity-client';
-            $scope.redirectUri = [[${host}]] + 'authorization_code_callback';
+            $scope.clientId = [[${clientDetails.clientId}]];
+            $scope.redirectUri =  [[${clientDetails.redirectUris}]];
             $scope.state = [[${state}]];
 
             $scope.visible = false;

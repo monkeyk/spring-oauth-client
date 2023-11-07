@@ -45,15 +45,18 @@
                 <li>
                     方式1: 调用本地的接口,由后台去向服务器获取资源并进行处理(如将JSON数据转化成对象), 通过页面展示信息
                     <br/>
-                    <a href="${contextPath}/unity_user_info?access_token=${accessTokenDto.accessToken}">OAuth Server
-                        用户信息</a>
+                    <form th:action="@{/userinfo}">
+                        <input type="hidden" name="access_token" th:value="${accessTokenDto.accessToken}"/>
+                        <button type="submit" class="btn btn-link">OAuth Server 用户信息</button>
+                    </form>
                 </li>
                 <li>
                     方式2: 直接通过access_token去访问服务器的资源(该方式将直接获取JSON数据)
                     <br/>
-                    <a href="${unityUserInfoUri}?access_token=${accessTokenDto.accessToken}" target="_blank">OAuth Server
-                        用户信息
-                        [JSON]</a>
+                    <form th:action="${userinfoUrl}">
+                        <input type="hidden" name="access_token" th:value="${accessTokenDto.accessToken}"/>
+                        <button type="submit" class="btn btn-link">OAuth Server 用户信息[JSON]</button>
+                    </form>
                 </li>
                 <li>...</li>
             </ul>

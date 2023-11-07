@@ -36,9 +36,6 @@
                                 &nbsp;<a th:href="${accessTokenDto.accessTokenUri}" target="_blank">测试连接</a>
                             </p>
 
-                            <p class="help-block">
-                                accessTokenUri value from 'spring-oauth-client.properties'
-                            </p>
                         </div>
                     </div>
 
@@ -125,11 +122,11 @@
         var CodeAccessTokenCtrl = ['$scope', function ($scope) {
             $scope.accessTokenUri = [[${accessTokenDto.accessTokenUri}]];
             $scope.grantType = [[${accessTokenDto.grantType}]];
-            $scope.clientId = 'unity-client';
+            $scope.clientId = [[${clientDetails.clientId}]];
 
-            $scope.clientSecret = 'unity';
+            $scope.clientSecret = [[${clientDetails.clientSecret}]];
             $scope.code = [[${accessTokenDto.code}]];
-            $scope.redirectUri = [[${host}]] + 'authorization_code_callback';
+            $scope.redirectUri =  [[${clientDetails.redirectUris}]];
 
             $scope.visible = false;
 
