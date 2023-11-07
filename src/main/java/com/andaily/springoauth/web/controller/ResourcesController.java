@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Handle visit Oauth resources, must be have 'access_token'
+ *  /userinfo
  *
  * @author Shengzhao Li
  */
@@ -20,7 +21,7 @@ public class ResourcesController {
     private OauthService oauthService;
 
 
-    /*
+    /**
    * Visit unity role  for get user information from oauth server
    * */
     @RequestMapping("unity_user_info")

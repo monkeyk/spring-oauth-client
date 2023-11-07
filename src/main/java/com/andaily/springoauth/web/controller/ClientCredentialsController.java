@@ -8,13 +8,12 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import static com.andaily.springoauth.infrastructure.OAuth2Holder.tokenUrl;
 import static com.andaily.springoauth.web.WebUtils.writeJson;
 
 /**
@@ -29,12 +28,12 @@ public class ClientCredentialsController {
     private static final Logger LOG = LoggerFactory.getLogger(ClientCredentialsController.class);
 
 
-    @Value("#{properties['access-token-uri']}")
-    private String accessTokenUri;
-
-
-    @Value("#{properties['unityUserInfoUri']}")
-    private String unityUserInfoUri;
+//    @Value("#{properties['access-token-uri']}")
+//    private String accessTokenUri;
+//
+//
+//    @Value("#{properties['unityUserInfoUri']}")
+//    private String unityUserInfoUri;
 
 
     @Autowired
@@ -45,9 +44,9 @@ public class ClientCredentialsController {
    * */
     @RequestMapping(value = "client_credentials", method = RequestMethod.GET)
     public String password(Model model) {
-        LOG.debug("Go to 'client_credentials' page, accessTokenUri = {}", accessTokenUri);
-        model.addAttribute("accessTokenUri", accessTokenUri);
-        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
+        LOG.debug("Go to 'client_credentials' page, accessTokenUri = {}", tokenUrl());
+        model.addAttribute("accessTokenUri", tokenUrl());
+//        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         return "client_credentials";
     }
 

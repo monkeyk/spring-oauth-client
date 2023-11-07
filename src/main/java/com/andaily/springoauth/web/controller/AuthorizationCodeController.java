@@ -1,5 +1,6 @@
 package com.andaily.springoauth.web.controller;
 
+import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
@@ -31,16 +32,16 @@ public class AuthorizationCodeController {
     private static final Logger LOG = LoggerFactory.getLogger(AuthorizationCodeController.class);
 
 
-    @Value("#{properties['user-authorization-uri']}")
-    private String userAuthorizationUri;
+//    @Value("#{properties['user-authorization-uri']}")
+//    private String userAuthorizationUri;
 
 
-    @Value("#{properties['application-host']}")
+    @Value("${application-host:http://localhost:8082}")
     private String host;
 
 
-    @Value("#{properties['unityUserInfoUri']}")
-    private String unityUserInfoUri;
+//    @Value("#{properties['unityUserInfoUri']}")
+//    private String unityUserInfoUri;
 
 
     @Autowired
@@ -48,22 +49,22 @@ public class AuthorizationCodeController {
 
 
     /**
-   * Entrance:   step-1
-   * */
+     * Entrance:   step-1
+     */
     @RequestMapping(value = "authorization_code", method = RequestMethod.GET)
     public String authorizationCode(Model model) {
-        model.addAttribute("userAuthorizationUri", userAuthorizationUri);
+        model.addAttribute("userAuthorizationUri", OAuth2Holder.authorizeUrl());
         model.addAttribute("host", host);
-        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
+//        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         model.addAttribute("state", UUID.randomUUID().toString());
         return "authorization_code";
     }
 
 
     /**
-   * Save state firstly
-   * Redirect to oauth-server login page:   step-2
-   * */
+     * Save state firstly
+     * Redirect to oauth-server login page:   step-2
+     */
     @RequestMapping(value = "authorization_code", method = RequestMethod.POST)
     public String submitAuthorizationCode(AuthorizationCodeDto codeDto, HttpServletRequest request) throws Exception {
         //save stats  firstly
@@ -76,12 +77,12 @@ public class AuthorizationCodeController {
 
 
     /**
-   * Oauth callback (redirectUri):   step-3
-   *
-   * Handle 'code', go to 'access_token' ,validation oauth-server response data
-   *
-   *  authorization_code_callback
-   * */
+     * Oauth callback (redirectUri):   step-3
+     * <p>
+     * Handle 'code', go to 'access_token' ,validation oauth-server response data
+     * <p>
+     * authorization_code_callback
+     */
     @RequestMapping(value = "authorization_code_callback")
     public String authorizationCodeCallback(AuthCallbackDto callbackDto, HttpServletRequest request, Model model) throws Exception {
 
@@ -114,7 +115,7 @@ public class AuthorizationCodeController {
      * @param tokenDto AuthAccessTokenDto
      * @param model    Model
      * @return View
-     * @throws Exception
+     * @throws Exception e
      */
     @RequestMapping(value = "code_access_token", method = RequestMethod.POST)
     public String codeAccessToken(AuthAccessTokenDto tokenDto, Model model) throws Exception {
@@ -125,13 +126,13 @@ public class AuthorizationCodeController {
             return "oauth_error";
         } else {
             model.addAttribute("accessTokenDto", accessTokenDto);
-            model.addAttribute("unityUserInfoUri", unityUserInfoUri);
+//            model.addAttribute("unityUserInfoUri", unityUserInfoUri);
             return "access_token_result";
         }
     }
 
 
-    /*
+    /**
      * Check the state is correct or not after redirect from Oauth Server.
      */
     private boolean correctState(AuthCallbackDto callbackDto, HttpServletRequest request) {

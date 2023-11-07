@@ -9,14 +9,12 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-
+import static com.andaily.springoauth.infrastructure.OAuth2Holder.tokenUrl;
 import static com.andaily.springoauth.web.WebUtils.writeJson;
 
 /**
@@ -35,8 +33,8 @@ public class RefreshTokenController {
     private OauthService oauthService;
 
 
-    @Value("#{properties['access-token-uri']}")
-    private String accessTokenUri;
+//    @Value("#{properties['access-token-uri']}")
+//    private String accessTokenUri;
 
 
     /**
@@ -44,8 +42,8 @@ public class RefreshTokenController {
    * */
     @RequestMapping(value = "refresh_token", method = RequestMethod.GET)
     public String password(Model model) {
-        LOG.debug("Go to 'refresh_token' page, accessTokenUri = {}", accessTokenUri);
-        model.addAttribute("accessTokenUri", accessTokenUri);
+        LOG.debug("Go to 'refresh_token' page, accessTokenUri = {}", tokenUrl());
+        model.addAttribute("accessTokenUri", tokenUrl());
         return "refresh_token";
     }
 

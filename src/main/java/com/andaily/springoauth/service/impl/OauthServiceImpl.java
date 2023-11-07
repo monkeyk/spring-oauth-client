@@ -1,5 +1,6 @@
 package com.andaily.springoauth.service.impl;
 
+import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientPostExecutor;
 import com.andaily.springoauth.service.OauthService;
@@ -7,7 +8,6 @@ import com.andaily.springoauth.service.dto.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -23,11 +23,11 @@ public class OauthServiceImpl implements OauthService {
     private static final Logger LOG = LoggerFactory.getLogger(OauthServiceImpl.class);
 
 
-    @Value("#{properties['access-token-uri']}")
-    private String accessTokenUri;
-
-    @Value("#{properties['unityUserInfoUri']}")
-    private String unityUserInfoUri;
+//    @Value("#{properties['access-token-uri']}")
+//    private String accessTokenUri;
+//
+//    @Value("#{properties['unityUserInfoUri']}")
+//    private String unityUserInfoUri;
 
 
     @Override
@@ -41,7 +41,7 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public AuthAccessTokenDto createAuthAccessTokenDto(AuthCallbackDto callbackDto) {
         return new AuthAccessTokenDto()
-                .setAccessTokenUri(accessTokenUri)
+                .setAccessTokenUri(OAuth2Holder.tokenUrl())
                 .setCode(callbackDto.getCode());
     }
 
@@ -52,13 +52,14 @@ public class OauthServiceImpl implements OauthService {
         if (StringUtils.isEmpty(accessToken)) {
             return new UserDto("Illegal 'access_token'", "'access_token' is empty");
         } else {
-            HttpClientExecutor executor = new HttpClientExecutor(unityUserInfoUri);
-            executor.addRequestParam("access_token", accessToken);
-
-            UserDtoResponseHandler responseHandler = new UserDtoResponseHandler();
-            executor.execute(responseHandler);
-
-            return responseHandler.getUserDto();
+//            HttpClientExecutor executor = new HttpClientExecutor(unityUserInfoUri);
+//            executor.addRequestParam("access_token", accessToken);
+//
+//            UserDtoResponseHandler responseHandler = new UserDtoResponseHandler();
+//            executor.execute(responseHandler);
+//
+//            return responseHandler.getUserDto();
+            throw new UnsupportedOperationException("Not yet used from v2.0.0");
         }
 
     }

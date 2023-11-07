@@ -18,7 +18,7 @@ public class OauthController {
     private static final Logger LOG = LoggerFactory.getLogger(OauthController.class);
 
 
-    /*
+    /**
    * Common handle oauth error ,
    * show the error message.
    * */
