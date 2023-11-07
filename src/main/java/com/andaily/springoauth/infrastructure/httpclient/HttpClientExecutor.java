@@ -66,6 +66,11 @@ public class HttpClientExecutor {
 
     protected Map<String, String> requestParams = new HashMap<String, String>();
 
+    /**
+     * @since 2.0.0
+     */
+    protected Map<String, String> headers = new HashMap<>();
+
     public HttpClientExecutor(String url) {
         this.url = url;
     }
@@ -82,6 +87,17 @@ public class HttpClientExecutor {
         this.requestParams.put(key, value);
         return (T) this;
     }
+
+
+    /**
+     * @since 2.0.0
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends HttpClientExecutor> T addHeader(String key, String value) {
+        this.headers.put(key, value);
+        return (T) this;
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T extends HttpClientExecutor> T contentType(String contentType) {
@@ -114,6 +130,7 @@ public class HttpClientExecutor {
     protected CloseableHttpResponse sendRequest() throws Exception {
         HttpUriRequest request = retrieveHttpRequest();
         setContentType(request);
+        setHeaders(request);
 
         CloseableHttpClient client = retrieveHttpClient();
         return client.execute(request);
@@ -125,6 +142,16 @@ public class HttpClientExecutor {
             LOGGER.debug("Set HttpUriRequest[{}] contentType: {}", request, contentType);
         }
     }
+
+    /**
+     * @since 2.0.0
+     */
+    protected void setHeaders(HttpUriRequest request) {
+        for (String key : headers.keySet()) {
+            request.addHeader(key, headers.get(key));
+        }
+    }
+
 
     protected CloseableHttpClient retrieveHttpClient() {
         final RequestConfig requestConfig = requestConfig();

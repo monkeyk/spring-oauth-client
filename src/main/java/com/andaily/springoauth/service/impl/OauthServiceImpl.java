@@ -88,6 +88,24 @@ public class OauthServiceImpl implements OauthService {
         return loadAccessTokenDto(uri, authAccessTokenDto.getCredentialsParams());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserinfoDto loadUserinfoDto(String accessToken) {
+        if (StringUtils.isEmpty(accessToken)) {
+            return new UserinfoDto("Illegal 'access_token'", "'access_token' is empty");
+        } else {
+            HttpClientExecutor executor = new HttpClientExecutor(OAuth2Holder.userinfoUrl());
+            executor.addHeader("Authorization", "Bearer " + accessToken);
+
+            UserinfoDtoResponseHandler responseHandler = new UserinfoDtoResponseHandler();
+            executor.execute(responseHandler);
+
+            return responseHandler.getUserinfoDto();
+        }
+    }
+
 
     private AccessTokenDto loadAccessTokenDto(String fullUri, Map<String, String> params) {
         HttpClientExecutor executor = new HttpClientPostExecutor(fullUri);
