@@ -18,6 +18,9 @@ public interface OauthService {
      */
     UserDto loadUnityUserDto(String accessToken);
 
+    /**
+     * @deprecated OAuth2.1中不支持 password grant type
+     */
     AccessTokenDto retrievePasswordAccessTokenDto(AuthAccessTokenDto authAccessTokenDto);
 
     AccessTokenDto refreshAccessTokenDto(RefreshAccessTokenDto refreshAccessTokenDto);

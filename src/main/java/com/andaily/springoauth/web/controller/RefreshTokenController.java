@@ -3,6 +3,7 @@ package com.andaily.springoauth.web.controller;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
+import com.andaily.springoauth.service.dto.ClientDetailsDto;
 import com.andaily.springoauth.service.dto.RefreshAccessTokenDto;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
@@ -43,12 +44,17 @@ public class RefreshTokenController {
     @RequestMapping(value = "refresh_token", method = RequestMethod.GET)
     public String password(Model model) {
         LOG.debug("Go to 'refresh_token' page, accessTokenUri = {}", tokenUrl());
+
+        ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
+        model.addAttribute("clientDetails", clientDetailsDto);
         model.addAttribute("accessTokenUri", tokenUrl());
         return "refresh_token";
     }
 
     /**
     * Ajax call , get access_token
+     *
+     * @deprecated OAuth2.1中不再支持 password
     * */
     @RequestMapping(value = "password_access_token")
     public void getAccessToken(AuthAccessTokenDto authAccessTokenDto, HttpServletResponse response) {
