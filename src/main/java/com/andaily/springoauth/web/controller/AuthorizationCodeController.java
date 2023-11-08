@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.UUID;
@@ -83,12 +84,12 @@ public class AuthorizationCodeController {
      * authorization_code_callback
      */
     @RequestMapping(value = "authorization_code_callback")
-    public String authorizationCodeCallback(AuthCallbackDto callbackDto, HttpServletRequest request, Model model) throws Exception {
+    public String authorizationCodeCallback(AuthCallbackDto callbackDto, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) throws Exception {
 
         if (callbackDto.error()) {
             //Server response error
-            model.addAttribute("message", callbackDto.getError_description());
-            model.addAttribute("error", callbackDto.getError());
+            redirectAttributes.addAttribute("message", callbackDto.getError_description());
+            redirectAttributes.addAttribute("error", callbackDto.getError());
             return "redirect:oauth_error";
         } else if (correctState(callbackDto, request)) {
             //Go to retrieve access_token form
@@ -101,8 +102,8 @@ public class AuthorizationCodeController {
             return "code_access_token";
         } else {
             //illegal state
-            model.addAttribute("message", "Illegal \"state\": " + callbackDto.getState());
-            model.addAttribute("error", "Invalid state");
+            redirectAttributes.addAttribute("message", "Illegal \"state\": " + callbackDto.getState());
+            redirectAttributes.addAttribute("error", "Invalid state");
             return "redirect:oauth_error";
         }
 
