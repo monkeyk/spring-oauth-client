@@ -1,5 +1,6 @@
 package com.andaily.springoauth.service.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,12 +8,15 @@ import java.util.Map;
 /**
  * 15-5-18
  * <p/>
- * http://localhost:8080/oauth/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
+ * http://localhost:8080/oauth2/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
  *
  * @author Shengzhao Li
  */
 public class AuthAccessTokenDto implements Serializable {
 
+
+    @Serial
+    private static final long serialVersionUID = -4212912744864611167L;
 
     private String accessTokenUri;
 
@@ -112,8 +116,8 @@ public class AuthAccessTokenDto implements Serializable {
         return this;
     }
 
-    /*
-    * http://localhost:8080/oauth/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
+    /**
+    * http://localhost:8080/oauth2/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
     * */
     public Map<String, String> getAuthCodeParams() {
         Map<String, String> map = new HashMap<>();
@@ -128,9 +132,12 @@ public class AuthAccessTokenDto implements Serializable {
     }
 
 
-    /*
-   * http://localhost:8080/spring-oauth-server/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+    /**
+   * http://localhost:8080/oauth2/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+     *
+     * @deprecated OAuth2.1中不再支持 password 授权方式
    * */
+    @Deprecated
     public Map<String, String> getAccessTokenParams() {
         Map<String, String> map = new HashMap<>();
         map.put("client_id", clientId);
@@ -144,8 +151,8 @@ public class AuthAccessTokenDto implements Serializable {
         return map;
     }
 
-    /*
-     * http://localhost:8080/spring-oauth-server/oauth/token?client_id=credentials-client&client_secret=credentials-secret&grant_type=client_credentials&scope=read,write
+    /**
+     * http://localhost:8080/oauth2/token?client_id=credentials-client&client_secret=credentials-secret&grant_type=client_credentials&scope=openid
      */
     public Map<String, String> getCredentialsParams() {
         Map<String, String> map = new HashMap<>();
