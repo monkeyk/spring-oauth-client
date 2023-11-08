@@ -103,13 +103,7 @@
                             <label class="col-sm-2 control-label">scope</label>
 
                             <div class="col-sm-10">
-                                <select name="scope" ng-model="scope" class="form-control">
-                                    <option value="openid">openid</option>
-                                    <option value="openid profile">profile</option>
-                                    <option value="openid email">email</option>
-                                    <option value="openid phone">phone</option>
-                                    <option value="openid address">address</option>
-                                </select>
+                                <input name="scope" ng-model="scope" class="form-control" readonly placeholder="openid"/>
                                 <p class="help-block">OIDC标准中定义的scope有: openid, profile, email, address, phone; 具体支持哪些由注册的client决定</p>
                             </div>
 
@@ -172,7 +166,7 @@
         var AuthorizationCodeCtrl = ['$scope', function ($scope) {
             $scope.userAuthorizationUri = [[${userAuthorizationUri}]];
             $scope.responseType = 'code';
-            $scope.scope = 'openid';
+            $scope.scope = [[${clientDetails.scopes}]];
 
             $scope.clientId = [[${clientDetails.clientId}]];
             $scope.redirectUri =  [[${clientDetails.redirectUris}]];

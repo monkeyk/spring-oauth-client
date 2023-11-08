@@ -55,7 +55,6 @@ public class AuthorizationCodeController {
 
         model.addAttribute("userAuthorizationUri", OAuth2Holder.authorizeUrl());
         model.addAttribute("host", host.endsWith("/") ? host : host + "/");
-//        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         model.addAttribute("state", UUID.randomUUID().toString());
         return "authorization_code";
     }

@@ -3,6 +3,7 @@ package com.andaily.springoauth.web.controller;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.AuthAccessTokenDto;
+import com.andaily.springoauth.service.dto.ClientDetailsDto;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -45,8 +46,10 @@ public class ClientCredentialsController {
     @RequestMapping(value = "client_credentials", method = RequestMethod.GET)
     public String password(Model model) {
         LOG.debug("Go to 'client_credentials' page, accessTokenUri = {}", tokenUrl());
+
+        ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
+        model.addAttribute("clientDetails", clientDetailsDto);
         model.addAttribute("accessTokenUri", tokenUrl());
-//        model.addAttribute("unityUserInfoUri", unityUserInfoUri);
         return "client_credentials";
     }
 
