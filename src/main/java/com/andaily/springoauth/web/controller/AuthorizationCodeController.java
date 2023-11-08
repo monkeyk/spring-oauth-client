@@ -1,10 +1,12 @@
 package com.andaily.springoauth.web.controller;
 
 import com.andaily.springoauth.infrastructure.OAuth2Holder;
+import com.andaily.springoauth.infrastructure.PKCEUtils;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.*;
 import com.andaily.springoauth.web.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +32,8 @@ public class AuthorizationCodeController {
     private static final Logger LOG = LoggerFactory.getLogger(AuthorizationCodeController.class);
 
 
-//    @Value("#{properties['user-authorization-uri']}")
-//    private String userAuthorizationUri;
-
-
     @Value("${application-host:http://localhost:8082}")
     private String host;
-
-
-//    @Value("#{properties['unityUserInfoUri']}")
-//    private String unityUserInfoUri;
 
 
     @Autowired
@@ -53,6 +47,16 @@ public class AuthorizationCodeController {
     public String authorizationCode(Model model) {
         ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
         model.addAttribute("clientDetails", clientDetailsDto);
+        if (clientDetailsDto.isSupportPkce()) {
+            //pkce
+            String codeVerifier = PKCEUtils.generateCodeVerifier();
+            String codeChallenge = PKCEUtils.generateCodeChallenge(codeVerifier);
+            // codeVerifier 推荐存储在后端(如session中)，前端不推荐存储
+            model.addAttribute("codeVerifier", codeVerifier)
+                    .addAttribute("codeChallenge", codeChallenge);
+        } else {
+            model.addAttribute("codeChallenge", "");
+        }
 
         model.addAttribute("userAuthorizationUri", OAuth2Holder.authorizeUrl());
         model.addAttribute("host", host.endsWith("/") ? host : host + "/");
@@ -69,6 +73,11 @@ public class AuthorizationCodeController {
     public String submitAuthorizationCode(AuthorizationCodeDto codeDto, HttpServletRequest request) throws Exception {
         //save stats  firstly
         WebUtils.saveState(request, codeDto.getState());
+
+        String codeVerifier = codeDto.getCodeVerifier();
+        if (StringUtils.isNotBlank(codeVerifier)) {
+            WebUtils.saveCodeVerifier(request, codeVerifier);
+        }
 
         final String fullUri = codeDto.getFullUri();
         LOG.debug("Redirect to Oauth-Server URL: {}", fullUri);
@@ -99,6 +108,11 @@ public class AuthorizationCodeController {
 
             ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
             model.addAttribute("clientDetails", clientDetailsDto);
+            if (clientDetailsDto.isSupportPkce()) {
+                model.addAttribute("codeVerifier", WebUtils.getCodeVerifier(request));
+            } else {
+                model.addAttribute("codeVerifier", "");
+            }
             return "code_access_token";
         } else {
             //illegal state

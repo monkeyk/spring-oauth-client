@@ -17,6 +17,7 @@
     <h2>authorization_code
         <small>从 spring-oauth-server获取 'code'</small>
     </h2>
+    <div class="badge" th:if="${clientDetails.supportPkce}">PKCE</div>
     <br/>
 
     <div>
@@ -73,6 +74,7 @@
 
                 <form th:action="@{authorization_code}" method="post" class="form-horizontal">
                     <input type="hidden" name="userAuthorizationUri" th:value="${userAuthorizationUri}"/>
+                    <input th:if="${clientDetails.supportPkce}" type="hidden" name="codeVerifier" th:value="${codeVerifier}"/>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">authorizationUri</label>
@@ -103,8 +105,10 @@
                             <label class="col-sm-2 control-label">scope</label>
 
                             <div class="col-sm-10">
-                                <input name="scope" ng-model="scope" class="form-control" readonly placeholder="openid"/>
-                                <p class="help-block">OIDC标准中定义的scope有: openid, profile, email, address, phone; 具体支持哪些由注册的client决定</p>
+                                <input name="scope" ng-model="scope" class="form-control" readonly
+                                       placeholder="openid"/>
+                                <p class="help-block">OIDC标准中定义的scope有: openid, profile, email, address, phone;
+                                    具体支持哪些由注册的client决定</p>
                             </div>
 
                         </div>
@@ -142,12 +146,36 @@
                             </div>
                         </div>
 
+                        <div class="form-group" th:if="${clientDetails.supportPkce}">
+                            <label class="col-sm-2 control-label">code_challenge_method</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="codeChallengeMethod" size="50" class="form-control"
+                                       required="required" ng-model="codeChallengeMethod"
+                                       readonly value="S256"/>
+
+                                <p class="help-block">固定值 'S256'</p>
+                            </div>
+                        </div>
+                        <div class="form-group" th:if="${clientDetails.supportPkce}">
+                            <label class="col-sm-2 control-label">code_challenge</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="codeChallenge" size="50" class="form-control"
+                                       ng-model="codeChallenge"
+                                       readonly th:value="${codeChallenge}"/>
+
+                                <p class="help-block">(后台代码生成,不可修改)</p>
+                            </div>
+                        </div>
+
+
                         <div class="well well-sm">
                             <span class="text-muted">最终发给 spring-oauth-server的 URL:</span>
                             <br/>
 
                             <div class="text-primary">
-                                {{userAuthorizationUri}}?response_type={{responseType}}&scope={{scope}}&client_id={{clientId}}&redirect_uri={{redirectUri}}&state={{state}}
+                                {{userAuthorizationUri}}?response_type={{responseType}}&scope={{scope}}&client_id={{clientId}}&redirect_uri={{redirectUri}}&state={{state}}<span th:if="${clientDetails.supportPkce}">&code_challenge_method={{codeChallengeMethod}}&code_challenge={{codeChallenge}}</span>
                             </div>
                         </div>
                     </div>
@@ -169,8 +197,11 @@
             $scope.scope = [[${clientDetails.scopes}]];
 
             $scope.clientId = [[${clientDetails.clientId}]];
-            $scope.redirectUri =  [[${clientDetails.redirectUris}]];
+            $scope.redirectUri = [[${clientDetails.redirectUris}]];
             $scope.state = [[${state}]];
+
+            $scope.codeChallengeMethod = "S256";
+            $scope.codeChallenge = [[${codeChallenge}]];
 
             $scope.visible = false;
 

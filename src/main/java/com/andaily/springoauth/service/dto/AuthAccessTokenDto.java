@@ -1,5 +1,7 @@
 package com.andaily.springoauth.service.dto;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -31,11 +33,34 @@ public class AuthAccessTokenDto implements Serializable {
     private String redirectUri;
 
     private String scope;
+
+    /**
+     * @deprecated Not yet used from v2.0.0
+     */
     private String username;
+
+    /**
+     * @deprecated Not yet used from v2.0.0
+     */
     private String password;
 
+    /**
+     * PKCE flow
+     *
+     * @since 2.0.0
+     */
+    private String codeVerifier;
 
     public AuthAccessTokenDto() {
+    }
+
+
+    public String getCodeVerifier() {
+        return codeVerifier;
+    }
+
+    public void setCodeVerifier(String codeVerifier) {
+        this.codeVerifier = codeVerifier;
     }
 
     public String getScope() {
@@ -117,8 +142,8 @@ public class AuthAccessTokenDto implements Serializable {
     }
 
     /**
-    * http://localhost:8080/oauth2/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
-    * */
+     * http://localhost:8080/oauth2/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=zLl170&redirect_uri=http%3a%2f%2flocalhost%3a8080%2funity%2fdashboard.htm
+     */
     public Map<String, String> getAuthCodeParams() {
         Map<String, String> map = new HashMap<>();
         map.put("client_id", clientId);
@@ -128,15 +153,19 @@ public class AuthAccessTokenDto implements Serializable {
         map.put("redirect_uri", redirectUri);
         map.put("code", code);
 
+        if (StringUtils.isNotBlank(codeVerifier)) {
+            map.put("code_verifier", codeVerifier);
+        }
+
         return map;
     }
 
 
     /**
-   * http://localhost:8080/oauth2/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+     * http://localhost:8080/oauth2/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
      *
      * @deprecated OAuth2.1中不再支持 password 授权方式
-   * */
+     */
     @Deprecated
     public Map<String, String> getAccessTokenParams() {
         Map<String, String> map = new HashMap<>();

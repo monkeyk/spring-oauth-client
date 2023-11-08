@@ -16,13 +16,19 @@ import java.io.PrintWriter;
  */
 public abstract class WebUtils {
 
+    /**
+     * session key for code_Verifier
+     *
+     * @since 2.0.0
+     */
+    private static final String CODE_VERIFIER_KEY = "code_Verifier";
 
     private WebUtils() {
     }
 
 
     /**
-     *  Save state to ServletContext, key = value = state
+     * Save state to ServletContext, key = value = state
      */
     public static void saveState(HttpServletRequest request, String state) {
         final ServletContext servletContext = request.getSession().getServletContext();
@@ -30,8 +36,8 @@ public abstract class WebUtils {
     }
 
     /**
-     *  Validate state when callback from Oauth Server.
-     *  If validation successful, will remove it from ServletContext.
+     * Validate state when callback from Oauth Server.
+     * If validation successful, will remove it from ServletContext.
      */
     public static boolean validateState(HttpServletRequest request, String state) {
         if (StringUtils.isEmpty(state)) {
@@ -58,6 +64,25 @@ public abstract class WebUtils {
             throw new IllegalStateException("Write json to response error", e);
         }
 
+    }
+
+    /**
+     * Save code_verifier to session, key = value = code_verifier
+     *
+     * @since 2.0.0
+     */
+
+    public static void saveCodeVerifier(HttpServletRequest request, String codeVerifier) {
+        request.getSession().setAttribute(CODE_VERIFIER_KEY, codeVerifier);
+    }
+
+    /**
+     * Get code_verifier from session
+     *
+     * @since 2.0.0
+     */
+    public static String getCodeVerifier(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute(CODE_VERIFIER_KEY);
     }
 
 }
