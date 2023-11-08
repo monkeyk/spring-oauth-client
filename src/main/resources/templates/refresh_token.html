@@ -104,7 +104,8 @@
                         </div>
 
                     </div>
-                    <br/>
+                    <div class="alert alert-info">提示: 若client关闭了复用refresh_token功能(默认开启),
+                        则每次请求后会响应一个新的refresh_token值(即一个refresh_token只能使用一次, 安全性更高).</div>
                     <br/>
                     <button class="btn btn-info" ng-click="executeRefreshToken()">刷新access_token</button>
                     <span class="label label-warning">POST</span>
@@ -120,7 +121,7 @@
                             <dt>token_type</dt>
                             <dd><code>{{newTokenType}}</code></dd>
                             <dt>refresh_token</dt>
-                            <dd><code>{{newRefreshToken}}</code></dd>
+                            <dd><textarea rows="2" readonly class="form-control">{{newRefreshToken}}</textarea></dd>
                             <dt>scope</dt>
                             <dd><code>{{newTokenScope}}</code></dd>
                             <dt>expires_in</dt>
