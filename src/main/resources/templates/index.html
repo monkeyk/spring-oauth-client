@@ -168,12 +168,12 @@
             <li>
                 <p><a th:href="@{device_code}">device_code</a> <br/>
                     (全称 urn:ietf:params:oauth:grant-type:device_code)适用于各类无输入键盘的物联网智能设备进行认证授权,
-                    通过类似’扫码登录’形式完成整个授权流程【OAuth2.1新增】</p>
+                    通过类似’扫码登录’形式完成整个授权流程 <span class="label label-success">OAuth2.1新增</span></p>
             </li>
             <li>
                 <p><a th:href="@{jwt_bearer}">jwt-bearer</a> <br/>
                     (全称 urn:ietf:params:oauth:grant-type:jwt-bearer)是一类增强client端请求安全性的断言(assertion)实现;
-                    通过类似’双向SSL’的机制来让server端验证client端的签名实现强安全性【OAuth2.1新增】</p>
+                    通过类似’双向SSL’的机制来让server端验证client端的签名实现强安全性 <span class="label label-success">OAuth2.1新增</span></p>
             </li>
             <li>
                 <p><a th:href="@{refresh_token}">refresh_token</a> <br/>刷新access_token</p>
