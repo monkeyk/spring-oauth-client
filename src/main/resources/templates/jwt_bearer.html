@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"/>
+
+    <title>jwt-bearer . spring-oauth-client</title>
+
+    <th:block th:insert="~{fragments/main::header-css}"/>
+</head>
+<body ng-app>
+<div class="container" ng-controller="JwtBearerCtrl">
+    <a th:href="@{/}">Home</a>
+
+    <h2>jwt-bearer
+        <small>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</small>
+    </h2>
+    <br/>
+
+    <div>
+        <ul>
+            <li>
+                <p><code>jwt-bearer</code>是一类增强client端请求安全性的断言(assertion)实现;
+                    通过类似'双向SSL'的机制来让server端验证client端的签名实现强安全性.</p>
+            </li>
+            <li>
+                <p>当注册或添加client端时需要填写一个jwk URL地址(用来获取验签的公钥), 指定认证jwt签名算法(如RS256),
+                    设置methods为<code>client_secret_jwt</code>(对称算法,
+                    使用client_secret为MacKey)或<code>private_key_jwt</code>(非对称算法)</p>
+                <p class="text-warning">注意: grant_type不能只有jwt-bearer, 无实用意义</p>
+            </li>
+            <li>
+                <strong>重要</strong> spring-oauth-client中的jwk URL地址为: <a th:href="${jwkUrl}" target="_blank">[[${jwkUrl}]]</a>
+                ;
+                在测试前需要将其正确配置到 spring-oauth-server 中
+                <br/>
+                <p class="text-warning">注意: spring-oauth-client中的 jwk 只用于测试, 生产环境或正式使用时请另行生成</p>
+            </li>
+        </ul>
+
+        <div>
+            一个 jwt-bearer 的 cURL请求示例:
+            <pre>curl --location 'http://localhost:8080/oauth2/token' \
+  --header 'Content-Type: application/json' \
+  --form 'client_id="dofOx6hjxlWw9qe2bnFvqbiPhuWwGWdn"' \
+  --form 'client_assertion_type="urn:ietf:params:oauth:client-assertion-type:jwt-bearer"' \
+  --form 'scope="openid"' \
+  --form 'grant_type="client_credentials"' \
+  --form 'client_assertion="eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJkb2ZPeDZoanhsV3c5..."' \
+  --form 'client_secret="dofOx6hjxlWw9qe2bnFvqbiPhuWwGWdn"'</pre>
+            增加两个请求参数:
+            <table class="table table-striped table-bordered table-hover">
+                <tr>
+                    <td>client_assertion_type</td>
+                    <td>固定值: <em>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</em></td>
+                </tr>
+                <tr>
+                    <td>client_assertion</td>
+                    <td>
+                        使用spring-oauth-client提供的 jwk URL中的 private_key进行签名生成的 JWT(如何生成详见:
+                        <code>JwtBearerFlowTest.java</code>)
+                    </td>
+                </tr>
+            </table>
+            <p class="help-block">
+                下面以 grant_type=client_credentials 中使用 jwt-bearer 来说明.
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">在 grant_type=client_credentials 中使用 jwt-bearer</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+
+                <p class="text-muted">输入<code>client_assertion</code>值, 点击按钮地址即可测试</p>
+                <form th:action="${tokenUrl}" th:method="post" target="_blank">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <td>client_id</td>
+                            <td>
+                                <input type="text" readonly="readonly" name="client_id" size="70" value="{{clientId}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>client_secret</td>
+                            <td>
+                                <input type="text" readonly="readonly" name="client_secret" size="70"
+                                       value="{{clientSecret}}" placeholder="请先在页面最上面输入client_secret"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>scope</td>
+                            <td>
+                                <input type="text" readonly="readonly" name="scope" size="70" value="{{scope}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>grant_type</td>
+                            <td>
+                                <input readonly="readonly" name="grant_type" size="70" value="client_credentials"/>
+                                <p class="help-block">grant_type根据需要值可以是<code>authorization_code</code> <code>client_credentials</code>
+                                    <code>refresh_token</code>等
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>client_assertion_type</td>
+                            <td>
+                                <input readonly="readonly" size="70" name="client_assertion_type"
+                                       value="urn:ietf:params:oauth:client-assertion-type:jwt-bearer"/>
+                                <p class="help-block">固定值</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>client_assertion</td>
+                            <td>
+                                <textarea rows="5" name="client_assertion" class="form-control"
+                                          placeholder="eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJkb2ZPeDZo...">{{clientAssertion}}</textarea>
+                                <p class="help-block">如何生成client_assertion, 详见示例类: <code>JwtBearerFlowTest.java</code>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="help-block">
+                        tokenUrl: [[${tokenUrl}]]
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">/oauth2/token</button>
+                    <span class="label label-warning">POST</span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="javascript:history.back();" class="btn btn-default">返回</a>
+    </div>
+
+    <script th:inline="javascript">
+        var JwtBearerCtrl = ['$scope', '$http', function ($scope, $http) {
+            $scope.tokenUrl = [[${tokenUrl}]];
+            $scope.jwtBearerType = 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer';
+            $scope.scope = [[${clientDetails.scopes}]];
+
+            $scope.clientId = [[${clientDetails.clientId}]];
+            $scope.clientSecret = [[${clientDetails.clientSecret}]];
+            $scope.clientAssertion = [[${clientAssertion}]];
+
+        }];
+    </script>
+
+
+    <div th:replace="~{fragments/main :: footer}"/>
+</div>
+</body>
+</html>

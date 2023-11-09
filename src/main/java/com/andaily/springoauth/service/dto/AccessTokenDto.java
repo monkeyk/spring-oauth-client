@@ -1,5 +1,7 @@
 package com.andaily.springoauth.service.dto;
 
+import java.io.Serial;
+
 /**
  * 15-5-18
  * <p/>
@@ -9,6 +11,9 @@ package com.andaily.springoauth.service.dto;
  */
 public class AccessTokenDto extends AbstractOauthDto {
 
+    @Serial
+    private static final long serialVersionUID = 6933993017288255110L;
+
     private String accessToken;
     private String tokenType;
     private String refreshToken;
@@ -16,6 +21,10 @@ public class AccessTokenDto extends AbstractOauthDto {
 
     private int expiresIn;
 
+    /**
+     * @since 2.0.0
+     */
+    private String idToken;
 
     public AccessTokenDto() {
     }
@@ -62,10 +71,20 @@ public class AccessTokenDto extends AbstractOauthDto {
         this.scope = scope;
     }
 
+
+    public String getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("{accessToken='").append(accessToken).append('\'');
+        sb.append("{idToken='").append(idToken).append('\'');
         sb.append(", tokenType='").append(tokenType).append('\'');
         sb.append(", refreshToken='").append(refreshToken).append('\'');
         sb.append(", scope='").append(scope).append('\'');

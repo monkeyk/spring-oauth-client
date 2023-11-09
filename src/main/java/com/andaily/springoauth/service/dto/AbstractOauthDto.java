@@ -2,6 +2,7 @@ package com.andaily.springoauth.service.dto;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -9,6 +10,9 @@ import java.io.Serializable;
  */
 public abstract class AbstractOauthDto implements Serializable {
 
+
+    @Serial
+    private static final long serialVersionUID = 2150565364012368729L;
 
     //Error if have from oauth server
     protected String errorDescription;

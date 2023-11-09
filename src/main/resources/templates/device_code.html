@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"/>
+
+    <title>device_code . spring-oauth-client</title>
+
+    <th:block th:insert="~{fragments/main::header-css}"/>
+</head>
+<body ng-app>
+<div class="container" ng-controller="DeviceCodeCtrl">
+    <a th:href="@{/}">Home</a>
+
+    <h2>device_code
+        <small>urn:ietf:params:oauth:grant-type:device_code</small>
+    </h2>
+    <br/>
+
+    <div>
+        <p>
+            <code>device_code</code>(全称 urn:ietf:params:oauth:grant-type:device_code)适用于各类无输入键盘的物联网智能设备进行认证授权,
+            通过类似’扫码登录’形式完成整个授权流程【OAuth2.1新增】.
+            <br/>
+            其流程图如下:
+        </p>
+        <a target="_blank" th:href="@{/oauth2_device_code.png}"><img th:src="@{/oauth2_device_code.png}"
+                                                                     style="max-height: 300px;"
+                                                                     src="../static/oauth2_device_code.png"
+                                                                     class="img-thumbnail img-responsive"
+                                                                     alt="device_code_flow"/></a>
+        <ul>
+            <li>
+                <strong>Authorization Server</strong> 授权服务端, 此处指 spring-oauth-server 并支持device_code授权.
+            </li>
+            <li>
+                <strong>Client Device</strong> 客户端设备, 一般是各类无输入键盘的物联网智能设备(如智能手表, 有屏幕能显示但无键盘输入).
+            </li>
+            <li>
+                <strong>Secondary Device</strong> 同一账户的另一个已授权的终端或设备, 一般是PC端浏览器或手机端.
+            </li>
+        </ul>
+        <p>
+            整个流程分3步完成,依次为:
+        </p>
+        <ol>
+            <li>
+                <div>
+                    <code>从 spring-oauth-server获取 'user_code' 'device_code'</code>
+                    <br/>
+                    -- 该步骤将根据从 spring-oauth-server 中获取的client信息(如client_id,client_secret)去请求获取 'user_code'
+                    'device_code' 'verification_uri_complete'等信息.
+                    <br/>
+                    <p class="text-muted">
+                        <em class="glyphicon glyphicon-info-sign"></em> 在实际应用中, 由Client Device后端完成,
+                        并展示 'user_code' 等待用户在另一设备上授权(通过二维码展示在另一设备上扫一扫也是不错的方式).
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <code>用户在另一设备上完成授权</code>
+                    <br/>
+                    -- 用户在另一设备(如PC端浏览器或手机端)上输入 'user_code' 或扫一扫打开'verification_uri_complete' 后完成授权.
+                    <br/>
+                    <p class="text-muted">
+                        <em class="glyphicon glyphicon-info-sign"></em> 在此步骤进行的同时,
+                        Client Device上后台将定时(如每隔5秒)向 spring-oauth-server 发起获取token的请求/oauth2/token (需要使用第1步中获取到
+                        device_code 的值).
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <code>Client Device获取 'access_token'</code>
+                    <br/>
+                    -- 在第2步进行同时, Client Device将定时(如每隔5秒)向 spring-oauth-server 发起获取token的请求/oauth2/token (需要使用第1步中获取到
+                    device_code 的值),
+                    直到获取成功(即第2步操作完成授权设备登录)或超时(即设备轮询请求等待的时长超出第1步返回的时间expires_in).
+                    <br/>
+                    <p class="text-muted">
+                        <em class="glyphicon glyphicon-info-sign"></em> 注意: 完成授权设备登录后,
+                        Client Device将会获取到 'access_token' 并保存到本地, 后续的请求都将使用该 'access_token'
+                        调用资源服务器的API(或spring-oauth-server的API).
+                    </p>
+                </div>
+            </li>
+        </ol>
+    </div>
+    <hr/>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">步骤1: <code>从 spring-oauth-server获取 'user_code' 'device_code'</code></div>
+        <div class="panel-body">
+            <div class="col-md-10">
+
+                <form action="#" onsubmit="return false;" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">deviceAuthorizeUrl</label>
+
+                        <div class="col-sm-10">
+                            <p class="form-control-static"><code>[[${deviceAuthorizeUrl}]]</code>
+                                &nbsp;<a th:href="${deviceAuthorizeUrl}" target="_blank">测试连接</a>
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <a href="javascript:void(0);" ng-click="showParams()">显示请求参数</a>
+
+                    <div ng-show="visible">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">client_id</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="client_id" required="required"
+                                       class="form-control" ng-model="clientId"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">client_secret</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="client_secret" required="required"
+                                       class="form-control" ng-model="clientSecret"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">scope</label>
+
+                            <div class="col-sm-10">
+                                <input name="scope" ng-model="scope" class="form-control" readonly
+                                       placeholder="openid"/>
+                                <p class="help-block">OIDC标准中定义的scope有: openid, profile, email, address, phone;
+                                    具体支持哪些由注册的client决定</p>
+                            </div>
+                        </div>
+
+                        <div class="well well-sm">
+                            <span class="text-muted">最终发给 spring-oauth-server的 URL:</span>
+                            <br/>
+
+                            <div class="text-primary">
+                                {{deviceAuthorizeUrl}}?client_id={{clientId}}&client_secret={{clientSecret}}&scope={{scope}}
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <button class="btn btn-primary" ng-click="getDeviceUserCode()">获取 'user_code' 'device_code'</button>
+                    <span class="label label-warning">POST</span>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">步骤2: <code>用户在另一设备上完成授权</code></div>
+        <div class="panel-body">
+            <div class="col-md-10">
+                <div ng-show="deviceCodeVisible">
+                    <div class="well well-sm">
+                        <dl class="dl-horizontal">
+                            <dt>user_code</dt>
+                            <dd><code>{{userCode}}</code></dd>
+                            <dt>device_code</dt>
+                            <dd><code>{{deviceCode}}</code></dd>
+                            <dt>verification_uri</dt>
+                            <dd><code>{{verificationUri}}</code></dd>
+                            <dt>verification_uri_complete</dt>
+                            <dd><code>{{verificationUriComplete}}</code></dd>
+                            <dt>expires_in</dt>
+                            <dd><code>{{expiresIn}}</code></dd>
+                        </dl>
+                        <p class="text-danger">{{authError}}</p>
+                        <p class="help-block">提示: 用户授权必须在指定的时间({{expiresIn}}秒内)完成</p>
+                    </div>
+                </div>
+                <p>
+                    在设备上展示user_code或显示一个二维码(内容为第一步响应的 verification_uri_complete URL)
+                    <br/>
+                    用已经登录成功的浏览器(或另一个已经认证的设备)访问verification_uri_complete URL(可通过扫码等方式获取内容)
+                </p>
+                <p class="text-success">
+                    此处方便演示, 请点击spring-oauth-server的 <a href="{{verificationUri}}" target="_blank">/oauth2/device_verification</a>
+                    并输入上一步获取到的user_code
+                    (若未认证将跳转到登录)
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">步骤3: <code>Client Device获取 'access_token'</code></div>
+        <div class="panel-body">
+            <div class="col-md-10">
+
+                <p>
+                    在第2步进行的同时, 设备上后台将定时(如每隔5秒)向spring-oauth-server发起获取token的请求/oauth2/token (需要使用第1步中获取到 device_code
+                    的值),
+                    直到获取成功(即第2步操作完成授权设备登录)或超时(即设备轮询请求等待的时长超出第1步返回的时间expires_in)
+                </p>
+
+                <div>
+                    <form th:action="${tokenUrl}" method="post" target="_blank" class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">tokenUrl</label>
+
+                            <div class="col-sm-10">
+                                <p class="form-control-static"><code>[[${tokenUrl}]]</code>
+                                    &nbsp;<a th:href="${tokenUrl}" target="_blank">测试连接</a>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <a href="javascript:void(0);" ng-click="showTokenParams()">显示请求参数</a>
+
+                        <div ng-show="tokenVisible">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">client_id</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="client_id" required="required"
+                                           class="form-control" ng-model="clientId"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">client_secret</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="client_secret" required="required"
+                                           class="form-control" ng-model="clientSecret"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">grant_type</label>
+
+                                <div class="col-sm-10">
+                                    <input name="grant_type" ng-model="grantType" class="form-control" readonly
+                                           placeholder="urn:..."/>
+                                    <p class="help-block">固定值: urn:ietf:params:oauth:grant-type:device_code</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">device_code</label>
+
+                                <div class="col-sm-10">
+                                    <input name="device_code" ng-model="deviceCode" class="form-control"
+                                           placeholder="eYxoap......" required/>
+                                    <p class="help-block">spring-oauth-server 响应的 device_code值; 若为空请先操作第1步</p>
+                                </div>
+                            </div>
+
+                            <div class="well well-sm">
+                                <span class="text-muted">最终发给 spring-oauth-server的 URL:</span>
+                                <br/>
+
+                                <div class="text-primary">
+                                    {{tokenUrl}}?client_id={{clientId}}&client_secret={{clientSecret}}&device_code={{deviceCode}}&grant_type={{grantType}}
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <button class="btn btn-primary" type="submit">获取 'access_token'</button>
+                        <span class="label label-warning">POST</span>
+                        <div class="help-block">提示：在第2步进行过程中调用第3步获取token API时会响应等待授权的结果(Http状态码 400,
+                            error='authorization_pending')
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="javascript:history.back();" class="btn btn-default">返回</a>
+    </div>
+
+    <script th:inline="javascript">
+        var DeviceCodeCtrl = ['$scope', '$http', function ($scope, $http) {
+            $scope.deviceAuthorizeUrl = [[${deviceAuthorizeUrl}]];
+            $scope.tokenUrl = [[${tokenUrl}]];
+            $scope.grantType = 'urn:ietf:params:oauth:grant-type:device_code';
+            $scope.scope = [[${clientDetails.scopes}]];
+
+            $scope.clientId = [[${clientDetails.clientId}]];
+            $scope.clientSecret = [[${clientDetails.clientSecret}]];
+            $scope.verificationUri = "";
+
+            $scope.visible = false;
+            $scope.tokenVisible = false;
+            $scope.deviceCodeVisible = false;
+
+            $scope.showParams = function () {
+                $scope.visible = !$scope.visible;
+            };
+            $scope.showTokenParams = function () {
+                $scope.tokenVisible = !$scope.tokenVisible;
+            };
+
+            $scope.getDeviceUserCode = function () {
+                var requestParam = {
+                    clientId: $scope.clientId,
+                    clientSecret: $scope.clientSecret,
+                    deviceAuthorizeUrl: $scope.deviceAuthorizeUrl,
+                    scope: $scope.scope
+                };
+                $http.post('device_code', requestParam)
+                    .success(function (data) {
+                        $scope.userCode = data.userCode;
+                        $scope.deviceCode = data.deviceCode;
+                        $scope.verificationUriComplete = data.verificationUriComplete;
+                        $scope.verificationUri = data.verificationUri;
+                        $scope.expiresIn = data.expiresIn;
+
+                        $scope.authError = data.error + " " + data.errorDescription;
+                        $scope.deviceCodeVisible = true;
+                    });
+            };
+        }];
+    </script>
+
+
+    <div th:replace="~{fragments/main :: footer}"/>
+</div>
+</body>
+</html>

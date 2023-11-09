@@ -2,9 +2,10 @@ package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.infrastructure.json.JsonUtils;
 import com.andaily.springoauth.service.dto.AccessTokenDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * @author Shengzhao Li
@@ -20,7 +21,7 @@ public class OauthServiceImplTest {
         final AccessTokenDto accessTokenDto = JsonUtils.textToBean(new AccessTokenDto(), text);
         assertNotNull(accessTokenDto);
 
-        System.out.println(accessTokenDto);
+//        System.out.println(accessTokenDto);
 
     }
 

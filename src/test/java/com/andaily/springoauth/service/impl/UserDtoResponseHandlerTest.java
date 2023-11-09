@@ -1,7 +1,7 @@
 package com.andaily.springoauth.service.impl;
 
 import com.andaily.springoauth.service.dto.UserDto;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -10,7 +10,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 
-import static org.testng.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * @author Shengzhao Li
@@ -54,7 +55,7 @@ public class UserDtoResponseHandlerTest {
 
         });
 
-        System.out.println(userDto);
+//        System.out.println(userDto);
     }
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"/>
+
+    <title>OAuth Error . spring-oauth-client</title>
+
+    <th:block th:insert="~{fragments/main::header-css}"/>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/}">Home</a>
+
+    <h3>OAuth Error</h3>
+
+    <div class="alert alert-danger">
+        <h4 th:text="${error}"></h4>
+        <div th:text="${message}"></div>
+    </div>
+
+    <div th:replace="~{fragments/main :: footer}"/>
+</div>
+</body>
+</html>

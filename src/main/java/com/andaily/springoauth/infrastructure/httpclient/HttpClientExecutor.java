@@ -27,33 +27,49 @@ import java.util.*;
  */
 public class HttpClientExecutor {
 
-    /*
-    * Available content Types
-    * */
+    /**
+     * Available content Types
+     */
     public static final List<ContentType> CONTENT_TYPES = Arrays.asList(
-            ContentType.TEXT_PLAIN, ContentType.TEXT_HTML,
-            ContentType.TEXT_XML, ContentType.APPLICATION_XML,
-            ContentType.APPLICATION_SVG_XML, ContentType.APPLICATION_XHTML_XML,
+            ContentType.TEXT_PLAIN,
+            ContentType.TEXT_HTML,
+            ContentType.TEXT_XML,
+            ContentType.APPLICATION_XML,
+            ContentType.APPLICATION_SVG_XML,
+            ContentType.APPLICATION_XHTML_XML,
             ContentType.APPLICATION_ATOM_XML,
-            ContentType.APPLICATION_JSON);
+            ContentType.APPLICATION_JSON
+    );
 
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(HttpClientExecutor.class);
-    //Convert mill seconds to second unit
+    /**
+     * Convert mill seconds to second unit
+     */
     protected static final int MS_TO_S_UNIT = 1000;
 
-    //https prefix
+    /**
+     * https prefix
+     */
     protected static final String HTTPS = "https";
 
     protected static HttpsTrustManager httpsTrustManager = new HttpsTrustManager();
 
     protected String url;
 
-    protected int maxConnectionSeconds = 0;
+    /**
+     * 默认超时 10秒
+     */
+    protected int maxConnectionSeconds = 10;
 
     protected String contentType;
 
     protected Map<String, String> requestParams = new HashMap<String, String>();
+
+    /**
+     * @since 2.0.0
+     */
+    protected Map<String, String> headers = new HashMap<>();
 
     public HttpClientExecutor(String url) {
         this.url = url;
@@ -71,6 +87,17 @@ public class HttpClientExecutor {
         this.requestParams.put(key, value);
         return (T) this;
     }
+
+
+    /**
+     * @since 2.0.0
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends HttpClientExecutor> T addHeader(String key, String value) {
+        this.headers.put(key, value);
+        return (T) this;
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T extends HttpClientExecutor> T contentType(String contentType) {
@@ -90,9 +117,9 @@ public class HttpClientExecutor {
 
     }
 
-    /*
-    * Execute and handle exception by yourself
-    * */
+    /**
+     * Execute and handle exception by yourself
+     */
     public void executeWithException(HttpResponseHandler responseHandler) throws Exception {
         final CloseableHttpResponse response = sendRequest();
         responseHandler.handleResponse(new MkkHttpResponse(response));
@@ -103,6 +130,7 @@ public class HttpClientExecutor {
     protected CloseableHttpResponse sendRequest() throws Exception {
         HttpUriRequest request = retrieveHttpRequest();
         setContentType(request);
+        setHeaders(request);
 
         CloseableHttpClient client = retrieveHttpClient();
         return client.execute(request);
@@ -114,6 +142,16 @@ public class HttpClientExecutor {
             LOGGER.debug("Set HttpUriRequest[{}] contentType: {}", request, contentType);
         }
     }
+
+    /**
+     * @since 2.0.0
+     */
+    protected void setHeaders(HttpUriRequest request) {
+        for (String key : headers.keySet()) {
+            request.addHeader(key, headers.get(key));
+        }
+    }
+
 
     protected CloseableHttpClient retrieveHttpClient() {
         final RequestConfig requestConfig = requestConfig();

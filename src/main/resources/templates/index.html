@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}"/>
+
+    <title>Home . spring-oauth-client</title>
+
+    <th:block th:insert="~{fragments/main::header-css}"/>
+</head>
+<body>
+<div class="container">
+    <h2>Spring OAuth Client is work! <small>v2.0.0</small></h2>
+
+
+    <div>
+        <strong>操作说明</strong>
+        <ol>
+            <li>
+                <p>
+                    spring-oauth-client 的实现没有使用开源项目 <a
+                        href="https://github.com/spring-projects/spring-security-oauth/tree/master/spring-security-oauth2"
+                        target="_blank">spring-security-oauth2</a> 中提供的代码与配置, 如:<code>&lt;oauth:client
+                    id="oauth2ClientFilter" /&gt;</code>
+                </p>
+            </li>
+            <li>
+                按照OAuth2.1支持的grant_type依次去实现.
+                <br/>
+                <ul>
+                    <li>authorization_code</li>
+                    <li>authorization_code + PKCE</li>
+                    <li>client_credentials</li>
+                    <li>device_code</li>
+                    <li>jwt-bearer</li>
+                    <li>refresh_token</li>
+                </ul>
+                <p class="help-block">相比OAuth2.0, 不再支持
+                    <del>password</del>
+                    与
+                    <del>implicit</del>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <em>
+                        在开始使用之前, 请确保 <a href="https://gitee.com/shengzhao/spring-oauth-server" target="_blank">spring-oauth-server</a>
+                        (版本v3.0.0以上)
+                        项目已正确运行, 且 application.properties (位于项目的 src/main/resources 目录) 配置正确
+                    </em>
+                </p>
+            </li>
+            <li>
+                <p>
+                    可先访问 spring-oauth-server 提供的OIDC <a
+                        th:href="${fullWellKnownUrl}" target="_blank">.well-known/openid-configuration</a> 获取
+                    <code>authorization_endpoint</code>,
+                    <code>token_endpoint</code>,
+                    <code>userinfo_endpoint</code>,
+                    <code>end_session_endpoint</code>,
+                    <code>jwks_uri</code>,
+                    <code>issuer</code>,
+                    <code>revocation_endpoint</code>,
+                    <code>introspection_endpoint</code> 等信息
+                </p>
+                <p class="help-block">
+                    <em class="glyphicon glyphicon-info-sign"></em> spring-oauth-client后端会根据配置文件 <em>application.properties</em> 中配置的参数
+                    <code>oauth2.server.host</code>值去获取相应信息(详见 <code>OAuth2Holder.java</code>)
+                </p>
+            </li>
+            <li>
+                在对各菜单进行操作之前，请先填写从 spring-oauth-server 中获取或创建的客户端(client_details)信息并保存.
+                <br/>
+                <div class="alert alert-warning"><strong>提示</strong> 创建时的<em>redirect_uris</em>必须填写 <code
+                        th:text="${redirectUri}"></code>
+                    <br/>
+                    <em>jwk_set_url</em>必须填写 <code th:text="${jwkUrl}"></code>
+                </div>
+                <form action="#" th:action="@{/client_details}" method="post" class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label" for="clientId">client_id</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="clientId" id="clientId" placeholder="xxxx"
+                                   required="required" th:value="${clientDetails.clientId}"/>
+                            <p class="help-block">填写 spring-oauth-server 中创建的客户端的 client_id</p>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label" for="clientSecret">client_secret</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="clientSecret" id="clientSecret"
+                                   placeholder="xxxx"
+                                   required="required" th:value="${clientDetails.clientSecret}"/>
+                            <p class="help-block">填写 spring-oauth-server 中创建的客户端的 client_secret</p>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label" for="redirectUris">redirect_uri</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="redirectUris" id="redirectUris"
+                                   placeholder="https://..."
+                                   required="required" th:value="${clientDetails.redirectUris}"/>
+                            <p class="help-block">redirect_uri 必须填写由 spring-oauth-client 提供的, 否则流程将无法通畅</p>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label" for="scopes">scopes</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="scopes" id="scopes"
+                                   placeholder="openid"
+                                   required="required" th:value="${clientDetails.scopes}"/>
+                            <p class="help-block">填写 spring-oauth-server 中创建的客户端的 scopes, 多个值之间用空格分隔, 如: openid profile
+                                email</p>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label" for="authorizationGrantTypes">grant_type(s)</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" name="authorizationGrantTypes"
+                                   id="authorizationGrantTypes"
+                                   placeholder="authorization_code refresh_token"
+                                   required="required" th:value="${clientDetails.authorizationGrantTypes}"/>
+                            <p class="help-block">填写 spring-oauth-server 中创建的客户端的 grant_type(s), 多个值之间用空格分隔, 如:
+                                authorization_code refresh_token</p>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label">支持PKCE</label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="supportPkce" th:value="true"
+                                       th:checked="${clientDetails.supportPkce}"/> 支持
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="supportPkce" th:value="false"
+                                       th:checked="${not clientDetails.supportPkce}"/> 不支持
+                            </label>
+                            <p class="help-block">选择 spring-oauth-server 中创建的客户端的 equire_proof_key(PKCE) 相同的选项</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <button class="btn btn-sm btn-primary" type="submit">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ol>
+    </div>
+    <br/>
+
+    <p class="help-block">
+        &Delta; 注意: 项目前端使用了 Angular-JS 来处理动态数据展现.
+    </p>
+    <hr/>
+
+    <div>
+        <strong>菜单</strong>
+        <ul>
+            <li>
+                <p><a th:href="@{authorization_code}">authorization_code</a><br/>授权码模式(即先登录获取code,再获取token) [最常用]</p>
+            </li>
+            <li>
+                <p><a th:href="@{authorization_code_pkce}">authorization_code + PKCE</a><br/>
+                    授权码模式+PKCE (即先登录获取code, 请求时增加参数code_challenge与code_challenge_method; 再获取token,增加参数code_verifier)</p>
+            </li>
+            <li>
+                <p><a th:href="@{client_credentials}">client_credentials</a> <br/>客户端模式(无用户,用户向客户端注册,然后客户端以自己的名义向'服务端'获取资源)
+                </p>
+            </li>
+            <li>
+                <p><a th:href="@{device_code}">device_code</a> <br/>
+                    (全称 urn:ietf:params:oauth:grant-type:device_code)适用于各类无输入键盘的物联网智能设备进行认证授权,
+                    通过类似’扫码登录’形式完成整个授权流程 <span class="label label-success">OAuth2.1新增</span></p>
+            </li>
+            <li>
+                <p><a th:href="@{jwt_bearer}">jwt-bearer</a> <br/>
+                    (全称 urn:ietf:params:oauth:grant-type:jwt-bearer)是一类增强client端请求安全性的断言(assertion)实现;
+                    通过类似’双向SSL’的机制来让server端验证client端的签名实现强安全性 <span class="label label-success">OAuth2.1新增</span></p>
+            </li>
+            <li>
+                <p><a th:href="@{refresh_token}">refresh_token</a> <br/>刷新access_token</p>
+            </li>
+        </ul>
+        <br/>
+
+        <p class="alert alert-warning">
+            <strong>注意</strong>: 在测试时默认填写的数据有可能不正确, 建议先在 <code>spring-oauth-server</code>
+            添加 client_details 后, 使用其client_id, client_secret来进行测试.
+        </p>
+    </div>
+
+    <div th:replace="~{fragments/main :: footer}"/>
+</div>
+</body>
+</html>

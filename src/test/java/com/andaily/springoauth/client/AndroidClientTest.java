@@ -16,9 +16,11 @@ import com.andaily.springoauth.service.dto.AccessTokenDto;
 import com.andaily.springoauth.service.dto.UserDto;
 import com.andaily.springoauth.service.impl.AccessTokenResponseHandler;
 import com.andaily.springoauth.service.impl.UserDtoResponseHandler;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.testng.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * 2015/11/6
@@ -31,25 +33,28 @@ public class AndroidClientTest {
 
 
     /**
-     * http://localhost:8080/som/oauth/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+     * http://localhost:8080/oauth2/token?client_id=mobile-client&client_secret=mobile&grant_type=password&scope=read,write&username=mobile&password=mobile
+     * <p>
+     * TODO: 注意: OAuth2.1中不再支持 password 模式, 请使用 authorization_code 模式 或 device_code 模式 替换
      *
-     * @throws Exception
+     * @throws Exception e
      */
 
-    @Test(enabled = false)
+    @Test
+    @Disabled
     public void getAccessToken() throws Exception {
 
         /*
-        * 对于每一类设备(client), clientId, clientSecret 是固定的
-        * */
+         * 对于每一类设备(client), clientId, clientSecret 是固定的
+         * */
         String clientId = "passw";
         String clientSecret = "passwpassw";
 
         String authUrl = "http://localhost:8080/som/oauth/token";
 
         /*
-        * 用户在 UI界面上输入 username, password
-        * */
+         * 用户在 UI界面上输入 username, password
+         * */
         String username = "mobile";
         String password = "mobile";
 
@@ -63,8 +68,8 @@ public class AndroidClientTest {
         final AccessTokenDto accessTokenDto = tokenResponseHandler.getAccessTokenDto();
         assertNotNull(accessTokenDto);
 
-        System.out.println("access_token = " + accessTokenDto.getAccessToken());
-        System.out.println(accessTokenDto.getOriginalText());
+//        System.out.println("access_token = " + accessTokenDto.getAccessToken());
+//        System.out.println(accessTokenDto.getOriginalText());
 
     }
 
@@ -74,7 +79,8 @@ public class AndroidClientTest {
      *
      * @throws Exception
      */
-    @Test(enabled = false)
+    @Test
+    @Disabled
     public void getResource() throws Exception {
 
         String accessToken = "e07b43a3-1b33-4b59-b8e0-2c0445f52b3f";
@@ -92,8 +98,8 @@ public class AndroidClientTest {
         final UserDto userDto = responseHandler.getUserDto();
         assertNotNull(userDto);
 
-        System.out.println(userDto.getOriginalText());
-        System.out.println("username = " + userDto.getUsername());
+//        System.out.println(userDto.getOriginalText());
+//        System.out.println("username = " + userDto.getUsername());
 
     }
 

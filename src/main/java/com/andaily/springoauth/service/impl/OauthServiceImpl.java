@@ -1,13 +1,15 @@
 package com.andaily.springoauth.service.impl;
 
+import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientExecutor;
 import com.andaily.springoauth.infrastructure.httpclient.HttpClientPostExecutor;
+import com.andaily.springoauth.infrastructure.repository.ClientDetailsRepository;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -23,11 +25,8 @@ public class OauthServiceImpl implements OauthService {
     private static final Logger LOG = LoggerFactory.getLogger(OauthServiceImpl.class);
 
 
-    @Value("#{properties['access-token-uri']}")
-    private String accessTokenUri;
-
-    @Value("#{properties['unityUserInfoUri']}")
-    private String unityUserInfoUri;
+    @Autowired
+    private ClientDetailsRepository clientDetailsRepository;
 
 
     @Override
@@ -41,7 +40,7 @@ public class OauthServiceImpl implements OauthService {
     @Override
     public AuthAccessTokenDto createAuthAccessTokenDto(AuthCallbackDto callbackDto) {
         return new AuthAccessTokenDto()
-                .setAccessTokenUri(accessTokenUri)
+                .setAccessTokenUri(OAuth2Holder.tokenUrl())
                 .setCode(callbackDto.getCode());
     }
 
@@ -52,13 +51,14 @@ public class OauthServiceImpl implements OauthService {
         if (StringUtils.isEmpty(accessToken)) {
             return new UserDto("Illegal 'access_token'", "'access_token' is empty");
         } else {
-            HttpClientExecutor executor = new HttpClientExecutor(unityUserInfoUri);
-            executor.addRequestParam("access_token", accessToken);
-
-            UserDtoResponseHandler responseHandler = new UserDtoResponseHandler();
-            executor.execute(responseHandler);
-
-            return responseHandler.getUserDto();
+//            HttpClientExecutor executor = new HttpClientExecutor(unityUserInfoUri);
+//            executor.addRequestParam("access_token", accessToken);
+//
+//            UserDtoResponseHandler responseHandler = new UserDtoResponseHandler();
+//            executor.execute(responseHandler);
+//
+//            return responseHandler.getUserDto();
+            throw new UnsupportedOperationException("Not yet used from v2.0.0");
         }
 
     }
@@ -85,6 +85,66 @@ public class OauthServiceImpl implements OauthService {
         LOG.debug("Get [{}] access_token URL: {}", authAccessTokenDto.getGrantType(), uri);
 
         return loadAccessTokenDto(uri, authAccessTokenDto.getCredentialsParams());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserinfoDto loadUserinfoDto(String accessToken) {
+        if (StringUtils.isEmpty(accessToken)) {
+            return new UserinfoDto("Illegal 'access_token'", "'access_token' is empty");
+        } else {
+            HttpClientExecutor executor = new HttpClientExecutor(OAuth2Holder.userinfoUrl());
+            executor.addHeader("Authorization", "Bearer " + accessToken);
+
+            UserinfoDtoResponseHandler responseHandler = new UserinfoDtoResponseHandler();
+            executor.execute(responseHandler);
+
+            return responseHandler.getUserinfoDto();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String saveClientDetails(ClientDetailsDto clientDetailsDto) {
+        return clientDetailsRepository.saveClientDetails(clientDetailsDto);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ClientDetailsDto loadClientDetails() {
+        ClientDetailsDto clientDetails = clientDetailsRepository.findDefaultClientDetails();
+        if (clientDetails == null) {
+            //init empty client details
+            clientDetails = new ClientDetailsDto();
+        }
+        return clientDetails;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DeviceAuthorizationDto retrieveDeviceAuthorizationDto(AuthDeviceCodeDto deviceCodeDto) {
+        Map<String, String> params = deviceCodeDto.getAuthParams();
+        String url = deviceCodeDto.getDeviceAuthorizeUrl();
+
+        HttpClientExecutor executor = new HttpClientPostExecutor(url);
+        for (String key : params.keySet()) {
+            executor.addRequestParam(key, params.get(key));
+        }
+
+        DeviceAuthorizationResponseHandler responseHandler = new DeviceAuthorizationResponseHandler();
+        executor.execute(responseHandler);
+
+        return responseHandler.getDeviceAuthorizationDto();
     }
 
 
