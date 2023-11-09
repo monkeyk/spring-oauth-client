@@ -2,11 +2,14 @@
 
 <div>
   spring-oauth-client depend on <a href="https://gitee.com/shengzhao/spring-oauth-server">spring-oauth-server</a> or <a href="https://gitee.com/mkk/MyOIDC">MyOIDC</a>,
-  it is the oauth2 client demos.
+  it is the oauth2 client demo project.
 </div>
-<div>
-    <strong>注意</strong>  从 1.1 版本开始支持 spring-oauth-server  config分支 (旧版本的spring-oauth-server 测试请使用 1.0 分支)
-</div>
+
+<strong>注意</strong>  
+
+- 从 1.1 版本开始支持 spring-oauth-server  config分支 (旧版本的spring-oauth-server 测试请使用 1.0 分支)
+- 从2.x版本开始支持 OAuth2.1 协议中的各功能  (对应 spring-oauth-server 的 v3.0.0 及以上版本)
+
 <hr/>
 
 
@@ -16,12 +19,12 @@
 ## 主要技术与版本号
 
 <ol>
-     <li>JDK (1.7.0_40)</li>
-     <li>Spring (4.1.6.RELEASE)</li>
-     <li>Spring MVC (4.1.6.RELEASE)</li>
-     <li>HttpClient (4.3.5)</li>
+     <li>Java (openjdk 17)</li>
+     <li>SpringBoot (3.1.2)</li>
+     <li>thymeleaf (3.1.1.RELEASE)</li>
+     <li>HttpClient (4.5.14)</li>
      <li>json-lib (2.4)</li>
-     <li>Log4j (1.2.14)</li>
+     <li>logback (1.4.8)</li>
 </ol>
 前端使用的技术与版本号
 <ol>
