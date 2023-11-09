@@ -1,5 +1,6 @@
 package com.andaily.springoauth.web.controller;
 
+import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.service.OauthService;
 import com.andaily.springoauth.service.dto.ClientDetailsDto;
 import org.slf4j.Logger;
@@ -41,11 +42,11 @@ public class DeviceCodeController {
         ClientDetailsDto clientDetailsDto = oauthService.loadClientDetails();
         model.addAttribute("clientDetails", clientDetailsDto);
 
-        model.addAttribute("host", host.endsWith("/") ? host : host + "/");
+        String host2 = host.endsWith("/") ? host : host + "/";
+        model.addAttribute("host", host2);
+        model.addAttribute("deviceAuthorizeUrl", OAuth2Holder.deviceAuthorizeUrl());
         return "device_code";
     }
-
-
 
 
 }
