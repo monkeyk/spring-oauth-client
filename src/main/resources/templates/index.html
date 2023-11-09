@@ -65,6 +65,10 @@
                     <code>revocation_endpoint</code>,
                     <code>introspection_endpoint</code> 等信息
                 </p>
+                <p class="help-block">
+                    <em class="glyphicon glyphicon-info-sign"></em> spring-oauth-client后端会根据配置文件 <em>application.properties</em> 中配置的参数
+                    <code>oauth2.server.host</code>值去获取相应信息(详见 <code>OAuth2Holder.java</code>)
+                </p>
             </li>
             <li>
                 在对各菜单进行操作之前，请先填写从 spring-oauth-server 中获取或创建的客户端(client_details)信息并保存.
