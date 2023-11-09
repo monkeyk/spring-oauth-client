@@ -39,7 +39,7 @@
 </strong>
 <br/>
 <strong>
-    在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a>
+    在线测试地址 <a href="https://andaily.com/spring-oauth-client/">https://andaily.com/spring-oauth-client/</a> (v1.x版本)
 </strong>
 
 <hr/>
@@ -49,32 +49,28 @@
 前提: 在使用之前必须保证 spring-oauth-server 项目已正常运行.
 <ol>
     <li>
-        项目是Maven管理的, 需要本地安装maven(开发用的maven版本号为3.1.0)
+        项目是Maven管理的, 需要本地安装maven(开发用的maven版本号为3.6.0)
     </li>
     <li>
-        <a href="http://git.oschina.net/mkk/spring-oauth-client/repository/archive?ref=master">下载</a>(或clone)项目到本地
+        <a href="https://gitee.com/mkk/spring-oauth-client">下载</a>(或clone)项目到本地
     </li>
     <li>
-        修改<code>spring-oauth-client.properties</code>(位于src/main/resources目录)中的配置信息(主要包括与spring-oauth-server的连接地址)
+        修改<code>application.properties</code>(位于src/main/resources目录)中的配置信息(主要包括与spring-oauth-server的连接地址)
     </li>
     <li>
-        将本地项目导入到IDE(如Intellij IDEA)中,配置Tomcat(或类似的servlet运行服务器), 并启动Tomcat(默认端口为8080) ,通过浏览器访问即可.
-        <br/>
-        注意将项目的 contextPath(根路径) 设置为 'spring-oauth-client'.
+        将本地项目导入到IDE(如Intellij IDEA)中, 直接运行启动类 <mark>SpringOAuthClientApplication.java</mark>, 通过浏览器访问即可(默认端口 8082).
         <br/>
         所有的操作说明都在页面上体现.
         <br/>
-           另: 也可通过maven package命令将项目编译为war文件(spring-oauth-client.war),
-                 将war放在Tomcat中并启动(注意: 这种方式需要将spring-oauth-client.properties加入到classpath中并正确配置)
+           另: 也可通过maven package命令将项目编译为jar文件(spring-oauth-client.jar), 然后通过java -jar命令运行.
     </li>
     <li>
         <p>
-            若在<strong>Android</strong>中使用, 可查看示例代码 <code>AndroidClientTest.java</code>(位于<em> src/master/src /test /java /com/andaily/springoauth/client/</em>目录).
+            若在<strong>Android</strong>或移动设备中使用, 可查看示例代码 <code>AndroidClientTest.java</code>(位于<em> src/master/src /test /java /com/andaily/springoauth/client/</em>目录).
             里面包括获取 access_token 与 调用API的示例.
         </p>
     </li>
 </ol>
-
 
 
 <hr/>
@@ -90,19 +86,13 @@
 <div>
     而是按照OAuth2协议支持的各类grant_type依次去实现.
     <br/>
-    <ol>
-        <li><code>authorization_code</code> -- 授权码模式(即先登录获取code,再获取token)</li>
-        <li><code>password</code> -- 密码模式(将用户名,密码传过去,直接获取token)</li>
-        <li><code>client_credentials</code> -- 客户端模式(无用户,用户向客户端注册,然后客户端以自己的名义向'服务端'获取资源)</li>
-        <li><code>implicit</code> -- 简化模式(在redirect_uri 的Hash传递token; Auth客户端运行在浏览器中,如JS,Flash)</li>
-        <li><code>refresh_token</code> -- 刷新access_token</li>
-    </ol>
+    详见博客 <a href="https://andaily.com/blog/?p=103" target="_blank">https://andaily.com/blog/?p=103</a>
 
 </div>
 
 
 <p>
-    项目的开发管理使用开源项目 <a href="http://git.oschina.net/mkk/andaily-developer">andaily-developer</a>.
+    项目的开发管理使用开源项目 <a href="https://gitee.com/mkk/andaily-developer">andaily-developer</a>.
 </p>
 <hr/>
 
@@ -121,8 +111,11 @@
     <li>
         <p>2018-04-16    V-1.0发布; 开始V-1.1,增加对OIDC协议支持 </p>
     </li>   
-<li>
+    <li>
         <p>2023-11-04    v2.0.0准备开发, 升级支持spring-oauth-server中 OAuth2.1与OIDC 1.0 协议 </p>
+    </li>    
+    <li>
+        <p>2023-11-09    v2.0.0发布 </p>
     </li>
 </ol>
 
@@ -150,13 +143,13 @@
 ## 周边相关
 
 <div>
-    与项目相关的技术文章请访问 <a href="https://andaily.com/blog/?cat=19">https://andaily.com/blog/?cat=19</a> (不断更新与OAuth相关的文章)
+    与项目相关的技术文章请访问 <a href="https://andaily.com/blog/?cat=19">https://andaily.com/blog/?cat=19</a> (不断更新与OAuth/OIDC相关的文章)
 </div>
 <p>
     <strong>问答与讨论</strong>
     <br/>
     与项目相关的，与OAuth相关的问题与回答，以及各类讨论请访问<br/>
-    <a href="https://andaily.com/blog/?dwqa-question_category=oauth">https://andaily.com/blog/?dwqa-question_category=oauth</a>
+    <a href="https://andaily.com/blog/?dwqa-question_category=oauth">https://andaily.com/blog/?dwqa-question_category=oauth</a> 或提 issue
 </p>
 
 <br/>
