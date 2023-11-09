@@ -40,6 +40,8 @@ public class HomeController {
 
         String host2 = host.endsWith("/") ? host : host + "/";
         model.addAttribute("host", host2);
+
+        //see AuthorizationCodeController#authorizationCodeCallback
         String redirectUri = host2 + "authorization_code_callback";
         model.addAttribute("redirectUri", redirectUri);
         // see JwtBearerJwksController.java
