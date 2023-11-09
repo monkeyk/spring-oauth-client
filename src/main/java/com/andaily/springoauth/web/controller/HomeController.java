@@ -42,13 +42,15 @@ public class HomeController {
         model.addAttribute("host", host2);
         String redirectUri = host2 + "authorization_code_callback";
         model.addAttribute("redirectUri", redirectUri);
+        // see JwtBearerJwksController.java
+        model.addAttribute("jwkUrl", host2 + "api/public/oauth2/jwt_bearer/demo_jwks");
+
         //初始化
         if (StringUtils.isBlank(clientDetailsDto.getRedirectUris())) {
             clientDetailsDto.setRedirectUris(redirectUri);
         }
         model.addAttribute("clientDetails", clientDetailsDto);
         model.addAttribute("fullWellKnownUrl", fullWellKnownUrl());
-
 
         return "index";
     }
