@@ -196,10 +196,99 @@
         </div>
     </div>
 
+    <div class="panel panel-default">
+        <div class="panel-heading">步骤3: <code>Client Device获取 'access_token'</code></div>
+        <div class="panel-body">
+            <div class="col-md-10">
+
+                <p>
+                    在第2步进行的同时, 设备上后台将定时(如每隔5秒)向spring-oauth-server发起获取token的请求/oauth2/token (需要使用第1步中获取到 device_code
+                    的值),
+                    直到获取成功(即第2步操作完成授权设备登录)或超时(即设备轮询请求等待的时长超出第1步返回的时间expires_in)
+                </p>
+
+                <div>
+                    <form th:action="${tokenUrl}" method="post" class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">tokenUrl</label>
+
+                            <div class="col-sm-10">
+                                <p class="form-control-static"><code>[[${tokenUrl}]]</code>
+                                    &nbsp;<a th:href="${tokenUrl}" target="_blank">测试连接</a>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <a href="javascript:void(0);" ng-click="showTokenParams()">显示请求参数</a>
+
+                        <div ng-show="tokenVisible">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">client_id</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="client_id" required="required"
+                                           class="form-control" ng-model="clientId"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">client_secret</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="client_secret" required="required"
+                                           class="form-control" ng-model="clientSecret"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">grant_type</label>
+
+                                <div class="col-sm-10">
+                                    <input name="grant_type" ng-model="grantType" class="form-control" readonly
+                                           placeholder="urn:..."/>
+                                    <p class="help-block">固定值: urn:ietf:params:oauth:grant-type:device_code</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">device_code</label>
+
+                                <div class="col-sm-10">
+                                    <input name="device_code" ng-model="deviceCode" class="form-control"
+                                           placeholder="eYxoap......" required/>
+                                    <p class="help-block">spring-oauth-server 响应的 device_code值; 若为空请先操作第1步</p>
+                                </div>
+                            </div>
+
+                            <div class="well well-sm">
+                                <span class="text-muted">最终发给 spring-oauth-server的 URL:</span>
+                                <br/>
+
+                                <div class="text-primary">
+                                    {{tokenUrl}}?client_id={{clientId}}&client_secret={{clientSecret}}&device_code={{deviceCode}}&grant_type={{grantType}}
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <button class="btn btn-primary" type="submit">获取 'access_token'</button>
+                        <span class="label label-warning">POST</span>
+                        <div class="help-block">提示：在第2步进行过程中调用第3步获取token API时会响应等待授权的结果(Http状态码 400,
+                            error='authorization_pending')
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <script th:inline="javascript">
         var DeviceCodeCtrl = ['$scope', '$http', function ($scope, $http) {
             $scope.deviceAuthorizeUrl = [[${deviceAuthorizeUrl}]];
+            $scope.tokenUrl = [[${tokenUrl}]];
             $scope.grantType = 'urn:ietf:params:oauth:grant-type:device_code';
             $scope.scope = [[${clientDetails.scopes}]];
 
@@ -208,10 +297,14 @@
             $scope.verificationUri = "";
 
             $scope.visible = false;
+            $scope.tokenVisible = false;
             $scope.deviceCodeVisible = false;
 
             $scope.showParams = function () {
                 $scope.visible = !$scope.visible;
+            };
+            $scope.showTokenParams = function () {
+                $scope.tokenVisible = !$scope.tokenVisible;
             };
 
             $scope.getDeviceUserCode = function () {

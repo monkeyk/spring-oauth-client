@@ -49,6 +49,7 @@ public class DeviceCodeController {
         String host2 = host.endsWith("/") ? host : host + "/";
         model.addAttribute("host", host2);
         model.addAttribute("deviceAuthorizeUrl", OAuth2Holder.deviceAuthorizeUrl());
+        model.addAttribute("tokenUrl", OAuth2Holder.tokenUrl());
         return "device_code";
     }
 
