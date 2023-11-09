@@ -49,4 +49,11 @@ public interface OauthService {
      * @since 2.0.0
      */
     ClientDetailsDto loadClientDetails();
+
+    /**
+     * 获取 device code, user code 等
+     *
+     * @since 2.0.0
+     */
+    DeviceAuthorizationDto retrieveDeviceAuthorizationDto(AuthDeviceCodeDto deviceCodeDto);
 }

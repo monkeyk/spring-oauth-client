@@ -2,14 +2,18 @@ package com.andaily.springoauth.web.controller;
 
 import com.andaily.springoauth.infrastructure.OAuth2Holder;
 import com.andaily.springoauth.service.OauthService;
-import com.andaily.springoauth.service.dto.ClientDetailsDto;
+import com.andaily.springoauth.service.dto.*;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+
+import static com.andaily.springoauth.web.WebUtils.writeJson;
 
 /**
  * 2023/11/8 20:30
@@ -48,5 +52,14 @@ public class DeviceCodeController {
         return "device_code";
     }
 
+
+    /**
+     * Ajax call , get user_code, device_code, verification_uri
+     */
+    @PostMapping("device_code")
+    public void getDeviceCode(@RequestBody AuthDeviceCodeDto deviceCodeDto, HttpServletResponse response) {
+        DeviceAuthorizationDto authDeviceCodeDto = oauthService.retrieveDeviceAuthorizationDto(deviceCodeDto);
+        writeJson(response, JSONObject.fromObject(authDeviceCodeDto));
+    }
 
 }

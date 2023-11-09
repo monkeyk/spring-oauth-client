@@ -128,6 +128,26 @@ public class OauthServiceImpl implements OauthService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DeviceAuthorizationDto retrieveDeviceAuthorizationDto(AuthDeviceCodeDto deviceCodeDto) {
+        Map<String, String> params = deviceCodeDto.getAuthParams();
+        String url = deviceCodeDto.getDeviceAuthorizeUrl();
+
+        HttpClientExecutor executor = new HttpClientPostExecutor(url);
+        for (String key : params.keySet()) {
+            executor.addRequestParam(key, params.get(key));
+        }
+
+        DeviceAuthorizationResponseHandler responseHandler = new DeviceAuthorizationResponseHandler();
+        executor.execute(responseHandler);
+
+        return responseHandler.getDeviceAuthorizationDto();
+    }
+
+
     private AccessTokenDto loadAccessTokenDto(String fullUri, Map<String, String> params) {
         HttpClientExecutor executor = new HttpClientPostExecutor(fullUri);
         for (String key : params.keySet()) {

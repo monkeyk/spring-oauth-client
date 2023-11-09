@@ -11,7 +11,7 @@
     <th:block th:insert="~{fragments/main::header-css}"/>
 </head>
 <body ng-app>
-<div class="container">
+<div class="container" ng-controller="DeviceCodeCtrl">
     <a th:href="@{/}">Home</a>
 
     <h2>device_code
@@ -94,7 +94,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">步骤1: <code>从 spring-oauth-server获取 'user_code' 'device_code'</code></div>
         <div class="panel-body">
-            <div ng-controller="DeviceCodeCtrl" class="col-md-10">
+            <div class="col-md-10">
 
                 <form action="#" onsubmit="return false;" class="form-horizontal">
 
@@ -187,7 +187,8 @@
                     用已经登录成功的浏览器(或另一个已经认证的设备)访问verification_uri_complete URL(可通过扫码等方式获取内容)
                 </p>
                 <p class="text-success">
-                    此处方便演示, 请点击spring-oauth-server的 <a href="#">/oauth2/device_verification</a> 并输入上一步获取到的user_code
+                    此处方便演示, 请点击spring-oauth-server的 <a href="{{verificationUri}}" target="_blank">/oauth2/device_verification</a>
+                    并输入上一步获取到的user_code
                     (若未认证将跳转到登录)
                 </p>
 
@@ -204,6 +205,7 @@
 
             $scope.clientId = [[${clientDetails.clientId}]];
             $scope.clientSecret = [[${clientDetails.clientSecret}]];
+            $scope.verificationUri = "";
 
             $scope.visible = false;
             $scope.deviceCodeVisible = false;
@@ -214,17 +216,18 @@
 
             $scope.getDeviceUserCode = function () {
                 var requestParam = {
-                    client_id: $scope.clientId,
-                    client_secret: $scope.clientSecret,
+                    clientId: $scope.clientId,
+                    clientSecret: $scope.clientSecret,
+                    deviceAuthorizeUrl: $scope.deviceAuthorizeUrl,
                     scope: $scope.scope
                 };
-                $http.post($scope.deviceAuthorizeUrl, requestParam)
+                $http.post('device_code', requestParam)
                     .success(function (data) {
-                        $scope.userCode = data.user_code;
-                        $scope.deviceCode = data.device_code;
-                        $scope.verificationUriComplete = data.verification_uri_complete;
-                        $scope.verificationUri = data.verification_uri;
-                        $scope.expiresIn = data.expires_in;
+                        $scope.userCode = data.userCode;
+                        $scope.deviceCode = data.deviceCode;
+                        $scope.verificationUriComplete = data.verificationUriComplete;
+                        $scope.verificationUri = data.verificationUri;
+                        $scope.expiresIn = data.expiresIn;
 
                         $scope.authError = data.error + " " + data.errorDescription;
                         $scope.deviceCodeVisible = true;
