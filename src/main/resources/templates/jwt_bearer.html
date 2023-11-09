@@ -73,7 +73,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">在 grant_type=client_credentials 中使用 jwt-bearer</div>
         <div class="panel-body">
-            <div class="col-md-10">
+            <div class="col-md-12">
 
                 <p class="text-muted">输入<code>client_assertion</code>值, 点击按钮地址即可测试</p>
                 <form th:action="${tokenUrl}" th:method="post" target="_blank">
@@ -117,8 +117,8 @@
                         <tr>
                             <td>client_assertion</td>
                             <td>
-                                <input name="client_assertion" size="70" value="{{clientAssertion}}"
-                                       placeholder="eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJkb2ZPeDZo..."/>
+                                <textarea rows="5" name="client_assertion" class="form-control"
+                                          placeholder="eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJkb2ZPeDZo...">{{clientAssertion}}</textarea>
                                 <p class="help-block">如何生成client_assertion, 详见示例类: <code>JwtBearerFlowTest.java</code>
                                 </p>
                             </td>
@@ -146,6 +146,7 @@
 
             $scope.clientId = [[${clientDetails.clientId}]];
             $scope.clientSecret = [[${clientDetails.clientSecret}]];
+            $scope.clientAssertion = [[${clientAssertion}]];
 
         }];
     </script>

@@ -82,10 +82,19 @@ public class OAuth2Holder implements InitializingBean {
      */
     private static String fullWellKnownUrl;
 
+    /**
+     * spring-oauth-server or myoidc-server  issuer
+     */
+    private static String issuer;
+
 
     public OAuth2Holder() {
     }
 
+
+    public static String issuer() {
+        return issuer;
+    }
 
     public static String tokenUrl() {
         return tokenUrl;
@@ -157,6 +166,7 @@ public class OAuth2Holder implements InitializingBean {
                     introspectUrl = json.getString("introspection_endpoint");
 
                     userinfoUrl = json.getString("userinfo_endpoint");
+                    issuer = json.getString("issuer");
                     wellKnownJson = json;
                 }
             });
@@ -190,5 +200,6 @@ public class OAuth2Holder implements InitializingBean {
         introspectUrl = oauth2ServerHost + "oauth2/introspect";
 
         userinfoUrl = oauth2ServerHost + "userinfo";
+        issuer = oauth2ServerHost;
     }
 }
